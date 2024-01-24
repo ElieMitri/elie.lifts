@@ -1,0 +1,34 @@
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 30px 70px;
+}
+
+.aboutTitle {
+  font-size: 44px;
+  margin-bottom: 60px;
+}
+
+.aboutPara {
+  font-size: 18px;
+  width: 60%;
+}
+
+.aboutPicWrapper {
+  width: 25%;
+}
+
+.aboutPic {
+  border-radius: 50%;
+  width: 100%;
+  height: auto;
+}
+
+.aboutTextWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

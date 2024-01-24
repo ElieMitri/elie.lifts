@@ -1,0 +1,4 @@
+.calorieCalculator {
+    display: flex;
+    flex-direction: column;
+}
