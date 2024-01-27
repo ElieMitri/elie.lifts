@@ -1,0 +1,22 @@
+.wrapper {
+margin: 10px 30px;
+}
+
+.quoteWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.quoteImage {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.quote {
+  position: absolute;
+  font-style: italic;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

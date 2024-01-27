@@ -1,7 +1,15 @@
+.image {
+  width: 100%;
+  position: absolute;
+  height: 100vh;
+  top: 0;
+}
+
 .intro {
   height: 89.5vh;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .introWrapper {
@@ -9,7 +17,6 @@
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  margin-left: 100px;
 }
 
 .introImage {
@@ -51,4 +58,122 @@
 
 .introGetStartedButton:hover {
   background-color: rgb(2, 86, 182);
+}
+
+.imageFig {
+  /* width: 100%; */
+}
+
+/*
+
+Nav
+
+*/
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  height: 100px;
+  position: relative;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-left: 70px;
+  /* filter: invert(1); */
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-right: 70px;
+}
+
+.navBurger {
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.navLink1, 
+.navLink2, 
+.navLink3, 
+.navLink4 {
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0 12px;
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.navLinkDisabled {
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0 12px;
+  cursor: not-allowed;
+  transition: 300ms all ease;
+}
+
+.navLink:hover,
+.navBurger:hover {
+  color: rgb(158, 158, 158);
+}
+
+.instaLogo {
+  font-size: 25px;
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.instaLogo:hover {
+  color: rgb(158, 158, 158);
+}
+
+.tiktokLogo {
+  font-size: 22px;
+  margin: 0 10px;
+}
+
+.burger {
+  display: none;
+  font-size: 30px;
+}
+
+@media (max-width: 920px) {
+  .logo {
+    margin-left: 20px;
+    /* width: 85px;
+    height: 85px; */
+  }
+  .navLinks {
+    display: none;
+  }
+  .navLink1,
+  .navLink2,
+  .navLink3,
+  .navLink4,
+  .tiktokLogo,
+  .instaLogo {
+    display: none;
+  }
+  .burger {
+    display: block;
+  }
+  .introWrapper {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .navLink1 {
+    display: none;
+  }
 }

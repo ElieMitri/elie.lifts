@@ -1,30 +1,38 @@
 import styles from "../../styles/Intro.module.css";
 import Image from "next/image";
-import image from "../../src/assets/image2.jpg";
+import image from "../../src/assets/mock photo.jpg";
 import { useRouter } from "next/router";
+import Logo from "../../src/assets/elie.lifts.png";
+import { IoLogoInstagram } from "react-icons/io";
+import { FaTiktok } from "react-icons/fa";
+import Navbar from "../components/Navbar.jsx"
 
 export default function Introduction() {
-    const router = useRouter();
+  const router = useRouter();
 
   return (
     <>
-      <section className={styles.intro}>
-        <div className={styles.introWrapper}>
-          <div className={styles.introTextWrapper}>
-            <h1 className={styles.introText}>
-              Ready To Start Your <span className="blue">Journey</span>?
-            </h1>
-            <button
-              onClick={() => {
-                router.push("/testimonials");
-              }}
-              className={styles.introGetStartedButton}
-            >
-              Get Started
-            </button>
+    <figure className={styles.imageFig}>
+      <Image src={image} className={styles.image}/>
+      </figure>
+      <Navbar></Navbar>
+        <section className={styles.intro}>
+          <div className={styles.introWrapper}>
+            <div className={styles.introTextWrapper}>
+              <h1 className={styles.introText}>
+                Ready To Start Your <span className="blue">Journey</span>?
+              </h1>
+              <button
+                onClick={() => {
+                  router.push("/testimonials");
+                }}
+                className={styles.introGetStartedButton}
+              >
+                Get Started
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
     </>
   );
 }

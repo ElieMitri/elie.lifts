@@ -1,9 +1,10 @@
-import styles from "../../styles/Nav.module.css";
+import styles from "../../styles/Intro.module.css";
 import Image from "next/image";
 import Logo from "../../src/assets/elie.lifts.png";
 import { useRouter } from "next/router";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaTiktok } from "react-icons/fa";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function Introduction() {
   const router = useRouter();
@@ -11,10 +12,13 @@ export default function Introduction() {
   return (
     <nav className={styles.nav}>
       <Image src={Logo} className={styles.logo}></Image>
+      <ul className={styles.navBurger}>
+        <RxHamburgerMenu className={styles.burger} />
+      </ul>
       <ul className={styles.navLinks}>
-        <li className={styles.navLink}>About</li>
+        <li className={styles.navLink1}>About</li>
         <li
-          className={styles.navLink}
+          className={styles.navLink2}
           onClick={() => {
             router.push("/testimonials");
           }}
@@ -25,11 +29,10 @@ export default function Introduction() {
           onClick={() => {
             router.push("/calorie-calculator");
           }}
-          className={styles.navLink}
+          className={styles.navLink3}
         >
           Calorie Calculator
         </li>
-        <li className={styles.navLink}>Join</li>
         <a
           className={styles.instaLogo}
           onClick={() => {

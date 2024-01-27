@@ -32,3 +32,19 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 920px) {
+  .about {
+    margin: 30px;
+  }
+  .aboutTextWrapper {
+    flex-direction: column-reverse;
+  }
+  .aboutPicWrapper {
+    width: 280px;
+  }
+  .aboutPara {
+    margin-top: 60px;
+    font-size: 20px;
+  }
+}
