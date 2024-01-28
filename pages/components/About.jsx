@@ -15,9 +15,11 @@ export default function About() {
         <div className={styles.aboutTextWrapper}>
           <p className={styles.aboutPara}>
             My name is <span className="blue">Elie Mitri</span>, and I am a
-            <span className="blue"> 15 year old Lebanese boy</span> that is into
-            <span className="blue"> powerlifting</span>. My dream is to beat the
-            national record or even compete with people all over the world.
+            <span className="blue"> 15 year old powerlifter</span>. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Doloribus dolorum
+            eligendi odit suscipit necessitatibus labore non recusandae soluta
+            molestiae explicabo, deleniti modi, nisi repudiandae totam at quas
+            in corrupti placeat. 
           </p>
           <div className={styles.aboutPicWrapper}>
             <Image src={image} className={styles.aboutPic}></Image>

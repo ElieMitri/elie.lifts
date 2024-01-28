@@ -5,53 +5,115 @@ import { useRouter } from "next/router";
 import { IoLogoInstagram } from "react-icons/io";
 import { FaTiktok } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { IoMdClose } from "react-icons/io";
+import { useState } from "react";
 
-export default function Introduction() {
+export default function Navbar() {
   const router = useRouter();
+  const [modal, setModal] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   return (
-    <nav className={styles.nav}>
-      <Image src={Logo} className={styles.logo}></Image>
-      <ul className={styles.navBurger}>
-        <RxHamburgerMenu className={styles.burger} />
-      </ul>
-      <ul className={styles.navLinks}>
-        <li className={styles.navLink1}>About</li>
-        <li
-          className={styles.navLink2}
-          onClick={() => {
-            router.push("/testimonials");
-          }}
-        >
-          Testimonials
-        </li>
-        <li
-          onClick={() => {
-            router.push("/calorie-calculator");
-          }}
-          className={styles.navLink3}
-        >
-          Calorie Calculator
-        </li>
-        <a
-          className={styles.instaLogo}
-          onClick={() => {
-            router.push("https://www.instagram.com/elie.lifts/");
-          }}
-        >
-          <IoLogoInstagram />
-        </a>
-        <a
-          className={styles.tiktokLogo}
-          onClick={() => {
-            router.push(
-              "https://www.tiktok.com/@elie.liftss?_t=8iaZqE9oaZt&_r=1"
-            );
-          }}
-        >
-          <FaTiktok />
-        </a>
-      </ul>
-    </nav>
+    <>
+      <nav className={styles.nav}>
+        <Image src={Logo} className={styles.logo}></Image>
+        <ul className={styles.navBurger}>
+          <RxHamburgerMenu
+            className={styles.burger}
+            onClick={() => setClicked(true)}
+          />
+        </ul>
+        <ul className={styles.navLinks}>
+          <li className={styles.navLink1}>About</li>
+          <li
+            className={styles.navLink2}
+            onClick={() => {
+              router.push("/testimonials");
+            }}
+          >
+            Testimonials
+          </li>
+          <li
+            onClick={() => {
+              router.push("/calorie-calculator");
+            }}
+            className={styles.navLink3}
+          >
+            Calorie Calculator
+          </li>
+          <a
+            className={styles.instaLogo}
+            onClick={() => {
+              router.push("https://www.instagram.com/elie.lifts/");
+            }}
+          >
+            <IoLogoInstagram />
+          </a>
+          <a
+            className={styles.tiktokLogo}
+            onClick={() => {
+              router.push(
+                "https://www.tiktok.com/@elie.liftss?_t=8iaZqE9oaZt&_r=1"
+              );
+            }}
+          >
+            <FaTiktok />
+          </a>
+        </ul>
+      </nav>
+      <div>
+        {clicked ? (
+          <>
+            {" "}
+            <div className="modalOpen">
+              <IoMdClose className="close__modal" onClick={() => setClicked(false)}/>
+              <ul className={styles.navLinksModal}>
+                <li className={styles.navLinkModal}>About</li>
+                <li
+                  className={styles.navLinkModal}
+                  onClick={() => {
+                    router.push("/testimonials");
+                  }}
+                >
+                  Testimonials
+                </li>
+                <li
+                  onClick={() => {
+                    router.push("/calorie-calculator");
+                  }}
+                  className={styles.navLinkModal}
+                >
+                  Calorie Calculator
+                </li>
+                <div className={styles.socialMedia}>
+                  <a
+                    className={styles.instaLogoModal}
+                    onClick={() => {
+                      router.push("https://www.instagram.com/elie.lifts/");
+                    }}
+                  >
+                    <IoLogoInstagram />
+                  </a>
+                  <a
+                    className={styles.tiktokLogoModal}
+                    onClick={() => {
+                      router.push(
+                        "https://www.tiktok.com/@elie.liftss?_t=8iaZqE9oaZt&_r=1"
+                      );
+                    }}
+                  >
+                    <FaTiktok />
+                  </a>
+                </div>
+              </ul>
+            </div>
+            <div className="backdropOpen"></div>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    </>
   );
 }
