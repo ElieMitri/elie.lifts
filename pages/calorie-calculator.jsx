@@ -1,7 +1,7 @@
 import styles from "../styles/Calorie-calculator.module.css";
 import { useRouter } from "next/router";
-
 import { useEffect, useState } from "react";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function calorieCalculator() {
   const router = useRouter();
@@ -56,31 +56,63 @@ export default function calorieCalculator() {
   return (
     <>
       <section className={styles.calorieCalculator}>
-        <input type="text" placeholder="Weight(kg)" onChange={getBmrWeight} />
-        <input type="text" placeholder="Height(Cm)" onChange={getBmrHeight} />
+        <IoArrowBack
+          className="calorieCalculatorBack"
+          onClick={() => {
+            router.push("/");
+          }}
+        />
+        <h1 className={styles.calorieCalculatorTitle}>Calorie Calculator</h1>
+        <input
+          type="text"
+          placeholder="Weight(kg)"
+          onChange={getBmrWeight}
+          className={styles.calorieCalculatorInput}
+        />
+        <input
+          type="text"
+          placeholder="Height(Cm)"
+          onChange={getBmrHeight}
+          className={styles.calorieCalculatorInput}
+        />
         <input
           type="number"
           placeholder="Age(Year)"
           onChange={getBmrAge}
           min="1"
           max="100"
+          className={styles.calorieCalculatorAge}
         />
-        <input type="text" placeholder="Gender" onChange={getBmrGender} />
-        <button onClick={calculate}>Calculate</button>
-        <div>Sedentary (little or no exercise): {result1}</div>
-        <div>
-          Lightly Active (light exercise / sports 1-3 days a week): {result2}
-        </div>
-        <div>
-          Moderately Active(moderate exercise / sports 3-5 days a week):{" "}
-          {result3}
-        </div>
-        <div>
-          Very Active(hard exercise / sports 6-7 days a week): {result4}
-        </div>
-        <div>
-          Extra Active(very hard exercise / sports & physical
-          job or 2x training): {result5}
+        <input
+          type="text"
+          placeholder="Gender"
+          onChange={getBmrGender}
+          className={styles.calorieCalculatorInput}
+        />
+        <button onClick={calculate} className={styles.calorieCalculatorButton}>
+          Calculate
+        </button>
+        <div className={styles.calorieCalculatorResults}>
+          <div className={styles.calorieCalculatorResult}>
+            Sedentary (little or no exercise):{" "}
+            <span className="blue">{result1}</span> kcal
+          </div>
+          <div className={styles.calorieCalculatorResult}>
+            Lightly Active (light exercise / sports 1-3 days a week):{" "}
+            <span className="blue">{result2}</span> kcal
+          </div>
+          <div className={styles.calorieCalculatorResult}>
+            Moderately Active(moderate exercise / sports 3-5 days a week):{" "}
+            <span className="blue">{result3}</span> kcal
+          </div>
+          <div className={styles.calorieCalculatorResult}>
+            Very Active(hard exercise / sports 6-7 days a week):{" "}
+            <span className="blue">{result4}</span> kcal
+          </div>
+          <div className={styles.calorieCalculatorResult}>
+            Extra Active(very hard exercise / sports & physical
+            job or 2x training): <span className="blue">{result5}</span> kcal
+          </div>
         </div>
       </section>
     </>

@@ -60,9 +60,6 @@
   background-color: rgb(2, 86, 182);
 }
 
-.imageFig {
-  /* width: 100%; */
-}
 
 /*
 
@@ -103,22 +100,11 @@ Nav
   transition: 300ms all ease;
 }
 
-.navLink1,
-.navLink2,
-.navLink3,
-.navLink4 {
+.navLink {
   text-decoration: none;
   list-style-type: none;
   margin: 0 12px;
   cursor: pointer;
-  transition: 300ms all ease;
-}
-
-.navLinkDisabled {
-  text-decoration: none;
-  list-style-type: none;
-  margin: 0 12px;
-  cursor: not-allowed;
   transition: 300ms all ease;
 }
 
@@ -214,11 +200,5 @@ Nav
   }
   .introWrapper {
     margin-left: 20px;
-  }
-}
-
-@media (max-width: 550px) {
-  .navLink1 {
-    display: none;
   }
 }

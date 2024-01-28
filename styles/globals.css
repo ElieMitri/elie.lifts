@@ -5,8 +5,8 @@
 }
 
 body {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 .cursor {
@@ -88,4 +88,13 @@ body {
 
 .close__modal:hover {
   color: rgb(158, 158, 158);
+}
+
+.calorieCalculatorBack {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-left: 15px;
+  position: absolute;
+  cursor: pointer;
 }

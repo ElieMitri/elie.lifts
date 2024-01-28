@@ -22,19 +22,13 @@ export default function Introduction() {
           <div className={styles.introTextWrapper}>
             <h1
               className={styles.introText}
-              data-aos="fade-right"
-              data-aos-offset="300"
-              data-aos-easing="ease-in-sine"
             >
               Ready To Start Your <span className="blue">Journey</span>?
             </h1>
             <button
-              data-aos="fade-right"
-              data-aos-offset="300"
-              data-aos-easing="ease-in-sine"
-              onClick={() => {
-                router.push("/testimonials");
-              }}
+              // onClick={() => {
+              //   router.push("/testimonials");
+              // }}
               className={styles.introGetStartedButton}
             >
               Get Started

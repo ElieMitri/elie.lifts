@@ -24,22 +24,22 @@ export default function Navbar() {
           />
         </ul>
         <ul className={styles.navLinks}>
-          <li className={styles.navLink1}>About</li>
-          <li
-            className={styles.navLink2}
-            onClick={() => {
-              router.push("/testimonials");
-            }}
-          >
-            Testimonials
-          </li>
+          <li className={styles.navLink}>About</li>
           <li
             onClick={() => {
               router.push("/calorie-calculator");
             }}
-            className={styles.navLink3}
+            className={styles.navLink}
           >
             Calorie Calculator
+          </li>
+          <li
+            onClick={() => {
+              router.push("/contact");
+            }}
+            className={styles.navLink}
+          >
+            Contact
           </li>
           <a
             className={styles.instaLogo}
@@ -70,20 +70,20 @@ export default function Navbar() {
               <ul className={styles.navLinksModal}>
                 <li className={styles.navLinkModal}>About</li>
                 <li
-                  className={styles.navLinkModal}
-                  onClick={() => {
-                    router.push("/testimonials");
-                  }}
-                >
-                  Testimonials
-                </li>
-                <li
                   onClick={() => {
                     router.push("/calorie-calculator");
                   }}
                   className={styles.navLinkModal}
                 >
                   Calorie Calculator
+                </li>
+                <li
+                  onClick={() => {
+                    router.push("/contact");
+                  }}
+                  className={styles.navLinkModal}
+                >
+                  Contact
                 </li>
                 <div className={styles.socialMedia}>
                   <a

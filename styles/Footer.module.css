@@ -1,0 +1,79 @@
+.footer {
+  background-color: rgb(31, 31, 31);
+  width: 100%;
+  padding: 50px 20px;
+}
+
+.instaLogoModal {
+  font-size: 30px;
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.tiktokLogoModal {
+  font-size: 25px;
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.socialMedia {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerContentWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.footerSocialsTitle {
+  font-size: 16px;
+}
+
+.footerSocialsEmail {
+  font-size: 14px;
+  margin: 40px 0;
+}
+
+.footerHour {
+  font-size: 14px;
+  margin: 20px 0;
+}
+
+.footerLink:hover,
+.tiktokLogoModal:hover,
+.instaLogoModal:hover {
+  color: rgb(158, 158, 158);
+}
+
+.footerLink {
+  list-style-type: none;
+  text-decoration: underline;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.footerLinks {
+  padding: 0;
+}
+
+.footerSocials,
+.footerHours,
+.footerNavigation {
+  width: 50%;
+  text-align: center;
+}
+
+@media (max-width: 920px) {
+  .footerContentWrapper {
+    flex-wrap: wrap;
+  }
+
+  .footerSocials {
+  }
+}
