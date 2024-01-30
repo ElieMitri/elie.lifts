@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import image from "../../src/assets/image2 - Copy.jpg";
 import Image from "next/image";
 
-export default function About() {
+export default function About({ about }) {
   const router = useRouter();
 
   return (
     <>
-      <section className={styles.about}>
+      <section className={styles.about} ref={about}>
         <h1 className={styles.aboutTitle}>
           <span className="blue">About</span> Me
         </h1>

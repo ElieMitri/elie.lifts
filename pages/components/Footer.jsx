@@ -6,7 +6,7 @@ import { IoLogoInstagram } from "react-icons/io";
 import { FaTiktok } from "react-icons/fa";
 import Navbar from "../components/Navbar.jsx";
 
-export default function Introduction() {
+export default function Introduction({ scrollToSection, about}) {
   const router = useRouter();
 
   return (
@@ -54,9 +54,7 @@ export default function Introduction() {
           <div className={styles.footerNavigation}>
             <h1>Naviagtion</h1>
             <ul className={styles.footerLinks}>
-              <li className={styles.footerLink} onClick={() => {
-                router.push("/");
-              }}>About Me</li>
+              <li className={styles.footerLink} onClick={() => scrollToSection(about)}>About Me</li>
               <li className={styles.footerLink}onClick={() => {
                 router.push("/calorie-calculator");
               }}>Calorie Calculator</li>

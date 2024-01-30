@@ -8,7 +8,7 @@ import { FaTiktok } from "react-icons/fa";
 import Navbar from "../components/Navbar.jsx";
 
 
-export default function Introduction() {
+export default function Introduction({ scrollToSection, about }) {
   const router = useRouter();
 
   return (
@@ -16,7 +16,7 @@ export default function Introduction() {
       <figure className={styles.imageFig}>
         <Image src={image} className={styles.image} />
       </figure>
-      <Navbar />
+      <Navbar scrollToSection={scrollToSection} about={about}/>
       <section className={styles.intro}>
         <div className={styles.introWrapper}>
           <div className={styles.introTextWrapper}>

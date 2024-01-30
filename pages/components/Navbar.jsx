@@ -8,10 +8,15 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 
-export default function Navbar() {
+export default function Navbar({ scrollToSection, about }) {
   const router = useRouter();
   const [modal, setModal] = useState(false);
   const [clicked, setClicked] = useState(false);
+
+  function toAbout() {
+    scrollToSection(about)
+    setClicked(false)
+  }
 
   return (
     <>
@@ -24,7 +29,7 @@ export default function Navbar() {
           />
         </ul>
         <ul className={styles.navLinks}>
-          <li className={styles.navLink}>About</li>
+          <li className={styles.navLink} onClick={() => scrollToSection(about)}>About</li>
           <li
             onClick={() => {
               router.push("/calorie-calculator");
@@ -68,7 +73,7 @@ export default function Navbar() {
             <div className="modalOpen">
               <IoMdClose className="close__modal" onClick={() => setClicked(false)}/>
               <ul className={styles.navLinksModal}>
-                <li className={styles.navLinkModal}>About</li>
+                <li className={styles.navLinkModal} onClick={toAbout}>About</li>
                 <li
                   onClick={() => {
                     router.push("/calorie-calculator");
