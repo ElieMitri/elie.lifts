@@ -98,3 +98,7 @@ body {
   position: absolute;
   cursor: pointer;
 }
+
+.reviewTitle {
+  text-align: center;
+}

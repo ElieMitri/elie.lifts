@@ -10,6 +10,7 @@ export default function Home() {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    router.push("/")
 
     emailjs.sendForm('service_64w4ozp', 'template_tseyqlg', form.current, 'cmtRSAvKWGNgzz7I-')
       .then((result) => {
