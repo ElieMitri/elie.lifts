@@ -1,20 +1,18 @@
 import styles from "../../styles/Rating.module.css";
 import { IoMdClose } from "react-icons/io";
 import { db } from "@/firebase";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, onSnapshot, getServerTimestamp, serverTimestamp } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+
 const StarRating = ({ rating }) => {
-  // Function to generate star icons based on the rating value
   const renderStars = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= rating) {
-        // If the current star is less than or equal to the rating, render a filled star
         stars.push(<span key={i} className={styles.ratingStarFilled}>&#9733;</span>);
       } else {
-        // Otherwise, render an empty star
         stars.push(<span key={i} className={styles.ratingStarEmpty}>&#9734;</span>);
       }
     }
@@ -33,6 +31,7 @@ export default function Rating() {
   const [reviews, setReviews] = useState([]);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+  const [time, setTime] = useState("");
   const [clicked, setClicked] = useState(false);
 
   const handleRatingClick = (value) => {
@@ -41,10 +40,12 @@ export default function Rating() {
   };
 
   const handleSubmit = async () => {
+    const data = Date(serverTimestamp())
     const reviewData = {
       name: name,
       rating: rating,
       message: message,
+      time: data.substring(0, 33)
     };
 
     try {
@@ -76,9 +77,10 @@ export default function Rating() {
         <ul className={styles.reviewList}>
           {reviews.map((review) => (
             <li key={review.id} className={styles.reviewItem}>
-              <p>{review.name}</p>
+              <p className={styles.reviewName}>{review.name}</p>
               <p className={styles.ratingStars}><StarRating rating={review.rating} /></p> 
-              <p>{review.message}</p>
+              <p className={styles.reviewMessage}>{review.message}</p>
+              <p className={styles.reviewDate}>{review.time}</p>
             </li>
           ))}
         </ul>
