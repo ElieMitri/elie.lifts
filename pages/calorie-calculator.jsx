@@ -9,8 +9,9 @@ export default function calorieCalculator() {
   const [height, setHeight] = useState();
   const [age, setAge] = useState();
   const [gender, setGender] = useState();
-  const [activityLevel, setActivityLevel] = useState();
+  const [openModal, setOpenModal] = useState();
   const [bmr, setBmr] = useState();
+  const [showResults, setShowresults] = useState(false);
   const [result1, setResult1] = useState(bmr * 1.2);
   const [result2, setResult2] = useState(bmr * 1.375);
   const [result3, setResult3] = useState(bmr * 1.55);
@@ -34,6 +35,9 @@ export default function calorieCalculator() {
   }
 
   function calculate() {
+    if (weight || height || age || gender === NaN) {
+      setShowresults
+    }
     if (gender === "male") {
       const result = 10 * weight + 6.25 * height - 5 * age + 5;
       setResult1(Math.floor(result * 1.2));
@@ -64,13 +68,13 @@ export default function calorieCalculator() {
         />
         <h1 className={styles.calorieCalculatorTitle}>Calorie Calculator</h1>
         <input
-          type="text"
+          type="number"
           placeholder="Weight(kg)"
           onChange={getBmrWeight}
           className={styles.calorieCalculatorInput}
         />
         <input
-          type="text"
+          type="number"
           placeholder="Height(Cm)"
           onChange={getBmrHeight}
           className={styles.calorieCalculatorInput}
@@ -84,7 +88,7 @@ export default function calorieCalculator() {
           className={styles.calorieCalculatorAge}
         />
         <input
-          type="text"
+          type="number"
           placeholder="Gender"
           onChange={getBmrGender}
           className={styles.calorieCalculatorInput}
@@ -92,7 +96,9 @@ export default function calorieCalculator() {
         <button onClick={calculate} className={styles.calorieCalculatorButton}>
           Calculate
         </button>
-        <div className={styles.calorieCalculatorResults}>
+        {
+          weight && height && age && gender ? 
+          <div className={styles.calorieCalculatorResults}>
           <div className={styles.calorieCalculatorResult}>
             Sedentary (little or no exercise):{" "}
             <span className="blue">{result1}</span> kcal
@@ -113,7 +119,9 @@ export default function calorieCalculator() {
             Extra Active(very hard exercise / sports & physical
             job or 2x training): <span className="blue">{result5}</span> kcal
           </div>
-        </div>
+        </div> :
+        <h1>Fill all fields!</h1>
+        }
       </section>
     </>
   );

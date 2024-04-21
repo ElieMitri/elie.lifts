@@ -51,7 +51,7 @@
   color: white;
   border: none;
   border-radius: 3px;
-  cursor: pointer;
+  cursor: not-allowed;
   transition: 300ms all ease;
   margin-top: 100px;
 }
@@ -59,7 +59,6 @@
 .introGetStartedButton:hover {
   background-color: rgb(2, 86, 182);
 }
-
 
 /*
 
@@ -125,11 +124,21 @@ Nav
 .tiktokLogoModal:hover,
 .navLinkModal:hover {
   color: rgb(158, 158, 158);
+  cursor: pointer;
 }
 
 .tiktokLogo {
   font-size: 22px;
   margin: 0 10px;
+  transition: 300ms all ease;
+}
+
+.navLinkDisabled {
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0 12px;
+  cursor: not-allowed;
+  transition: 300ms all ease;
 }
 
 .burger {
@@ -144,6 +153,18 @@ Nav
   transition: 300ms all ease;
   color: white;
   padding: 0;
+}
+
+.navLinkModalDisabled {
+  text-decoration: none;
+  list-style-type: none;
+  margin: 50px 0;
+  cursor: not-allowed;
+  transition: 300ms all ease;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navLinkModal {

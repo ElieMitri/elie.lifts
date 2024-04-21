@@ -30,6 +30,14 @@
   transition: 300ms all ease;
 }
 
+.navLinkDisabled {
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0 12px;
+  cursor: not-allowed;
+  transition: 300ms all ease;
+}
+
 .navLink:hover {
   color: rgb(158, 158, 158);
 }
@@ -47,4 +55,10 @@
 .tiktokLogo {
   font-size: 22px;
   margin: 0 10px;
+  transition: 300ms all ease;
+  cursor: pointer;
+}
+
+.tiktokLogo:hover {
+  color: rgb(158, 158, 158);
 }

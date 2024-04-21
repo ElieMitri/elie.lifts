@@ -102,3 +102,7 @@ body {
 .reviewTitle {
   text-align: center;
 }
+
+.cursor__disabled {
+  cursor: not-allowed;
+}

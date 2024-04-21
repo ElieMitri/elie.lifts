@@ -14,8 +14,8 @@ export default function Navbar({ scrollToSection, about }) {
   const [clicked, setClicked] = useState(false);
 
   function toAbout() {
-    scrollToSection(about)
-    setClicked(false)
+    scrollToSection(about);
+    setClicked(false);
   }
 
   return (
@@ -29,7 +29,9 @@ export default function Navbar({ scrollToSection, about }) {
           />
         </ul>
         <ul className={styles.navLinks}>
-          <li className={styles.navLink} onClick={() => scrollToSection(about)}>About</li>
+          <li className={styles.navLink} onClick={() => scrollToSection(about)}>
+            About
+          </li>
           <li
             onClick={() => {
               router.push("/calorie-calculator");
@@ -45,6 +47,22 @@ export default function Navbar({ scrollToSection, about }) {
             className={styles.navLink}
           >
             Contact
+          </li>
+          <li
+            // onClick={() => {
+            //   router.push("/merch");
+            // }}
+            className={styles.navLinkDisabled}
+          >
+            Merch
+          </li>
+          <li
+            // onClick={() => {
+            //   router.push("/testimonials");
+            // }}
+            className={styles.navLinkDisabled}
+          >
+            Testimonials
           </li>
           <a
             className={styles.instaLogo}
@@ -71,9 +89,14 @@ export default function Navbar({ scrollToSection, about }) {
           <>
             {" "}
             <div className="modalOpen">
-              <IoMdClose className="close__modal" onClick={() => setClicked(false)}/>
+              <IoMdClose
+                className="close__modal"
+                onClick={() => setClicked(false)}
+              />
               <ul className={styles.navLinksModal}>
-                <li className={styles.navLinkModal} onClick={toAbout}>About</li>
+                <li className={styles.navLinkModal} onClick={toAbout}>
+                  About
+                </li>
                 <li
                   onClick={() => {
                     router.push("/calorie-calculator");
@@ -89,6 +112,22 @@ export default function Navbar({ scrollToSection, about }) {
                   className={styles.navLinkModal}
                 >
                   Contact
+                </li>
+                <li
+                  // onClick={() => {
+                  //   router.push("/merch");
+                  // }}
+                  className={styles.navLinkModalDisabled}
+                >
+                  Merch
+                </li>
+                <li
+                  // onClick={() => {
+                  //   router.push("/testimonials");
+                  // }}
+                  className={styles.navLinkModalDisabled}
+                >
+                  Testimonials
                 </li>
                 <div className={styles.socialMedia}>
                   <a
