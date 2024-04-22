@@ -106,3 +106,23 @@ body {
 .cursor__disabled {
   cursor: not-allowed;
 }
+
+.activity-level-select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none; /* Remove default outline */
+}
+
+.activity-level-select option {
+  font-size: 16px;
+  padding: 8px;
+}
+
+/* Style for when the select dropdown is focused */
+.activity-level-select:focus {
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add a focus shadow */
+}

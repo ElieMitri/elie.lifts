@@ -2,6 +2,11 @@ import styles from "../styles/Calorie-calculator.module.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoArrowBack } from "react-icons/io5";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export default function calorieCalculator() {
   const router = useRouter();
@@ -11,12 +16,24 @@ export default function calorieCalculator() {
   const [gender, setGender] = useState();
   const [openModal, setOpenModal] = useState();
   const [bmr, setBmr] = useState();
-  const [showResults, setShowresults] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const [pushError, setPushError] = useState();
   const [result1, setResult1] = useState(bmr * 1.2);
   const [result2, setResult2] = useState(bmr * 1.375);
   const [result3, setResult3] = useState(bmr * 1.55);
   const [result4, setResult4] = useState(bmr * 1.725);
   const [result5, setResult5] = useState(bmr * 1.9);
+  const [results, setResults] = useState(bmr * 1.9);
+  const [selectedActivityLevel, setSelectedActivityLevel] = useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  const handleActivityLevelChange = (event) => {
+    setSelectedActivityLevel(event.target.value);
+    console.log(event.target.value);
+  };
 
   function getBmrWeight(e) {
     setWeight(e.target.value);
@@ -35,9 +52,37 @@ export default function calorieCalculator() {
   }
 
   function calculate() {
-    if (weight || height || age || gender === NaN) {
-      setShowresults
+    // if (weight || height || age || gender === undefined) {
+    //   setPushError("Please fill all fields!");
+    // }
+    if (selectedActivityLevel === "Sedentary") {
+      setResults(result1)
+      setClicked(true)
     }
+    if (selectedActivityLevel === "Lightly Active") {
+      setResults(result2)
+      setClicked(true)
+    }
+    if (selectedActivityLevel === "Moderately Active") {
+      setResults(result3)
+      setClicked(true)
+    }
+    if (selectedActivityLevel === "Very Active") {
+      setResults(result4)
+      setClicked(true)
+    }
+    if (selectedActivityLevel === "Extra Active") {
+      setResults(result5)
+      setClicked(true)
+    }
+    if (selectedActivityLevel === "") {
+      setResults("")
+      setClicked(false)
+      setPushError("Please enter all fields!")
+    }
+
+    
+
     if (gender === "male") {
       const result = 10 * weight + 6.25 * height - 5 * age + 5;
       setResult1(Math.floor(result * 1.2));
@@ -55,7 +100,17 @@ export default function calorieCalculator() {
       setResult5(Math.floor(result * 1.9));
       setBmr(Math.floor(result));
     }
+    console.log(clicked);
+    console.log(weight);
+    console.log(height);
+    console.log(age);
+    console.log(gender);
   }
+
+  useEffect(() => {
+    console.log(weight);
+  }, []);
+
 
   return (
     <>
@@ -88,40 +143,36 @@ export default function calorieCalculator() {
           className={styles.calorieCalculatorAge}
         />
         <input
-          type="number"
+          type="text"
           placeholder="Gender"
           onChange={getBmrGender}
           className={styles.calorieCalculatorInput}
         />
+       <select
+        className="activity-level-select" 
+        value={selectedActivityLevel}
+        onChange={handleActivityLevelChange}
+      >
+        <option value="">Select...</option>
+        <option value="Sedentary">Sedentary (little or no exercise)</option>
+        <option value="Lightly Active">Lightly Active (light exercise / sports 1-3 days a week)</option>
+        <option value="Moderately Active">Moderately Active (moderate exercise / sports 3-5 days a week)</option>
+        <option value="Very Active">Very Active (hard exercise / sports 6-7 days a week)</option>
+        <option value="Extra Active">Extra Active (very hard exercise / sports & physical job or 2x training)</option>
+      </select>
         <button onClick={calculate} className={styles.calorieCalculatorButton}>
           Calculate
         </button>
-        {
-          weight && height && age && gender ? 
+        {clicked ? (
           <div className={styles.calorieCalculatorResults}>
-          <div className={styles.calorieCalculatorResult}>
-            Sedentary (little or no exercise):{" "}
-            <span className="blue">{result1}</span> kcal
+            <div className={styles.calorieCalculatorResult}>
+             
+              <span className="blue">{results}</span> kcal
+            </div>
           </div>
-          <div className={styles.calorieCalculatorResult}>
-            Lightly Active (light exercise / sports 1-3 days a week):{" "}
-            <span className="blue">{result2}</span> kcal
-          </div>
-          <div className={styles.calorieCalculatorResult}>
-            Moderately Active(moderate exercise / sports 3-5 days a week):{" "}
-            <span className="blue">{result3}</span> kcal
-          </div>
-          <div className={styles.calorieCalculatorResult}>
-            Very Active(hard exercise / sports 6-7 days a week):{" "}
-            <span className="blue">{result4}</span> kcal
-          </div>
-          <div className={styles.calorieCalculatorResult}>
-            Extra Active(very hard exercise / sports & physical
-            job or 2x training): <span className="blue">{result5}</span> kcal
-          </div>
-        </div> :
-        <h1>Fill all fields!</h1>
-        }
+        ) : (
+          <h1>{pushError}</h1>
+        )}
       </section>
     </>
   );
