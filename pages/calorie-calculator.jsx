@@ -52,7 +52,7 @@ export default function calorieCalculator() {
   }
 
   function calculate() {
-    // if (weight || height || age || gender === undefined) {
+    // if (weight || height || age || gender === NaN) {
     //   setPushError("Please fill all fields!");
     // }
     if (selectedActivityLevel === "Sedentary") {
@@ -80,8 +80,6 @@ export default function calorieCalculator() {
       setClicked(false)
       setPushError("Please enter all fields!")
     }
-
-    
 
     if (gender === "male") {
       const result = 10 * weight + 6.25 * height - 5 * age + 5;
@@ -171,7 +169,7 @@ export default function calorieCalculator() {
             </div>
           </div>
         ) : (
-          <h1>{pushError}</h1>
+          <h1 className={styles.error}>{pushError}</h1>
         )}
       </section>
     </>
