@@ -58,6 +58,14 @@
   transition: 300ms all ease;
 }
 
+.footerLinkDisabled {
+  list-style-type: none;
+  text-decoration: underline;
+  margin: 20px 0;
+  cursor: not-allowed;
+  transition: 300ms all ease;
+}
+
 .footerLinks {
   padding: 0;
 }

@@ -52,33 +52,30 @@ export default function calorieCalculator() {
   }
 
   function calculate() {
-    // if (weight || height || age || gender === NaN) {
-    //   setPushError("Please fill all fields!");
-    // }
     if (selectedActivityLevel === "Sedentary") {
-      setResults(result1)
-      setClicked(true)
+      setResults(result1);
+      setClicked(true);
     }
     if (selectedActivityLevel === "Lightly Active") {
-      setResults(result2)
-      setClicked(true)
+      setResults(result2);
+      setClicked(true);
     }
     if (selectedActivityLevel === "Moderately Active") {
-      setResults(result3)
-      setClicked(true)
+      setResults(result3);
+      setClicked(true);
     }
     if (selectedActivityLevel === "Very Active") {
-      setResults(result4)
-      setClicked(true)
+      setResults(result4);
+      setClicked(true);
     }
     if (selectedActivityLevel === "Extra Active") {
-      setResults(result5)
-      setClicked(true)
+      setResults(result5);
+      setClicked(true);
     }
     if (selectedActivityLevel === "") {
-      setResults("")
-      setClicked(false)
-      setPushError("Please enter all fields!")
+      setResults("");
+      setClicked(false);
+      setPushError("Please enter all fields!");
     }
 
     if (gender === "male") {
@@ -108,7 +105,6 @@ export default function calorieCalculator() {
   useEffect(() => {
     console.log(weight);
   }, []);
-
 
   return (
     <>
@@ -146,25 +142,33 @@ export default function calorieCalculator() {
           onChange={getBmrGender}
           className={styles.calorieCalculatorInput}
         />
-       <select
-        className="activity-level-select" 
-        value={selectedActivityLevel}
-        onChange={handleActivityLevelChange}
-      >
-        <option value="">Select...</option>
-        <option value="Sedentary">Sedentary (little or no exercise)</option>
-        <option value="Lightly Active">Lightly Active (light exercise / sports 1-3 days a week)</option>
-        <option value="Moderately Active">Moderately Active (moderate exercise / sports 3-5 days a week)</option>
-        <option value="Very Active">Very Active (hard exercise / sports 6-7 days a week)</option>
-        <option value="Extra Active">Extra Active (very hard exercise / sports & physical job or 2x training)</option>
-      </select>
+        <select
+          className="activity-level-select"
+          value={selectedActivityLevel}
+          onChange={handleActivityLevelChange}
+        >
+          <option value="">Select...</option>
+          <option value="Sedentary">Sedentary (little or no exercise)</option>
+          <option value="Lightly Active">
+            Lightly Active (light exercise / sports 1-3 days a week)
+          </option>
+          <option value="Moderately Active">
+            Moderately Active (moderate exercise / sports 3-5 days a week)
+          </option>
+          <option value="Very Active">
+            Very Active (hard exercise / sports 6-7 days a week)
+          </option>
+          <option value="Extra Active">
+            Extra Active (very hard exercise / sports & physical job or 2x
+            training)
+          </option>
+        </select>
         <button onClick={calculate} className={styles.calorieCalculatorButton}>
           Calculate
         </button>
         {clicked ? (
           <div className={styles.calorieCalculatorResults}>
             <div className={styles.calorieCalculatorResult}>
-             
               <span className="blue">{results}</span> kcal
             </div>
           </div>

@@ -29,6 +29,15 @@
   flex-direction: column;
 }
 
+.modalOpenWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 .backdropOpenRating {
   position: fixed;
   z-index: 1;
@@ -70,6 +79,7 @@
   color: white;
   transition: 300ms all ease;
   cursor: pointer;
+  margin: 15px;
 }
 
 .button:hover {
@@ -105,7 +115,7 @@
  border: 1px solid white;
  border-radius: 10px;
  padding: 70px 40px;
- margin: 0 10px;
+ margin: 10px;
 }
 
 .reviewName {
@@ -121,6 +131,24 @@
   font-weight: bold;
   font-size: 14px;
   margin-top: 30px;
+}
+
+.modalOpenWrapper::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.modalOpenWrapper::-webkit-scrollbar-thumb {
+  /* background-color: #888;  */
+  background-color: rgb(0, 119, 255); 
+  border-radius: 6px; /* Rounded corners of the scrollbar thumb */
+}
+
+.modalOpenWrapper::-webkit-scrollbar-thumb:hover { 
+  background-color: rgb(2, 86, 182); /* Color of the scrollbar thumb on hover */
+}
+
+.modalOpenWrapper::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color of the scrollbar track */
 }
 
 @media (max-width: 920px) {
