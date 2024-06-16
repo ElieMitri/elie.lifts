@@ -46,6 +46,7 @@ export default function Merch() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [userDetails, setUserDetails] = useState("");
   const [personUid, setPersonUid] = useState("");
   const userEmail = useRef("");
@@ -113,22 +114,50 @@ export default function Merch() {
       });
   }, []);
 
-  async function login() {
-    if (
-      !userEmail.current.value ||
-      !userPassword.current.value ||
-      !userName.current.value
-    ) {
-      setError("Please fill in all the required fields");
-      return;
+  async function createAccount(e) {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(
+      auth,
+      userEmail.current.value,
+      userPassword.current.value
+    );
+    let userInfo = auth.currentUser;
+    console.log(auth.currentUser);
+    setEmail(event.target.value);
+    try {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => this.props.navigation.navigate("/merch"))
+        .catch((error) => {
+          alert(error.message);
+        });
+    } catch (err) {
+      alert(err);
     }
+    userInfo.displayName = userName.current.value;
+    setIsModalSignUpOpen(false);
+    updateProfile(auth.currentUser, {
+      email: userEmail.current.value,
+    })
+      .then(() => {
+        // Profile updated!
+        // ...
+      })
+      .catch((error) => {
+        // An error occurred
+        // ...
+      });
+  }
+
+  async function login() {
     try {
       await signInWithEmailAndPassword(
         auth,
         userEmail.current.value,
         userPassword.current.value
       );
-      router.push("/merch");
+      router.push("/");
     } catch (error) {
       setError("Incorrect email or password!");
     }
@@ -178,6 +207,16 @@ export default function Merch() {
       alert(err);
     }
   }
+
+  const handleSignUp = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      router.push("/merch")
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   // async function addToCart(item) {
   //   if (subscribed === false) {
@@ -334,18 +373,19 @@ export default function Merch() {
                 onClick={() => setOpenedLogin(false)}
               />
               <div className="login__inputs">
-                <input
+              <input
                   type="email"
-                  className="login__input--email"
+                  className="modal__input"
                   placeholder="Email"
-                  required
                   ref={userEmail}
                 />
+              </div>
+              <div className="password__login">
+                <h4>Password</h4>
                 <input
                   type="password"
-                  className="login__input--password"
-                  placeholder="Password"
-                  required
+                  className="modal__input"
+                  placeholder="••••••••••••"
                   ref={userPassword}
                 />
                 <button className="login__btn cursor" onClick={login}>
@@ -370,28 +410,22 @@ export default function Merch() {
             <div className="modalOpen">
               <IoMdClose
                 className="close__modal"
-                onClick={() => setOpenedLogin(false)}
+                onClick={() => setOpenedSignup(false)}
               />
               <div className="login__inputs">
-                <input
-                  type="name"
-                  className="login__input--email"
-                  placeholder="Full Name"
-                  required
-                  ref={userName}
-                />
-                <input
+              <input
                   type="email"
-                  className="login__input--email"
+                  className="modal__input"
                   placeholder="Email"
-                  required
                   ref={userEmail}
                 />
+              </div>
+              <div className="password__login">
+                <h4>Password</h4>
                 <input
                   type="password"
-                  className="login__input--password"
-                  placeholder="Password"
-                  required
+                  className="modal__input"
+                  placeholder="••••••••••••"
                   ref={userPassword}
                 />
                 <button className="login__btn cursor" onClick={createAccount}>

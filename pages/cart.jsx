@@ -83,7 +83,7 @@ export default function Cart() {
                 </h5>
               </div>
             )}
-            <IoTrash className="trash" onClick={deleteItem} />
+            <IoTrash className="trash" />
           </div>
         ))}
       </div>
