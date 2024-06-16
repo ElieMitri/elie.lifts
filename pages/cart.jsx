@@ -61,14 +61,14 @@ export default function Cart() {
         {cartItems?.map((info) => (
           <div className="card" key={info.id}>
             <div className="image__wrapper">
-              {/* <Image
+              <Image
                 className="image"
                 src={info.url}
                 alt={`Merchandise ${info.id}`}
                 width={300}
                 height={300}
                 priority
-              /> */}
+              />
             </div>
             <h1>{info.name}</h1>
             {info.salePrice === null ? (
