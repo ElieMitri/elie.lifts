@@ -146,7 +146,6 @@ body::-webkit-scrollbar-track {
   /* Additional styling for your error message */
 }
 
-
 .backdropMerch {
   position: fixed;
   z-index: 1;
@@ -320,17 +319,21 @@ body::-webkit-scrollbar-track {
   */
 
 .card {
-  border: 1px solid white;
+  border: 3px solid rgb(0, 119, 255);
   width: 300px;
   margin: 20px 50px;
   height: 450px;
   cursor: pointer;
   transition: all 300ms ease;
-  }
-  
-  .card:hover {
-  background-color: #171717;
+}
 
+.cardName {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.card:hover {
+  background-color: #171717;
 }
 
 .header {
@@ -374,7 +377,6 @@ body::-webkit-scrollbar-track {
 }
 
 .image__wrapper {
-
 }
 
 .image {
@@ -444,4 +446,64 @@ body::-webkit-scrollbar-track {
 
 .trash:hover {
   color: rgb(255, 0, 0);
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addToCart {
+  padding: 10px 30px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  border: 1px solid rgb(0, 119, 255);
+  background-color: black;
+  color: rgb(0, 119, 255);
+  cursor: pointer;
+  transition: 300ms ease all;
+}
+
+.addToCart:hover {
+  background-color: rgb(2, 86, 182);
+}
+
+.login__inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal__input {
+  padding: 20px 50px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  border: 1px solid rgb(0, 119, 255);
+  background-color: black;
+  color: rgb(0, 119, 255);
+  transition: 300ms ease all;
+  margin: 10px 0;
+}
+
+.login__btn,
+.login__button {
+  padding: 10px 30px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  border: 1px solid rgb(0, 119, 255);
+  background-color: black;
+  color: rgb(0, 119, 255);
+  cursor: pointer;
+  transition: 300ms ease all;
+  margin: 20px 0;
+}
+
+.login__btn:hover,
+.login__button:hover   {
+  background-color: rgb(2, 86, 182);
 }

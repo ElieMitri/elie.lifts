@@ -14,6 +14,7 @@ import {
   addDoc,
   getDoc,
   updateDoc,
+  signOut,
 } from "firebase/firestore";
 import { db } from "@/firebase";
 import { IoMdClose } from "react-icons/io";
@@ -23,7 +24,9 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   updateProfile,
+  signOut as firebaseSignOut,
 } from "firebase/auth";
+import { IoExitOutline } from "react-icons/io5";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -51,7 +54,7 @@ export default function Merch() {
   const [personUid, setPersonUid] = useState("");
   const userEmail = useRef("");
   const userPassword = useRef("");
-  const userName = useRef("");
+  const userName = useRef();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -114,42 +117,6 @@ export default function Merch() {
       });
   }, []);
 
-  async function createAccount(e) {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(
-      auth,
-      userEmail.current.value,
-      userPassword.current.value
-    );
-    let userInfo = auth.currentUser;
-    console.log(auth.currentUser);
-    setEmail(event.target.value);
-    try {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => this.props.navigation.navigate("/merch"))
-        .catch((error) => {
-          alert(error.message);
-        });
-    } catch (err) {
-      alert(err);
-    }
-    userInfo.displayName = userName.current.value;
-    setIsModalSignUpOpen(false);
-    updateProfile(auth.currentUser, {
-      email: userEmail.current.value,
-    })
-      .then(() => {
-        // Profile updated!
-        // ...
-      })
-      .catch((error) => {
-        // An error occurred
-        // ...
-      });
-  }
-
   async function login() {
     try {
       await signInWithEmailAndPassword(
@@ -176,47 +143,89 @@ export default function Merch() {
     setOpenedSignup(true);
   }
 
-  async function createAccount(e) {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(
-      auth,
-      userEmail.current.value,
-      userPassword.current.value
-    );
-    let userInfo = auth.currentUser;
-    // userInfo.displayName = userName.current.value;
-    console.log(auth.currentUser);
-    router.push("/merch");
-    if (!isValidEmail(e.target.value)) {
-      setError("Email is invalid");
-    } else {
-      setError(null);
-    }
-    // await addDoc(collection(db, "users"), userData);
+  // async function createAccount(e) {
+  //   const auth = getAuth();
+  //   createUserWithEmailAndPassword(
+  //     auth,
+  //     userEmail.current.value,
+  //     userPassword.current.value
+  //   );
+  //   let userInfo = auth.currentUser;
+  //   // userInfo.displayName = userName.current.value;
+  //   console.log(auth.currentUser);
+  //   router.push("/merch");
+  //   if (!isValidEmail(e.target.value)) {
+  //     setError("Email is invalid");
+  //   } else {
+  //     setError(null);
+  //   }
+  //   // await addDoc(collection(db, "users"), userData);
 
-    setEmail(event.target.value);
+  //   setEmail(event.target.value);
+  //   try {
+  //     firebase
+  //       .auth()
+  //       .createUserWithEmailAndPassword(email, password)
+  //       .then(() => this.props.navigation.navigate("/"))
+  //       .catch((error) => {
+  //         alert(error.message);
+  //       });
+  //   } catch (err) {
+  //     alert(err);
+  //   }
+  // }
+
+  async function createAccount(e) {
+    e.preventDefault(); // Prevent the default form submission behavior
+
+    const email = userEmail.current.value;
+    const password = userPassword.current.value;
+    const displayName = userName.current.value;
+
+    if (!isValidEmail(email)) {
+      setError("Email is invalid");
+      return;
+    }
+
+    setError(null);
+
     try {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => this.props.navigation.navigate("/"))
-        .catch((error) => {
-          alert(error.message);
-        });
-    } catch (err) {
-      alert(err);
+      // Create the user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Update user info (displayName)
+      await user.updateProfile({
+        displayName: displayName,
+      });
+
+      console.log("User created: ", user);
+
+      // Optionally, add user data to Firestore
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        // Add other user data as needed
+      });
+
+      // Navigate to the merch page
+      router.push("/merch");
+    } catch (error) {
+      console.error("Error creating account: ", error);
+      setError(error.message);
     }
   }
 
-  const handleSignUp = async () => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      router.push("/merch")
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  // Helper function to validate email
+  function isValidEmail(email) {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
 
   // async function addToCart(item) {
   //   if (subscribed === false) {
@@ -319,10 +328,20 @@ export default function Merch() {
     getNumberOfItemsCart();
   }, [userDetails.uid]);
 
+  function signOut() {
+    firebaseSignOut(auth).then(() => {
+      router.push("/");
+    });
+  }
+
   return (
     <div>
       <MdArrowBack onClick={() => router.push("/")} className="back" />
       <div className="header">
+        <IoExitOutline
+          onClick={(auth) => signOut(auth)}
+          className="exitButton"
+        />
         <IconButton aria-label="cart" onClick={() => router.push("/cart")}>
           <StyledBadge
             badgeContent={numberOfItemsInCart}
@@ -348,7 +367,7 @@ export default function Merch() {
                 // onClick={() => setErrorMessage(true)}
               />
             </div>
-            <h1>{info.name}</h1>
+            <h1 className="cardName">{info.name}</h1>
             {info.salePrice === null ? (
               <div>
                 <h5 className="prices">{info.originalPrice}</h5>
@@ -361,7 +380,11 @@ export default function Merch() {
                 </h5>
               </div>
             )}
-            <button onClick={() => addToCart(info)}>Add to Cart</button>
+            <div className="buttonWrapper">
+              <button onClick={() => addToCart(info)} className="addToCart">
+                Add to Cart
+              </button>
+            </div>
           </div>
         ))}
         {openedLogin ? (
@@ -373,31 +396,31 @@ export default function Merch() {
                 onClick={() => setOpenedLogin(false)}
               />
               <div className="login__inputs">
-              <input
+                <input
                   type="email"
                   className="modal__input"
                   placeholder="Email"
                   ref={userEmail}
                 />
-              </div>
-              <div className="password__login">
-                <h4>Password</h4>
-                <input
-                  type="password"
-                  className="modal__input"
-                  placeholder="••••••••••••"
-                  ref={userPassword}
-                />
+
+                <div className="password__login">
+                  <input
+                    type="password"
+                    className="modal__input"
+                    placeholder="••••••••••••"
+                    ref={userPassword}
+                  />
+                </div>
                 <button className="login__btn cursor" onClick={login}>
                   Log in
                 </button>
+                <div className="login__or">
+                  <h4 className="login__h4">OR</h4>
+                </div>
+                <button className="login__button" onClick={switchModals1}>
+                  Create an account
+                </button>
               </div>
-              <div className="login__or">
-                <h4 className="login__h4">OR</h4>
-              </div>
-              <button className="login__button" onClick={switchModals1}>
-                Create an account
-              </button>
             </div>
             <div className="backdropOpen"></div>
           </>
@@ -406,38 +429,43 @@ export default function Merch() {
         )}
         {openedSignup ? (
           <>
-            {" "}
             <div className="modalOpen">
               <IoMdClose
                 className="close__modal"
                 onClick={() => setOpenedSignup(false)}
               />
               <div className="login__inputs">
-              <input
+                <input
+                  type="name"
+                  className="modal__input"
+                  placeholder="Name"
+                  ref={userName}
+                />
+                <input
                   type="email"
                   className="modal__input"
                   placeholder="Email"
                   ref={userEmail}
                 />
-              </div>
-              <div className="password__login">
-                <h4>Password</h4>
-                <input
-                  type="password"
-                  className="modal__input"
-                  placeholder="••••••••••••"
-                  ref={userPassword}
-                />
+
+                <div className="password__login">
+                  <input
+                    type="password"
+                    className="modal__input"
+                    placeholder="••••••••••••"
+                    ref={userPassword}
+                  />
+                </div>
                 <button className="login__btn cursor" onClick={createAccount}>
-                  Sign up
+                  Sign Up
+                </button>
+                <div className="login__or">
+                  <h4 className="login__h4">OR</h4>
+                </div>
+                <button className="login__button" onClick={switchModals}>
+                  Login
                 </button>
               </div>
-              <div className="login__or">
-                <h4 className="login__h4">OR</h4>
-              </div>
-              <button className="login__button" onClick={switchModals}>
-                Login
-              </button>
             </div>
             <div className="backdropOpen"></div>
           </>

@@ -57,10 +57,10 @@ export default function Navbar({ scrollToSection, about }) {
             Merch
           </li>
           <li
-            // onClick={() => {
-            //   router.push("/testimonials");
-            // }}
-            className={styles.navLinkDisabled}
+            onClick={() => {
+              router.push("/testimonials");
+            }}
+            className={styles.navLink}
           >
             Testimonials
           </li>
@@ -117,15 +117,15 @@ export default function Navbar({ scrollToSection, about }) {
                   onClick={() => {
                     router.push("/merch");
                   }}
-                  className={styles.navLinkModalDisabled}
+                  className={styles.navLinkModal}
                 >
                   Merch
                 </li>
                 <li
-                  // onClick={() => {
-                  //   router.push("/testimonials");
-                  // }}
-                  className={styles.navLinkModalDisabled}
+                  onClick={() => {
+                    router.push("/testimonials");
+                  }}
+                  className={styles.navLinkModal}
                 >
                   Testimonials
                 </li>

@@ -1,6 +1,6 @@
 // pages/cart.js
 import { use, useEffect, useState } from "react";
-import { collection, doc, getDoc, deleteDoc } from "firebase/firestore";
+import { collection, doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import Image from "next/image";
 import { MdArrowBack } from "react-icons/md";
@@ -14,6 +14,7 @@ export default function Cart() {
   // const user = auth.currentUser;
   const [user, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
+  const [cart, setCart] = useState([]);
 
   // Listen for authentication state changes
   useEffect(() => {
@@ -51,8 +52,31 @@ export default function Cart() {
   }, [user]); // Dependency array includes `user`
 
   // async function deleteItem() {
-  //   const neCart =
+  //   const newCart = [cartItems, deletedItem]
+  //   console.log(newCart)
   // }
+
+  // async function deleteFromCart(itemId) {
+  //   if (!user) return;
+
+  //   try {
+  //     const cartRef = doc(db, 'carts', user.uid);
+  //     const cartDoc = await getDoc(cartRef);
+
+  //     if (cartDoc.exists()) {
+  //       const currentCart = cartDoc.data().items || [];
+  //       const updatedCart = currentCart.filter(item => item.id !== itemId);
+
+  //       await updateDoc(cartRef, { items: updatedCart });
+  //       setCart(updatedCart); // Update the local state
+  //     } else {
+  //       console.log('No such cart document!');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting item:', error);
+  //   }
+  // }
+
 
   return (
     <div>
@@ -83,10 +107,11 @@ export default function Cart() {
                 </h5>
               </div>
             )}
-            <IoTrash className="trash" />
+            {/* <IoTrash className="trash" onClick={() => deleteFromCart} /> */}
           </div>
         ))}
       </div>
     </div>
   );
+
 }

@@ -61,11 +61,11 @@ export default function Introduction({ scrollToSection, about}) {
               <li className={styles.footerLink} onClick={() => {
                 router.push("/contact");
               }}>Contact</li>
-              <li className={styles.footerLinkDisabled} onClick={() => {
-                // router.push("/contact");
+              <li className={styles.footerLink} onClick={() => {
+                router.push("/merch");
               }}>Merch</li>
-              <li className={styles.footerLinkDisabled} onClick={() => {
-                // router.push("/contact");
+              <li className={styles.footerLink} onClick={() => {
+                router.push("/testimonials");
               }}>Testimonials</li>
             </ul>
           </div>
