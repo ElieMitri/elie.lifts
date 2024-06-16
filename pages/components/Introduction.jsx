@@ -23,9 +23,9 @@ export default function Introduction({ scrollToSection, about }) {
               Ready To Start Your <span className="blue">Journey</span>?
             </h1>
             <button
-              // onClick={() => {
-              //   router.push("/testimonials");
-              // }}
+              onClick={() => {
+                router.push("/testimonials");
+              }}
               className={styles.introGetStartedButton}
             >
               Get Started
