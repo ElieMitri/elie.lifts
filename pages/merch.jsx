@@ -370,13 +370,13 @@ export default function Merch() {
             <h1 className="cardName">{info.name}</h1>
             {info.salePrice === null ? (
               <div>
-                <h5 className="prices">{info.originalPrice}</h5>
+                <h5 className="prices">${info.originalPrice}</h5>
               </div>
             ) : (
               <div>
                 <h5 className="prices">
-                  <span className="sale__active">{info.originalPrice}</span>
-                  <span>{info.salePrice}</span>
+                  <span className="sale__active">${info.originalPrice}</span>
+                  <span>${info.salePrice}</span>
                 </h5>
               </div>
             )}

@@ -6,8 +6,6 @@ import Image from "next/image";
 import { MdArrowBack } from "react-icons/md";
 import { useRouter } from "next/router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { IoTrash } from "react-icons/io5";
-import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 
 export default function Cart() {
   const router = useRouter();
@@ -50,73 +48,59 @@ export default function Cart() {
       fetchCartItems();
       console.log(user.uid);
     }
+    console.log(cartItems);
   }, [user]); // Dependency array includes `user`
+  
+  const totalPrice = cartItems.reduce((total, item) => {
+      const price = item.salePrice !== null ? item.salePrice : item.originalPrice;
+      return total + price;
+    }, 0);
 
-  // async function deleteItem() {
-  //   const newCart = [cartItems, deletedItem]
-  //   console.log(newCart)
-  // }
-
-  // async function deleteFromCart(itemId) {
-  //   if (!user) return;
-
-  //   try {
-  //     const cartRef = doc(db, 'carts', user.uid);
-  //     const cartDoc = await getDoc(cartRef);
-
-  //     if (cartDoc.exists()) {
-  //       const currentCart = cartDoc.data().items || [];
-  //       const updatedCart = currentCart.filter(item => item.id !== itemId);
-
-  //       await updateDoc(cartRef, { items: updatedCart });
-  //       setCart(updatedCart); // Update the local state
-  //     } else {
-  //       console.log('No such cart document!');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error deleting item:', error);
-  //   }
-  // }
-
+    
+    const tax = totalPrice * 0.11
+    const finalPrice = totalPrice + tax
   return (
     <div>
       <MdArrowBack onClick={() => router.push("/merch")} className="back" />
-      <MdOutlineShoppingCartCheckout
-        className="checkoutButton"
-        onClick={() => router.push("/cart/checkout")}
-      />
-      <div className="cards">
-        {cartItems?.map((info) => (
-          <div className="card" key={info.id}>
-            <div className="image__wrapper">
-              <Image
-                className="image"
-                src={info.url}
-                alt={`Merchandise ${info.id}`}
-                width={300}
-                height={300}
-                priority
-              />
+      <div className="checkoutLayoutWrapper">
+        <div className="checkoutLayout">
+          {cartItems?.map((info) => (
+            <div className="checkout" key={info.id}>
+              <h1>{info.name}</h1>
+              {info.salePrice === null ? (
+                <div>
+                  <h5 className="prices">${info.originalPrice}</h5>
+                </div>
+              ) : (
+                <div>
+                  <h5 className="prices">
+                    <span className="sale__active">${info.originalPrice}</span>
+                    <span>${info.salePrice}</span>
+                  </h5>
+                </div>
+              )}
             </div>
-            <h1>{info.name}</h1>
+          ))}
+        </div>
+        Items:{" "}
+        {cartItems?.map((info) => (
+          <div className="checkout" key={info.id}>
             {info.salePrice === null ? (
               <div>
-                <h5 className="prices">${info.originalPrice}</h5>
+                <h5 className="pricesCheckout">${info.originalPrice}</h5>
               </div>
             ) : (
               <div>
-                <h5 className="prices">
-                  <span className="sale__active">${info.originalPrice}</span>
+                <h5 className="pricesCheckout">
                   <span>${info.salePrice}</span>
                 </h5>
               </div>
             )}
-            <IoTrash
-              className="trash"
-              //  onClick={() => deleteFromCart}
-            />
           </div>
         ))}
+        <div>Tax: ${tax.toFixed(2)}</div>
+        <div>Total Price: ${finalPrice.toFixed(2)}</div>
+        <button className="login__btn">Checkout</button>
       </div>
     </div>
   );
