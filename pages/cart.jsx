@@ -1,11 +1,12 @@
 // pages/cart.js
-import { useEffect, useState } from "react";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { use, useEffect, useState } from "react";
+import { collection, doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 import Image from "next/image";
 import { MdArrowBack } from "react-icons/md";
 import { useRouter } from "next/router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { IoTrash } from "react-icons/io5";
 
 export default function Cart() {
   const router = useRouter();
@@ -49,6 +50,10 @@ export default function Cart() {
     }
   }, [user]); // Dependency array includes `user`
 
+  // async function deleteItem() {
+  //   const neCart = 
+  // }
+
   return (
     <div>
       <MdArrowBack onClick={() => router.push("/merch")} className="back" />
@@ -78,6 +83,7 @@ export default function Cart() {
                 </h5>
               </div>
             )}
+            <IoTrash className="trash" onClick={deleteItem} />
           </div>
         ))}
       </div>

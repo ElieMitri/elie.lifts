@@ -18,7 +18,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 8px; /* Width of the scrollbar */
 }
 
 body::-webkit-scrollbar-thumb {
@@ -32,7 +32,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 body::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* Color of the scrollbar track */
+  background-color: rgba(0, 0, 0, 0); /* Color of the scrollbar track */
 }
 
 .modal {
@@ -102,6 +102,60 @@ body::-webkit-scrollbar-track {
   justify-content: center;
   height: 100vh;
   transition: 300ms all ease;
+}
+
+.modalOpenMerch {
+  border-radius: 4px;
+  z-index: 1000;
+  position: fixed;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  transition: 300ms all ease;
+  background-color: rgba(0, 0, 0, 0.689);
+  text-align: center;
+}
+
+/* styles.css */
+.modalCenterWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.modalOpenMerch {
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center; /* Center content inside modal */
+}
+
+.error__message {
+  width: 188px;
+  /* Additional styling for your error message */
+}
+
+
+.backdropMerch {
+  position: fixed;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.712);
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: none;
 }
 
 .close__modal:hover {
@@ -309,8 +363,14 @@ body::-webkit-scrollbar-track {
 
 .cart {
   filter: invert(1);
-  position: relative;
-  left: 0;
+  /* position: fixed; */
+  right: 2;
+  /* margin-right: 20px; */
+}
+
+.number__of--items {
+  position: fixed;
+  right: 2;
 }
 
 .image__wrapper {
@@ -353,4 +413,35 @@ body::-webkit-scrollbar-track {
 
 .back:hover {
   color: rgb(157, 157, 157);
+}
+
+.error__message {
+  /* width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  position: absolute;
+  top: 0;
+  right: 50%;
+  left: 50%;
+}
+
+.border {
+  background-color: black;
+  width: 20px;
+  height: 48px;
+  display: block;
+}
+
+.trash {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.trash:hover {
+  color: rgb(255, 0, 0);
 }

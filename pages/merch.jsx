@@ -24,8 +24,6 @@ import {
   getAuth,
   updateProfile,
 } from "firebase/auth";
-import Link from "next/link.js";
-import { auth } from "@/firebase";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -46,6 +44,7 @@ export default function Merch() {
   const [openedSignup, setOpenedSignup] = useState(false);
   const [numberOfItemsInCart, setNumberOfItemsInCart] = useState(0);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const [email, setEmail] = useState("");
   const [userDetails, setUserDetails] = useState("");
   const [personUid, setPersonUid] = useState("");
@@ -286,7 +285,11 @@ export default function Merch() {
       <MdArrowBack onClick={() => router.push("/")} className="back" />
       <div className="header">
         <IconButton aria-label="cart" onClick={() => router.push("/cart")}>
-          <StyledBadge badgeContent={numberOfItemsInCart} color="secondary">
+          <StyledBadge
+            badgeContent={numberOfItemsInCart}
+            color="secondary"
+            className="number__of--items"
+          >
             <MdOutlineShoppingCart className="cart" />
           </StyledBadge>
         </IconButton>
@@ -302,7 +305,8 @@ export default function Merch() {
                 width={300}
                 height={300}
                 priority
-                onClick={() => router.push(`/${info.id}`)}
+                onClick={() => router.push(`/merch/${info.id}`)}
+                // onClick={() => setErrorMessage(true)}
               />
             </div>
             <h1>{info.name}</h1>

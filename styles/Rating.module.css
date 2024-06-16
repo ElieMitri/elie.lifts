@@ -136,7 +136,7 @@
 }
 
 .modalOpenWrapper::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 8px; /* Width of the scrollbar */
 }
 
 .modalOpenWrapper::-webkit-scrollbar-thumb {
@@ -150,7 +150,7 @@
 }
 
 .modalOpenWrapper::-webkit-scrollbar-track {
-  background-color: #f1f1f1; /* Color of the scrollbar track */
+  background-color: rgba(0, 0, 0, 0); /* Color of the scrollbar track */
 }
 
 @media (max-width: 920px) {
