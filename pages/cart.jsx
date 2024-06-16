@@ -51,7 +51,7 @@ export default function Cart() {
   }, [user]); // Dependency array includes `user`
 
   // async function deleteItem() {
-  //   const neCart = 
+  //   const neCart =
   // }
 
   return (
