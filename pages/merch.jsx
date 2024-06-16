@@ -305,7 +305,7 @@ export default function Merch() {
                 width={300}
                 height={300}
                 priority
-                onClick={() => router.push(`/merch/${info.id}`)}
+                // onClick={() => router.push(`/merch/${info.id}`)}
                 // onClick={() => setErrorMessage(true)}
               />
             </div>
