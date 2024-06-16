@@ -298,7 +298,7 @@ export default function Merch() {
         {data.map((info) => (
           <div className="card" key={info.id}>
             <div className="image__wrapper">
-              {/* <Image
+              <Image
                 className="image"
                 src={info.url}
                 alt={`Merchandise ${info.id}`}
@@ -307,7 +307,7 @@ export default function Merch() {
                 priority
                 onClick={() => router.push(`/merch/${info.id}`)}
                 // onClick={() => setErrorMessage(true)}
-              /> */}
+              />
             </div>
             <h1>{info.name}</h1>
             {info.salePrice === null ? (
