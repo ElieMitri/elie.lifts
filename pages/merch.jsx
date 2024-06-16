@@ -118,16 +118,19 @@ export default function Merch() {
   }, []);
 
   async function login() {
+    if (user) {
+      setOpenedSignup(false)
+    }
     try {
       await signInWithEmailAndPassword(
         auth,
         userEmail.current.value,
         userPassword.current.value
       );
-      router.push("/merch");
     } catch (error) {
       setError("Incorrect email or password!");
     }
+    router.push("/merch");
   }
 
   function isValidEmail(email) {
