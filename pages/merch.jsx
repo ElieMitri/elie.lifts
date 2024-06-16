@@ -157,7 +157,7 @@ export default function Merch() {
         userEmail.current.value,
         userPassword.current.value
       );
-      router.push("/");
+      router.push("/merch");
     } catch (error) {
       setError("Incorrect email or password!");
     }
