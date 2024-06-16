@@ -30,14 +30,14 @@ export default function Rating() {
             className={styles.backBtn}
           />
           <figure className={styles.itemPicWrapper}>
-            <Image
+            {/* <Image
               src={pickedItem.url}
               alt={`Merchandise ${pickedItem.id}`}
               width={300}
               height={300}
               priority
               className={styles.itemImage}
-            />
+            /> */}
           </figure>
           <div className={styles.itemDetails}>
             <h1>{pickedItem.name}</h1>
