@@ -7,7 +7,6 @@ import { IoLogoInstagram } from "react-icons/io";
 import { FaTiktok } from "react-icons/fa";
 import Navbar from "../components/Navbar.jsx";
 
-
 export default function Introduction({ scrollToSection, about }) {
   const router = useRouter();
 
@@ -16,13 +15,11 @@ export default function Introduction({ scrollToSection, about }) {
       <figure className={styles.imageFig}>
         <Image src={image} className={styles.image} />
       </figure>
-      <Navbar scrollToSection={scrollToSection} about={about}/>
+      <Navbar scrollToSection={scrollToSection} about={about} />2
       <section className={styles.intro}>
         <div className={styles.introWrapper}>
           <div className={styles.introTextWrapper}>
-            <h1
-              className={styles.introText}
-            >
+            <h1 className={styles.introText}>
               Ready To Start Your <span className="blue">Journey</span>?
             </h1>
             <button

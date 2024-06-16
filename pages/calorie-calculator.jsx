@@ -108,13 +108,13 @@ export default function calorieCalculator() {
 
   return (
     <>
-      <section className={styles.calorieCalculator}>
         <IoArrowBack
           className="calorieCalculatorBack"
           onClick={() => {
             router.push("/");
           }}
         />
+      <section className={styles.calorieCalculator}>
         <h1 className={styles.calorieCalculatorTitle}>Calorie Calculator</h1>
         <input
           type="number"

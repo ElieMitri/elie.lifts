@@ -1,0 +1,56 @@
+.itemWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.itemPicWrapper {
+  width: 45%;
+}
+
+.itemDetails {
+  width: 45%;
+}
+
+.itemPara {
+  font-size: 16px;
+  margin-top: 8px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.itemImage {
+  width: 100%;
+  height: auto;
+}
+
+.backBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 34px;
+  margin: 20px;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.backBtn:hover {
+  color: rgb(157, 157, 157);
+}
+
+@media (max-width: 750px) {
+  .itemWrapper {
+    flex-direction: column;
+  }
+  .itemPicWrapper {
+    width: 60%;
+  }
+
+  .itemDetails {
+    width: 60%;
+  }
+}
