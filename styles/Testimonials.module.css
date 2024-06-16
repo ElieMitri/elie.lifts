@@ -67,3 +67,18 @@
 .testimonialButton:hover {
   background-color: rgb(2, 86, 182);
 }
+
+@media (max-width: 750px) {
+    .testimonialsWrapper {
+        height: auto;
+    }
+    .testimonials {
+        flex-direction: column;
+    }
+    .testimonial {
+        width: 300px;
+        height: 600px;
+        border: 1px solid rgb(0, 119, 255);
+        margin: 30px 0;
+      }
+}
