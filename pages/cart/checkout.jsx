@@ -66,7 +66,7 @@ export default function Cart() {
         <div className="checkoutLayout">
           {cartItems?.map((info) => (
             <div className="checkout" key={info.id}>
-              <h1>{info.name}</h1>
+              <h1 className="checkoutName">{info.name}</h1>
               {info.salePrice === null ? (
                 <div>
                   <h5 className="prices">${info.originalPrice}</h5>
@@ -75,7 +75,7 @@ export default function Cart() {
                 <div>
                   <h5 className="prices">
                     <span className="sale__active">${info.originalPrice}</span>
-                    <span>${info.salePrice}</span>
+                    <span className="salePrice">${info.salePrice}</span>
                   </h5>
                 </div>
               )}

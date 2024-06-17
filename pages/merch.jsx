@@ -119,7 +119,7 @@ export default function Merch() {
 
   async function login() {
     if (user) {
-      setOpenedSignup(false)
+      setOpenedSignup(false);
     }
     try {
       await signInWithEmailAndPassword(
@@ -327,7 +327,7 @@ export default function Merch() {
         console.error("Error fetching number of items in cart:", error);
       }
     }
-
+    console.log(numberOfItemsInCart);
     getNumberOfItemsCart();
   }, [userDetails.uid]);
 
@@ -341,19 +341,27 @@ export default function Merch() {
     <div>
       <MdArrowBack onClick={() => router.push("/")} className="back" />
       <div className="header">
-        <IoExitOutline
-          onClick={(auth) => signOut(auth)}
-          className="exitButton"
-        />
-        <IconButton aria-label="cart" onClick={() => router.push("/cart")}>
-          <StyledBadge
-            badgeContent={numberOfItemsInCart}
-            color="secondary"
-            className="number__of--items"
-          >
-            <MdOutlineShoppingCart className="cart" />
-          </StyledBadge>
-        </IconButton>
+        {user ? (
+          <IoExitOutline
+            onClick={(auth) => signOut(auth)}
+            className="exitButton"
+          />
+        ) : (
+          <div></div>
+        )}
+        {user ? (
+          <IconButton aria-label="cart" onClick={() => router.push("/cart")}>
+            <StyledBadge
+              badgeContent={numberOfItemsInCart}
+              color="secondary"
+              className="number__of--items"
+            >
+              <MdOutlineShoppingCart className="cart" />
+            </StyledBadge>
+          </IconButton>
+        ) : (
+          <div></div>
+        )}
       </div>
       <div className="cards">
         {data.map((info) => (

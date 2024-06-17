@@ -16,6 +16,7 @@ export default function Cart() {
   const [user, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [cart, setCart] = useState([]);
+  const [filteredCartItems, setFilteredCartItems] = useState([]);
 
   // Listen for authentication state changes
   useEffect(() => {
@@ -32,50 +33,52 @@ export default function Cart() {
   }, []);
 
   // Fetch cart items when user is set
-  useEffect(() => {
-    if (user) {
-      const fetchCartItems = async () => {
-        try {
-          const cartRef = doc(collection(db, "carts"), user.uid);
-          const cartDoc = await getDoc(cartRef);
+  useEffect(
+    (itemId) => {
+      if (user) {
+        const fetchCartItems = async () => {
+          try {
+            const cartRef = doc(collection(db, "carts"), user.uid);
+            const cartDoc = await getDoc(cartRef);
 
-          if (cartDoc.exists()) {
-            setCartItems(cartDoc.data().items);
+            if (cartDoc.exists()) {
+              setCartItems(cartDoc.data().items);
+            }
+          } catch (error) {
+            console.error("Error fetching cart items: ", error);
           }
-        } catch (error) {
-          console.error("Error fetching cart items: ", error);
-        }
-      };
+        };
 
-      fetchCartItems();
-      console.log(user.uid);
+        fetchCartItems();
+
+        console.log(user.uid);
+        console.log(cartItems);
+        const updatedCart = cartItems.filter((item) => item.id === itemId);
+        console.log(updatedCart);
+      }
+    },
+    [user]
+  ); // Dependency array includes `user`
+
+  useEffect(() => {
+    if (cartItems.length > 0) {
+      const itemCounts = cartItems.reduce((acc, item) => {
+        if (acc[item.id]) {
+          acc[item.id].count += 1;
+        } else {
+          acc[item.id] = { ...item, count: 1 };
+        }
+        return acc;
+      }, {});
+
+      // Convert the itemCounts object to an array
+      setFilteredCartItems(Object.values(itemCounts));
     }
-  }, [user]); // Dependency array includes `user`
+  }, [cartItems]);
 
   // async function deleteItem() {
   //   const newCart = [cartItems, deletedItem]
   //   console.log(newCart)
-  // }
-
-  // async function deleteFromCart(itemId) {
-  //   if (!user) return;
-
-  //   try {
-  //     const cartRef = doc(db, 'carts', user.uid);
-  //     const cartDoc = await getDoc(cartRef);
-
-  //     if (cartDoc.exists()) {
-  //       const currentCart = cartDoc.data().items || [];
-  //       const updatedCart = currentCart.filter(item => item.id !== itemId);
-
-  //       await updateDoc(cartRef, { items: updatedCart });
-  //       setCart(updatedCart); // Update the local state
-  //     } else {
-  //       console.log('No such cart document!');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error deleting item:', error);
-  //   }
   // }
 
   return (
@@ -86,7 +89,7 @@ export default function Cart() {
         onClick={() => router.push("/cart/checkout")}
       />
       <div className="cards">
-        {cartItems?.map((info) => (
+        {filteredCartItems?.map((info) => (
           <div className="card" key={info.id}>
             <div className="image__wrapper">
               <Image
@@ -99,6 +102,7 @@ export default function Cart() {
               />
             </div>
             <h1>{info.name}</h1>
+            <p>Quantity: {info.count}</p>
             {info.salePrice === null ? (
               <div>
                 <h5 className="prices">${info.originalPrice}</h5>
@@ -113,7 +117,7 @@ export default function Cart() {
             )}
             <IoTrash
               className="trash"
-              //  onClick={() => deleteFromCart}
+              // onClick={() => deleteFromCart(info.id)}
             />
           </div>
         ))}
