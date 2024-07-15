@@ -32,6 +32,15 @@ export default function Cart() {
     return () => unsubscribe();
   }, []);
 
+  function deleteFromCart(itemId) {
+    console.log(itemId);
+    filteredCartItems.map((cartItems) => {
+      if (cartItems.id === itemId) {
+        console.log(cartItems);
+      }
+    });
+  }
+
   // Fetch cart items when user is set
   useEffect(
     (itemId) => {
@@ -117,7 +126,7 @@ export default function Cart() {
             )}
             <IoTrash
               className="trash"
-              // onClick={() => deleteFromCart(info.id)}
+              onClick={() => deleteFromCart(info.id)}
             />
           </div>
         ))}
