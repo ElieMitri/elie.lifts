@@ -80,8 +80,8 @@ export default function booking() {
           <div className={styles.calendlyWrapper}>
             <div className={styles.calendlyTextWrapper}>
               <h1 className={styles.calendlyText}>
-                Book your <span className="blue">meeting</span> to explain your{" "}
-                <span className="blue">goals</span>
+                Book your <span className="blue">meeting</span> to precise your{" "}
+                <span className="blue">goals.</span>
               </h1>
               <input
                 type="submit"

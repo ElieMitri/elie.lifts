@@ -40,6 +40,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <button className={styles.calenderButton} onClick={() => {
+        router.push("/testimonials/booking")
+      }}>Book Now!</button>
     </div>
   );
 }

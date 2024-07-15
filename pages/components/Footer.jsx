@@ -43,13 +43,11 @@ export default function Introduction({ scrollToSection, about}) {
           </div>
           <div className={styles.footerHours}>
             <h1 className={styles.footerHoursTitle}>Hours</h1>
-            <div className={styles.footerHour}>MON 5:00PM-11:00PM</div>
-            <div className={styles.footerHour}>TUES 5:00PM-11:00PM</div>
-            <div className={styles.footerHour}>WED 5:00PM-11:00PM</div>
-            <div className={styles.footerHour}>THURS 5:00PM-11:00PM</div>
-            <div className={styles.footerHour}>FRI 5:00PM-11:00PM</div>
-            <div className={styles.footerHour}>SAT 5:00PM-11:00PM</div>
-            <div className={styles.footerHour}>SUN 5:00PM-11:00PM</div>
+            <div className={styles.footerHour}>MON 5:00PM-8:00PM</div>
+            <div className={styles.footerHour}>TUES 5:00PM-8:00PM</div>
+            <div className={styles.footerHour}>WED 5:00PM-8:00PM</div>
+            <div className={styles.footerHour}>THURS 5:00PM-8:00PM</div>
+            <div className={styles.footerHour}>FRI 5:00PM-8:00PM</div>
           </div>
           <div className={styles.footerNavigation}>
             <h1>Naviagtion</h1>
