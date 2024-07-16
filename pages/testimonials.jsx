@@ -22,7 +22,7 @@ export default function Home() {
             <div className={styles.testimonialDetail}>test</div>
           </div>
           <div className={styles.testimonialButtonWrapper}>
-            <button className={styles.testimonialButton}>Buy now!</button>
+            <button className={styles.testimonialButton} onClick={() => router.push("https://buy.stripe.com/test_eVa4gven45Su3rqcMM")}>Buy now!</button>
           </div>
         </div>
         <div className={styles.testimonial}>
@@ -36,7 +36,7 @@ export default function Home() {
             <div className={styles.testimonialDetail}>test</div>
           </div>
           <div className={styles.testimonialButtonWrapper}>
-            <button className={styles.testimonialButton}>Buy now!</button>
+            <button className={styles.testimonialButton} onClick={() => router.push("https://buy.stripe.com/test_14k28nen4gx8gec7st")}>Buy now!</button>
           </div>
         </div>
       </div>
