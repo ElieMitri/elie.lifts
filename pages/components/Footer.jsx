@@ -100,8 +100,8 @@ export default function Introduction({ scrollToSection, about }) {
               Contact
             </button>
             <button
-              onClick={() => router.push("/merch")}
-              className={styles.navLink}
+              // onClick={() => router.push("/merch")}
+              className={styles.navLinkDisabled}
             >
               Merch
             </button>

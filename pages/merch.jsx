@@ -338,23 +338,23 @@ export default function Merch() {
   }
 
   return (
-    <div>
-      <MdArrowBack onClick={() => router.push("/")} className="back" />
-      <div className="header">
-        {user ? (
-          <IoExitOutline
-            onClick={(auth) => signOut(auth)}
-            className="exitButton"
-          />
-        ) : (
-          <div></div>
-        )}
+    <div className="container">
+      <div className="cartWrapper">
+        <button onClick={() => router.push("/")} className="backButton">
+          <MdArrowBack size={24} />
+        </button>
+
         {user ? (
           <IconButton aria-label="cart" onClick={() => router.push("/cart")}>
             <StyledBadge
               badgeContent={numberOfItemsInCart}
-              color="secondary"
               className="number__of--items"
+              sx={{
+                "& .MuiBadge-badge": {
+                  backgroundColor: "red",
+                  color: "white",
+                },
+              }}
             >
               <MdOutlineShoppingCart className="cart" />
             </StyledBadge>
@@ -363,6 +363,16 @@ export default function Merch() {
           <div></div>
         )}
       </div>
+      {/* <div className="header"> */}
+      {user ? (
+        <IoExitOutline
+          onClick={(auth) => signOut(auth)}
+          className="exitButton"
+        />
+      ) : (
+        <div></div>
+      )}
+      {/* </div> */}
       <div className="cards">
         {data.map((info) => (
           <div className="card" key={info.id}>
