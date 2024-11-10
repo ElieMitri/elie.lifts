@@ -26,7 +26,7 @@ export default function Introduction({ scrollToSection, about }) {
               onClick={() => {
                 router.push("/testimonials");
               }}
-              className={styles.introGetStartedButton}
+              className={styles.knowMoreButton}
             >
               Get Started
             </button>

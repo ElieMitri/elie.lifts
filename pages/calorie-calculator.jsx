@@ -1,7 +1,7 @@
 import styles from "../styles/Calorie-calculator.module.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { IoArrowBack } from "react-icons/io5";
+import { MdArrowBack } from "react-icons/md";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -102,18 +102,11 @@ export default function calorieCalculator() {
     console.log(gender);
   }
 
-  useEffect(() => {
-    console.log(weight);
-  }, []);
-
   return (
-    <>
-        <IoArrowBack
-          className="calorieCalculatorBack"
-          onClick={() => {
-            router.push("/");
-          }}
-        />
+    <div className={styles.container}>
+      <button onClick={() => router.push("/")} className={styles.backButton}>
+        <MdArrowBack size={24} />
+      </button>
       <section className={styles.calorieCalculator}>
         <h1 className={styles.calorieCalculatorTitle}>Calorie Calculator</h1>
         <input
@@ -176,6 +169,6 @@ export default function calorieCalculator() {
           <h1 className={styles.error}>{pushError}</h1>
         )}
       </section>
-    </>
+    </div>
   );
 }

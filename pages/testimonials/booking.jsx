@@ -67,16 +67,19 @@ export default function booking() {
           <div className={styles.modalOpen} onClick={() => setModalOpen(false)}>
             <CalendlyWidget />
           </div>
-          <div className={styles.backdropOpen} onClick={() => setModalOpen(false)}></div>
+          <div
+            className={styles.backdropOpen}
+            onClick={() => setModalOpen(false)}
+          ></div>
         </div>
       ) : (
-        <div>
-          <IoArrowBack
-            className="calorieCalculatorBack"
-            onClick={() => {
-              router.push("/testimonials");
-            }}
-          />
+        <div className={styles.container}>
+          <button
+            onClick={() => router.push("/")}
+            className={styles.backButton}
+          >
+            <MdArrowBack size={24} />
+          </button>
           <div className={styles.calendlyWrapper}>
             <div className={styles.calendlyTextWrapper}>
               <h1 className={styles.calendlyText}>

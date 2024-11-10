@@ -1,4 +1,4 @@
-import { IoArrowBack } from "react-icons/io5";
+import { MdArrowBack } from "react-icons/md";
 import { useRouter } from "next/router";
 import styles from "../styles/Contact.module.css";
 import React, { useRef } from "react";
@@ -30,13 +30,13 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <IoArrowBack
-        className="calorieCalculatorBack"
-        onClick={() => {
-          router.push("/");
-        }}
-      />
+    <div className={styles.container}>
+    <button 
+      onClick={() => router.push("/")}
+      className={styles.backButton}
+    >
+      <MdArrowBack size={24} />
+    </button>
       <div className={styles.formWrapper}>
         <h1 className={styles.formTitle}>Contact</h1>
         <form ref={form} onSubmit={sendEmail} className={styles.form}>

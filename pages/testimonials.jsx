@@ -2,47 +2,92 @@ import { IoArrowBack } from "react-icons/io5";
 import { useRouter } from "next/router";
 import styles from "../styles/Testimonials.module.css";
 import React, { useRef } from "react";
-import { MdArrowBack } from "react-icons/md";
+import { MdArrowBack, MdCheck } from "react-icons/md";
 
-export default function Home() {
-  const router = useRouter();
+export default function Testimonials() {
+  const router = useRouter()
+
+ const basicFeatures = [
+    // "1 Hour Session",
+    "Customized Workout Plan ",
+    "Diet Recommendations",
+    "Email Support",
+    "Progress Tracking",
+    "1 Month Follow-up"
+  ];
+
+  const premiumFeatures = [
+    // "2 Hour Initial Session",
+    "Customized Workout Plan",
+    "Personalized Meal Plans",
+    "24/7 WhatsApp Support",
+    "Advanced Progress Tracking",
+    "3 Months Follow-up"
+  ];
 
   return (
-    <div className={styles.testimonialsWrapper}>
-      <MdArrowBack onClick={() => router.push("/")} className="back" />
-      <div className={styles.testimonials}>
-        <div className={styles.testimonial}>
-          <div className={styles.testimonialPrice}>49.99$</div>
-          <div className={styles.testimonialDetails}>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
+    <div className={styles.container}>
+      <button 
+        onClick={() => router.push("/")}
+        className={styles.backButton}
+      >
+        <MdArrowBack size={24} />
+      </button>
+
+      <div className={styles.grid}>
+        {/* Basic Plan */}
+        <div className={styles.card}>
+          <div className={styles.planTitle}>Basic Plan</div>
+          <div className={styles.price}>$20</div>
+          <div className={styles.duration}>per month</div>
+          <div className={styles.featuresList}>
+            {basicFeatures.map((feature, i) => (
+              <div key={i} className={styles.feature}>
+                <MdCheck className={styles.checkIcon} />
+                {feature}
+              </div>
+            ))}
           </div>
-          <div className={styles.testimonialButtonWrapper}>
-            <button className={styles.testimonialButton} onClick={() => router.push("https://buy.stripe.com/test_eVa4gven45Su3rqcMM")}>Buy now!</button>
-          </div>
+          <button 
+            onClick={() => router.push("https://buy.stripe.com/test_3cs5kzfr8ft49POfZ0")}
+            className={styles.button}
+          >
+            Get Started
+          </button>
         </div>
-        <div className={styles.testimonial}>
-          <div className={styles.testimonialPrice}>99.99$</div>
-          <div className={styles.testimonialDetails}>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
-            <div className={styles.testimonialDetail}>test</div>
+
+        {/* Premium Plan */}
+        <div className={`${styles.card} ${styles.premium}`}>
+          <div className={styles.popularBadge}>Most Popular</div>
+          <div className={styles.planTitle}>Premium Plan</div>
+          <div className={styles.price}>$30</div>
+          <div className={styles.duration}>per month</div>
+          <div className={styles.featuresList}>
+            {premiumFeatures.map((feature, i) => (
+              <div key={i} className={styles.feature}>
+                <MdCheck className={styles.checkIcon} />
+                {feature}
+              </div>
+            ))}
           </div>
-          <div className={styles.testimonialButtonWrapper}>
-            <button className={styles.testimonialButton} onClick={() => router.push("https://buy.stripe.com/test_14k28nen4gx8gec7st")}>Buy now!</button>
-          </div>
+          <button 
+            onClick={() => router.push("https://buy.stripe.com/test_dR6cN13Iq1Cee646or")}
+            className={`${styles.button} ${styles.premiumButton}`}
+          >
+            Get Premium
+          </button>
         </div>
       </div>
-      <button className={styles.calenderButton} onClick={() => {
-        router.push("/testimonials/booking")
-      }}>Book Now!</button>
+
+      <div className={styles.bookingWrapper}>
+        <p className={styles.bookingText}>Not sure which plan to choose?</p>
+        <button 
+          onClick={() => router.push("/testimonials/booking")}
+          className={styles.bookingButton}
+        >
+          Schedule a Free Consultation
+        </button>
+      </div>
     </div>
   );
 }

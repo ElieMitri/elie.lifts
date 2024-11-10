@@ -1,4 +1,4 @@
-.calorieCalculator {
+/* .calorieCalculator {
   display: flex;
   flex-direction: column;
   margin: 20px 30px;
@@ -71,4 +71,226 @@
   .calorieCalculatorTitle {
     font-size: 28px;
   }
+} */
+
+.calorieCalculator {
+  min-height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  color: #ffffff;
+}
+
+.calorieCalculatorTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.calorieCalculatorInput,
+.calorieCalculatorAge {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #333333;
+  border-radius: 0.5rem;
+  background-color: rgb(31, 41, 55);
+  color: #ffffff;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.calorieCalculatorInput:focus,
+.calorieCalculatorAge:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Placeholder styling */
+.calorieCalculatorInput::placeholder,
+.calorieCalculatorAge::placeholder {
+  color: #666666;
+}
+
+/* Remove number input arrows */
+.calorieCalculatorInput[type="number"],
+.calorieCalculatorAge[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.calorieCalculatorInput[type="number"]::-webkit-outer-spin-button,
+.calorieCalculatorInput[type="number"]::-webkit-inner-spin-button,
+.calorieCalculatorAge[type="number"]::-webkit-outer-spin-button,
+.calorieCalculatorAge[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.activity-level-select {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #333333;
+  border-radius: 0.5rem;
+  background: #111111;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.activity-level-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.activity-level-select option {
+  padding: 1rem;
+  background: #111111;
+  color: #ffffff;
+}
+
+.calorieCalculatorButton {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  background: #3b82f6;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.calorieCalculatorButton:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+}
+
+.calorieCalculatorResults {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: #111111;
+  border: 2px solid #333333;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.calorieCalculatorResult {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.calorieCalculatorResult .blue {
+  color: #3b82f6;
+  margin-right: 0.5rem;
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.error {
+  color: #f87171;
+  font-size: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.calorieCalculatorBack {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  font-size: 2rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.calorieCalculatorBack:hover {
+  color: #3b82f6;
+  transform: translateX(-3px);
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .calorieCalculator {
+    padding: 4rem 1rem;
+  }
+
+  .calorieCalculatorTitle {
+    font-size: 2rem;
+  }
+
+  .calorieCalculatorResult {
+    font-size: 1.75rem;
+  }
+
+  .calorieCalculatorBack {
+    top: 1rem;
+    left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calorieCalculatorTitle {
+    font-size: 1.75rem;
+  }
+
+  .calorieCalculatorInput,
+  .calorieCalculatorAge,
+  .activity-level-select {
+    padding: 0.875rem;
+    font-size: 0.875rem;
+  }
+
+  .calorieCalculatorResult {
+    font-size: 1.5rem;
+  }
+}
+
+.container {
+  min-height: 100vh;
+  background-color: rgb(17, 24, 39);
+  padding: 2rem;
+}
+
+.backButton {
+  color: rgb(96, 165, 250);
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(17, 24, 39);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  color: rgb(147, 197, 253);
+  background-color: rgba(96, 165, 250, 0.1);
 }

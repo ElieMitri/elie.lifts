@@ -1,4 +1,5 @@
-import styles from "../../styles/Intro.module.css";
+// import styles from "../../styles/Intro.module.css";
+import styles from "../../styles/Nav.module.css";
 import Image from "next/image";
 import Logo from "../../src/assets/elie.lifts.png";
 import { useRouter } from "next/router";
@@ -28,7 +29,7 @@ export default function Navbar({ scrollToSection, about }) {
             onClick={() => setClicked(true)}
           />
         </ul>
-        <ul className={styles.navLinks}>
+        <ul className={styles.navLinks} data-visible={clicked}>
           <li className={styles.navLink} onClick={() => scrollToSection(about)}>
             About
           </li>
@@ -131,7 +132,7 @@ export default function Navbar({ scrollToSection, about }) {
                 </li>
                 <div className={styles.socialMedia}>
                   <a
-                    className={styles.instaLogoModal}
+                    className={styles.instaLogo}
                     onClick={() => {
                       router.push("https://www.instagram.com/elie.lifts/");
                     }}
@@ -139,7 +140,7 @@ export default function Navbar({ scrollToSection, about }) {
                     <IoLogoInstagram />
                   </a>
                   <a
-                    className={styles.tiktokLogoModal}
+                    className={styles.tiktokLogo}
                     onClick={() => {
                       router.push(
                         "https://www.tiktok.com/@elie.liftss?_t=8iaZqE9oaZt&_r=1"

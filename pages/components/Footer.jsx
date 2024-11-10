@@ -6,69 +6,120 @@ import { IoLogoInstagram } from "react-icons/io";
 import { FaTiktok } from "react-icons/fa";
 import Navbar from "../components/Navbar.jsx";
 
-export default function Introduction({ scrollToSection, about}) {
+export default function Introduction({ scrollToSection, about }) {
   const router = useRouter();
 
   return (
-    <>
-      <footer className={styles.footer}>
-        <div className={styles.footerContentWrapper}>
-          <div className={styles.footerSocials}>
-            <h1 className={styles.footerSocialsTitle}>
-              ELIE MITRI PERSONAL COACHING
-            </h1>
-            <div className={styles.footerSocialsEmail}>
+    <footer className={styles.footer}>
+      <div className={styles.footerGradient} />
+      <div className={styles.footerContent}>
+        {/* Brand Section */}
+        <div className={styles.brandSection}>
+          <h1 className={styles.brandTitle}>
+            ELIE MITRI
+            <span className={styles.brandSubtitle}>PERSONAL COACHING</span>
+          </h1>
+          <p className={styles.brandDescription}>
+            Transforming lives through personalized fitness coaching and
+            dedicated mentorship.
+          </p>
+          <div className={styles.contactInfo}>
+            <a href="mailto:eliegmitri7@gmail.com" className={styles.emailLink}>
               eliegmitri7@gmail.com
-            </div>
-            <div className={styles.socialMedia}>
-              <a
-                className={styles.instaLogoModal}
-                onClick={() => {
-                  router.push("https://www.instagram.com/elie.lifts/");
-                }}
+            </a>
+            <div className={styles.socialLinks}>
+              <button
+                className={styles.socialButton}
+                onClick={() =>
+                  router.push("https://www.instagram.com/elie.lifts/")
+                }
+                aria-label="Instagram"
               >
                 <IoLogoInstagram />
-              </a>
-              <a
-                className={styles.tiktokLogoModal}
-                onClick={() => {
-                  router.push(
-                    "https://www.tiktok.com/@elie.liftss?_t=8iaZqE9oaZt&_r=1"
-                  );
-                }}
+              </button>
+              <button
+                className={styles.socialButton}
+                onClick={() =>
+                  router.push("https://www.tiktok.com/@elie.liftss")
+                }
+                aria-label="TikTok"
               >
                 <FaTiktok />
-              </a>
+              </button>
             </div>
           </div>
-          <div className={styles.footerHours}>
-            <h1 className={styles.footerHoursTitle}>Hours</h1>
-            <div className={styles.footerHour}>MON 5:00PM-8:00PM</div>
-            <div className={styles.footerHour}>TUES 5:00PM-8:00PM</div>
-            <div className={styles.footerHour}>WED 5:00PM-8:00PM</div>
-            <div className={styles.footerHour}>THURS 5:00PM-8:00PM</div>
-            <div className={styles.footerHour}>FRI 5:00PM-8:00PM</div>
-          </div>
-          <div className={styles.footerNavigation}>
-            <h1>Naviagtion</h1>
-            <ul className={styles.footerLinks}>
-              <li className={styles.footerLink} onClick={() => scrollToSection(about)}>About Me</li>
-              <li className={styles.footerLink}onClick={() => {
-                router.push("/calorie-calculator");
-              }}>Calorie Calculator</li>
-              <li className={styles.footerLink} onClick={() => {
-                router.push("/contact");
-              }}>Contact</li>
-              <li className={styles.footerLink} onClick={() => {
-                router.push("/merch");
-              }}>Merch</li>
-              <li className={styles.footerLink} onClick={() => {
-                router.push("/testimonials");
-              }}>Testimonials</li>
-            </ul>
+        </div>
+
+        {/* Hours Section */}
+        <div className={styles.hoursSection}>
+          <h2 className={styles.sectionTitle}>Training Hours</h2>
+          <div className={styles.hoursGrid}>
+            <div className={styles.hourRow}>
+              <span className={styles.dayLabel}>MON</span>
+              <span className={styles.timeRange}>5:00PM-8:00PM</span>
+            </div>
+            <div className={styles.hourRow}>
+              <span className={styles.dayLabel}>TUES</span>
+              <span className={styles.timeRange}>5:00PM-8:00PM</span>
+            </div>
+            <div className={styles.hourRow}>
+              <span className={styles.dayLabel}>WED</span>
+              <span className={styles.timeRange}>5:00PM-8:00PM</span>
+            </div>
+            <div className={styles.hourRow}>
+              <span className={styles.dayLabel}>THURS</span>
+              <span className={styles.timeRange}>5:00PM-8:00PM</span>
+            </div>
+            <div className={styles.hourRow}>
+              <span className={styles.dayLabel}>FRI</span>
+              <span className={styles.timeRange}>5:00PM-8:00PM</span>
+            </div>
           </div>
         </div>
-      </footer>
-    </>
+
+        {/* Navigation Section */}
+        <div className={styles.navSection}>
+          <h2 className={styles.sectionTitle}>Quick Links</h2>
+          <nav className={styles.navGrid}>
+            <button
+              onClick={() => scrollToSection(about)}
+              className={styles.navLink}
+            >
+              About Me
+            </button>
+            <button
+              onClick={() => router.push("/calorie-calculator")}
+              className={styles.navLink}
+            >
+              Calorie Calculator
+            </button>
+            <button
+              onClick={() => router.push("/contact")}
+              className={styles.navLink}
+            >
+              Contact
+            </button>
+            <button
+              onClick={() => router.push("/merch")}
+              className={styles.navLink}
+            >
+              Merch
+            </button>
+            <button
+              onClick={() => router.push("/testimonials")}
+              className={styles.navLink}
+            >
+              Testimonials
+            </button>
+          </nav>
+        </div>
+      </div>
+      <div className={styles.footerBottom}>
+        <div className={styles.footerCopy}>
+          © {new Date().getFullYear()} Elie Mitri Personal Coaching. All rights
+          reserved.
+        </div>
+      </div>
+    </footer>
   );
 }

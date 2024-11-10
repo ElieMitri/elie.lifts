@@ -1,5 +1,5 @@
 .formWrapper {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,43 +13,86 @@
   flex-direction: column;
 }
 
-.formInput {
-  width: 250px;
-  height: 40px;
-  background-color: white;
-  outline: none;
-  border-radius: 18px;
-  padding: 15px;
+.container {
+  min-height: 100vh;
+  background-color: rgb(17, 24, 39);
+  padding: 2rem;
+}
+
+.backButton {
+  color: rgb(96, 165, 250);
+  padding: 0.5rem;
+  border-radius: 50%;
   border: none;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  background-color: rgb(17, 24, 39);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  color: rgb(147, 197, 253);
+  background-color: rgba(96, 165, 250, 0.1);
+}
+
+.formInput {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #333333;
+  border-radius: 0.5rem;
+  background-color: rgb(31, 41, 55);
+  color: white;
+  transition: all 0.3s ease;
+  outline: none;
+  margin: 10px 0;
+}
+
+.formInput:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .formMessage {
   width: 250px;
   height: 140px;
-  background-color: white;
+  /* width: 100%; */
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #333333;
+  border-radius: 0.5rem;
+  background-color: rgb(31, 41, 55);
+  color: white;
+  transition: all 0.3s ease;
   outline: none;
-  border-radius: 18px;
-  padding: 15px;
-  border: none;
-  margin-top: 10px;
-  margin-bottom: 10px;
   resize: none;
+  margin: 10px 0;
+}
+
+.formMessage:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .formButton {
-  width: 140px;
-  height: 40px;
-  background-color: rgb(0, 119, 255);
+  margin: 2rem auto;
+  /* display: block; */
+  padding: 0.8rem 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: white;
-  outline: none;
-  border-radius: 20px;
+  background-color: #3b82f6;
   border: none;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: 300ms all ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formButton:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
 }
 
 .formTitle {

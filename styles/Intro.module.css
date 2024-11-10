@@ -223,3 +223,24 @@ Nav
     margin-left: 20px;
   }
 }
+
+.knowMoreButton {
+  margin: 2rem auto;
+  /* display: block; */
+  padding: 0.8rem 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.knowMoreButton:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+}

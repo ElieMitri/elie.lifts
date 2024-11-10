@@ -1,7 +1,7 @@
 .calendlyWrapper {
   display: flex;
   flex-direction: row;
-  height: 100vh;
+  /* height: 100vh; */
   align-items: center;
   justify-content: center;
 }
@@ -36,6 +36,28 @@
   background-color: rgb(2, 86, 182);
 }
 
+.calenderButton {
+  margin: 2rem auto;
+  /* display: block; */
+  padding: 0.8rem 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+}
+
+.calenderButton:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+}
+
 .backdropOpen {
   position: fixed;
   z-index: 1;
@@ -60,6 +82,7 @@
   justify-content: center;
   height: 100vh;
   transition: 300ms all ease;
+  background-color: rgb(17, 24, 39);
 }
 
 @media (max-width: 720px) {
@@ -88,4 +111,26 @@
     width: 50%;
     height: auto;
   }
+}
+
+.container {
+  min-height: 100vh;
+  background-color: rgb(17, 24, 39);
+  padding: 2rem;
+}
+
+.backButton {
+  color: rgb(96, 165, 250);
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(17, 24, 39);
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  color: rgb(147, 197, 253);
+  background-color: rgba(96, 165, 250, 0.1);
 }
