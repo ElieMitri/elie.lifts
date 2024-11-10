@@ -13,7 +13,9 @@
 
 .aboutPara {
   font-size: 18px;
+  font-weight: 100;
   width: 60%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .aboutPicWrapper {
@@ -33,6 +35,31 @@
   justify-content: center;
 }
 
+.importantWords {
+  color: rgb(0, 119, 255);
+  font-weight: bold;
+}
+
+.knowMoreButton {
+  padding: 15px 40px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  border: none;
+  background-color: rgb(0, 119, 255);
+  color: white;
+  cursor: pointer;
+  transition: 300ms ease all;
+}
+
+.knowMoreButton:hover {
+  background-color: rgb(2, 86, 182);
+}
+
+.modalAbout {
+  color: black;
+}
+
 @media (max-width: 920px) {
   .about {
     margin: 30px;
@@ -49,4 +76,3 @@
     width: 90%;
   }
 }
-

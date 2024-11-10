@@ -19,8 +19,8 @@ export default function Home() {
     <>
       <Introduction scrollToSection={scrollToSection} about={about}/>
       <About about={about}/>
-      <Rating />
-      <Quote /> 
+      {/* <Rating /> */}
+      {/* <Quote />  */}
       <Footer scrollToSection={scrollToSection} about={about}/>
     </>
   )
