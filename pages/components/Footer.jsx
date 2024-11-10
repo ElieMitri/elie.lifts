@@ -99,12 +99,12 @@ export default function Introduction({ scrollToSection, about }) {
             >
               Contact
             </button>
-            <button
-              // onClick={() => router.push("/merch")}
+            {/* <button
+              onClick={() => router.push("/merch")}
               className={styles.navLinkDisabled}
             >
               Merch
-            </button>
+            </button> */}
             <button
               onClick={() => router.push("/testimonials")}
               className={styles.navLink}

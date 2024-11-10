@@ -1,27 +1,38 @@
-import About from "./components/About"
-import Introduction from "./components/Introduction"
-import Quote from "./components/Quote"
-import Footer from "./components/Footer"
-import Rating from "./components/Rating"
-import { useRef } from "react"
+import About from "./components/About";
+import Introduction from "./components/Introduction";
+import Quote from "./components/Quote";
+import Footer from "./components/Footer";
+import Rating from "./components/Rating";
+import { useRef } from "react";
+import { FaWhatsapp } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 export default function Home() {
-  const about = useRef(null)
+  const about = useRef(null);
+  const router = useRouter();
 
   const scrollToSection = (elementRef) => {
     window.scrollTo({
       top: elementRef.current.offsetTop,
       behavior: "smooth",
-    })
-  }
+    });
+  };
 
   return (
-    <>
-      <Introduction scrollToSection={scrollToSection} about={about}/>
-      <About about={about}/>
+    <div>
+      <Introduction scrollToSection={scrollToSection} about={about} />
+      <About about={about} />
       {/* <Rating /> */}
       {/* <Quote />  */}
-      <Footer scrollToSection={scrollToSection} about={about}/>
-    </>
-  )
+      <Footer scrollToSection={scrollToSection} about={about} />
+      <a className="chatWrapper" href="https://wa.me/81107752" target="_blank">
+        <FaWhatsapp
+          className="chat"
+          // onClick={() => {
+          //   router.push("/chat");
+          // }}
+        />
+      </a>
+    </div>
+  );
 }
