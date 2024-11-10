@@ -108,6 +108,7 @@ body::-webkit-scrollbar-track {
   justify-content: center;
   height: 100vh;
   transition: 300ms all ease;
+  background-color: rgb(17, 24, 39);
 }
 
 .modalOpenMerch {

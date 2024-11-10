@@ -3,17 +3,18 @@ import { useRouter } from "next/router";
 import styles from "../styles/Testimonials.module.css";
 import React, { useRef } from "react";
 import { MdArrowBack, MdCheck } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
 
 export default function Testimonials() {
-  const router = useRouter()
+  const router = useRouter();
 
- const basicFeatures = [
+  const basicFeatures = [
     // "1 Hour Session",
     "Customized Workout Plan ",
     "Diet Recommendations",
     "Email Support",
     "Progress Tracking",
-    "1 Month Follow-up"
+    "1 Month Follow-up",
   ];
 
   const premiumFeatures = [
@@ -22,7 +23,7 @@ export default function Testimonials() {
     "Personalized Meal Plans",
     "24/7 WhatsApp Support",
     "Advanced Progress Tracking",
-    "3 Months Follow-up"
+    "3 Months Follow-up",
   ];
 
   return (
@@ -48,12 +49,12 @@ export default function Testimonials() {
               </div>
             ))}
           </div>
-          <button 
+          {/* <button 
             onClick={() => router.push("https://buy.stripe.com/test_3cs5kzfr8ft49POfZ0")}
             className={styles.button}
           >
             Get Started
-          </button>
+          </button> */}
         </div>
 
         {/* Premium Plan */}
@@ -70,24 +71,24 @@ export default function Testimonials() {
               </div>
             ))}
           </div>
-          <button 
+          {/* <button 
             onClick={() => router.push("https://buy.stripe.com/test_dR6cN13Iq1Cee646or")}
             className={`${styles.button} ${styles.premiumButton}`}
           >
             Get Premium
-          </button>
+          </button> */}
         </div>
       </div>
 
       <div className={styles.bookingWrapper}>
-        <p className={styles.bookingText}>Not sure which plan to choose?</p>
-        <button 
-          onClick={() => router.push("/testimonials/booking")}
+        <p className={styles.bookingText}>Want further information?</p>
+        <a 
+          href="https://wa.me/81107752" target="_blank"
           className={styles.bookingButton}
         >
-          Schedule a Free Consultation
-        </button>
+          Text Me
+        </a>
       </div>
     </div>
-  );
+  )
 }
