@@ -15,7 +15,7 @@ export default function Introduction({ scrollToSection, about }) {
       <figure className={styles.imageFig}>
         <Image src={image} className={styles.image} />
       </figure>
-      <Navbar scrollToSection={scrollToSection} about={about} />2
+      <Navbar scrollToSection={scrollToSection} about={about} />
       <section className={styles.intro}>
         <div className={styles.introWrapper}>
           <div className={styles.introTextWrapper}>

@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Transformation from "./components/Transformation";
+import Journey from "./components/Journey";
 
 export default function Home() {
   const about = useRef(null);
@@ -24,6 +25,7 @@ export default function Home() {
       <Introduction scrollToSection={scrollToSection} about={about} />
       <About about={about} />
       <Transformation />
+      <Journey />
       {/* <Rating /> */}
       {/* <Quote />  */}
       <Footer scrollToSection={scrollToSection} about={about} />

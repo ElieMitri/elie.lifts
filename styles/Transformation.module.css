@@ -114,6 +114,10 @@
   color: #326ac4;
 }
 
+.line {
+  display: none;
+}
+
 @media (max-width: 770px) {
   .aboutTextWrapper1,
   .aboutTextWrapper2 {
@@ -134,5 +138,17 @@
 
   .arrowWrapper {
     margin: 10px 0;
+  }
+
+  .aboutTextsWrapper {
+    flex-direction: column;
+  }
+
+  .line {
+    display: block;
+    width: 300px;
+    height: 3px;
+    background-color: #3b82f6;
+    margin: 20px 0;
   }
 }

@@ -24,9 +24,7 @@ export default function Transformation() {
               <div className={styles.aboutPicWrapper}>
                 <Image src={image} className={styles.aboutPic}></Image>
               </div>
-              <p className={styles.aboutPara}>
-                {/* <span className={styles.importantWords}>powerlifting</span> */}
-              </p>
+              <p className={styles.aboutPara}></p>
             </div>
             <div className={styles.arrowWrapper}>
               <h1 className={styles.year}>1 year later</h1>
@@ -37,19 +35,16 @@ export default function Transformation() {
               <div className={styles.aboutPicWrapper}>
                 <Image src={image3} className={styles.aboutPic}></Image>
               </div>
-              <p className={styles.aboutPara}>
-                {/* <span className={styles.importantWords}>powerlifting</span> */}
-              </p>
+              <p className={styles.aboutPara}></p>
             </div>
           </div>
+          <div className={styles.line}></div>
           <div className={styles.aboutTextWrapper2}>
             <div className={styles.aboutTextWrapper}>
               <div className={styles.aboutPicWrapper}>
                 <Image src={image2} className={styles.aboutPic}></Image>
               </div>
-              <p className={styles.aboutPara}>
-                {/* <span className={styles.importantWords}>powerlifting</span> */}
-              </p>
+              <p className={styles.aboutPara}></p>
             </div>
             <div className={styles.arrowWrapper}>
               <h1 className={styles.year}>1 year later</h1>
@@ -60,9 +55,7 @@ export default function Transformation() {
               <div className={styles.aboutPicWrapper}>
                 <Image src={image4} className={styles.aboutPic}></Image>
               </div>
-              <p className={styles.aboutPara}>
-                {/* <span className={styles.importantWords}>powerlifting</span> */}
-              </p>
+              <p className={styles.aboutPara}></p>
             </div>
           </div>
         </div>
