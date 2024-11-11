@@ -6,6 +6,7 @@ import Rating from "./components/Rating";
 import { useRef } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useRouter } from "next/router";
+import Transformation from "./components/Transformation";
 
 export default function Home() {
   const about = useRef(null);
@@ -22,16 +23,12 @@ export default function Home() {
     <div>
       <Introduction scrollToSection={scrollToSection} about={about} />
       <About about={about} />
+      <Transformation />
       {/* <Rating /> */}
       {/* <Quote />  */}
       <Footer scrollToSection={scrollToSection} about={about} />
       <a className="chatWrapper" href="https://wa.me/81107752" target="_blank">
-        <FaWhatsapp
-          className="chat"
-          // onClick={() => {
-          //   router.push("/chat");
-          // }}
-        />
+        <FaWhatsapp className="chat" />
       </a>
     </div>
   );
