@@ -47,10 +47,10 @@ export default function Journey() {
                 <span className={styles.importantWords}>powerlifting</span>. He
                 saw potential in me and offered to create a tailored program to
                 help me achieve
-                <span className={styles.importantWords}>my goal</span> of
+                 <span className={styles.importantWords}> my goal</span> of
                 reaching a <span className={styles.importantWords}>100kg</span>.
                 His support and expertise sparked the beginning of my{" "}
-                <span className={styles.importantWords}>journey</span>
+                <span className={styles.importantWords}> journey </span>
                 into{" "}
                 <span className={styles.importantWords}>
                   competitive powerlifting
