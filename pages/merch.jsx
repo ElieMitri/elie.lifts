@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { data } from "../Data.js";
-// import IconButton from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import { MdOutlineShoppingCart, MdArrowBack } from "react-icons/md";
 // import { styled } from "@mui/material/styles";
@@ -29,16 +29,7 @@ import {
 import { IoExitOutline } from "react-icons/io5";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+import dynamic from 'next/dynamic';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -67,7 +58,8 @@ export default function Merch() {
   const userEmail = useRef("");
   const userPassword = useRef("");
   const userName = useRef();
-
+  // const MerchPage = dynamic(() => import('../components/MerchPage'), { ssr: false });
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -80,7 +72,7 @@ export default function Merch() {
     // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
-
+  
   useEffect(() => {
     async function getNumberOfItemsCart() {
       if (userDetails) {
@@ -114,7 +106,7 @@ export default function Merch() {
       });
     }
   }, []);
-
+  
   useEffect(() => {
     updateProfile(auth.currentUser, {
       displayName: userName,
@@ -290,7 +282,7 @@ export default function Merch() {
           <button onClick={() => router.push("/")} className="backButton">
             <MdArrowBack size={24} />
           </button>
-          <h1 className="welcome">Welcome, <span className="blue">{user.displayName}</span></h1>
+          <h1 className="welcome">Welcome, <span className="blue">{user.displayName || "Guest"}!</span></h1>
         </div>
 
         {user ? (
@@ -317,8 +309,8 @@ export default function Merch() {
         <IoExitOutline
           onClick={(auth) => signOut(auth)}
           className="exitButton"
-        />
-      ) : (
+          />
+        ) : (
         <div></div>
       )}
       {/* </div> */}
@@ -335,7 +327,7 @@ export default function Merch() {
                 priority
                 onClick={() => router.push(`/merch/${info.id}`)}
                 // onClick={() => setErrorMessage(true)}
-              />
+                />
             </div>
             <h1 className="cardName">{info.name}</h1>
             {info.salePrice === null ? (
@@ -372,7 +364,7 @@ export default function Merch() {
                   className="modal__input"
                   placeholder="Email"
                   ref={userEmail}
-                />
+                  />
 
                 <div className="password__login">
                   <input
@@ -404,7 +396,7 @@ export default function Merch() {
               <IoMdClose
                 className="close__modal"
                 onClick={() => setOpenedSignup(false)}
-              />
+                />
               <div className="login__inputs">
                 <h1 className="login__title">Sign Up</h1>
                 <input
@@ -418,7 +410,7 @@ export default function Merch() {
                   className="modal__input"
                   placeholder="Email"
                   ref={userEmail}
-                />
+                  />
 
                 <div className="password__login">
                   <input
@@ -448,3 +440,5 @@ export default function Merch() {
     </div>
   );
 }
+
+// export default MerchPage;
