@@ -31,12 +31,9 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-    <button 
-      onClick={() => router.push("/")}
-      className={styles.backButton}
-    >
-      <MdArrowBack size={24} />
-    </button>
+      <button onClick={() => router.push("/")} className={styles.backButton}>
+        <MdArrowBack size={24} />
+      </button>
       <div className={styles.formWrapper}>
         <h1 className={styles.formTitle}>Contact</h1>
         <form ref={form} onSubmit={sendEmail} className={styles.form}>

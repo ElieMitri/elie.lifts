@@ -87,7 +87,7 @@ body::-webkit-scrollbar-track {
 .backdropOpen {
   position: fixed;
   z-index: 1;
-  background-color: rgb(55, 65, 81);;
+  background-color: rgb(55, 65, 81);
   width: 100%;
   height: 100vh;
   top: 0;
@@ -327,9 +327,10 @@ body::-webkit-scrollbar-track {
 
 .card {
   border: 3px solid rgb(0, 119, 255);
+  border-radius: 16px;
   width: 300px;
   margin: 20px 50px;
-  height: 450px;
+  height: 480px;
   cursor: pointer;
   transition: all 300ms ease;
 }
@@ -340,7 +341,7 @@ body::-webkit-scrollbar-track {
 }
 
 .card:hover {
-  background-color: #171717;
+  background-color: rgba(0, 119, 255, 0.084);
 }
 
 .header {
@@ -399,8 +400,36 @@ body::-webkit-scrollbar-track {
   right: 2;
 }
 
+.image__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.buttonAdd {
+  /* margin: 2rem auto; */
+  /* display: block; */
+  padding: 0.8rem 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.buttonAdd:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+}
+
 .image {
-  width: 100%;
+  width: 85%;
   height: auto;
 }
 
@@ -408,19 +437,21 @@ body::-webkit-scrollbar-track {
   display: flex;
   flex-direction: row;
   margin: 0;
+  margin: 20px;
 }
 
 .space {
   margin: 0 20px;
 }
 
-.prices {
-  margin: 20px;
-}
-
 .sale__active {
   text-decoration: line-through;
   color: #ffffff84;
+  margin: 0;
+}
+
+.price {
+  margin: 0 20px;
 }
 
 .back {
@@ -495,9 +526,14 @@ body::-webkit-scrollbar-track {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: rgb(26, 36, 58);
+  border-radius: 16px;
+  border: 2px solid rgb(30, 42, 67);
+  width: 450px;
+  height: 600px;
 }
 
-.modal__input {
+/* .modal__input {
   padding: 20px 50px;
   border-radius: 30px;
   outline: none;
@@ -507,6 +543,23 @@ body::-webkit-scrollbar-track {
   color: rgb(0, 119, 255);
   transition: 300ms ease all;
   margin: 10px 0;
+} */
+.modal__input {
+  /* width: 100%; */
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #333333;
+  border-radius: 0.5rem;
+  background-color: rgb(31, 41, 55);
+  color: white;
+  transition: all 0.3s ease;
+  outline: none;
+  margin: 10px 0;
+}
+
+.modal__input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .login__btn,
@@ -523,9 +576,61 @@ body::-webkit-scrollbar-track {
   margin: 20px 0;
 }
 
+/* .login__btn,
+.login__button{
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: 2px solid #333333;
+  border-radius: 0.5rem;
+  background-color: rgb(31, 41, 55);
+  color: white;
+  transition: all 0.3s ease;
+  outline: none;
+  margin: 10px 0;
+} */
+
+/* .login__btn:focus ,
+.login__button:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+} */
+
 .login__btn:hover,
 .login__button:hover {
   background-color: rgb(2, 86, 182);
+}
+
+.login__btn,
+.login__button {
+  /* margin: 2rem auto; */
+  /* display: block; */
+  padding: 0.8rem 2.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login__btn:hover,
+.login__button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+}
+
+.login__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
 
 .exitButton {
@@ -594,7 +699,7 @@ body::-webkit-scrollbar-track {
 }
 
 .chat {
-  color: #25D366;
+  color: #25d366;
   font-size: 34px;
   position: fixed;
   /* right: 0;
@@ -620,4 +725,18 @@ body::-webkit-scrollbar-track {
   cursor: pointer;
   margin: 20px;
   transition: 300ms all ease;
+}
+
+.welcome {
+  margin: 0;
+  font-size: 18px;
+  margin: 0 20px;
+}
+
+.welcomeWrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
 }

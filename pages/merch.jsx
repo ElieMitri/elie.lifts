@@ -1,10 +1,10 @@
 import { useRef, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { data } from "../Data.js";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import { MdOutlineShoppingCart, MdArrowBack } from "react-icons/md";
-import { styled } from "@mui/material/styles";
+// import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import {
   setDoc,
@@ -27,6 +27,18 @@ import {
   signOut as firebaseSignOut,
 } from "firebase/auth";
 import { IoExitOutline } from "react-icons/io5";
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Collapse from "@mui/material/Collapse";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { red } from "@mui/material/colors";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -96,9 +108,9 @@ export default function Merch() {
   useEffect(() => {
     if (user !== null) {
       user.providerData.forEach((profile) => {
-        console.log("  Name: " + user.displayName);
-        console.log("  Email: " + user.email);
-        console.log("  uid: " + user.uid);
+        console.log(user.displayName);
+        console.log(user.email);
+        console.log(user.uid);
       });
     }
   }, []);
@@ -120,6 +132,7 @@ export default function Merch() {
   async function login() {
     if (user) {
       setOpenedSignup(false);
+      router.push("/merch");
     }
     try {
       await signInWithEmailAndPassword(
@@ -130,7 +143,6 @@ export default function Merch() {
     } catch (error) {
       setError("Incorrect email or password!");
     }
-    router.push("/merch");
   }
 
   function isValidEmail(email) {
@@ -146,38 +158,6 @@ export default function Merch() {
     setOpenedSignup(true);
   }
 
-  // async function createAccount(e) {
-  //   const auth = getAuth();
-  //   createUserWithEmailAndPassword(
-  //     auth,
-  //     userEmail.current.value,
-  //     userPassword.current.value
-  //   );
-  //   let userInfo = auth.currentUser;
-  //   // userInfo.displayName = userName.current.value;
-  //   console.log(auth.currentUser);
-  //   router.push("/merch");
-  //   if (!isValidEmail(e.target.value)) {
-  //     setError("Email is invalid");
-  //   } else {
-  //     setError(null);
-  //   }
-  //   // await addDoc(collection(db, "users"), userData);
-
-  //   setEmail(event.target.value);
-  //   try {
-  //     firebase
-  //       .auth()
-  //       .createUserWithEmailAndPassword(email, password)
-  //       .then(() => this.props.navigation.navigate("/"))
-  //       .catch((error) => {
-  //         alert(error.message);
-  //       });
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // }
-
   async function createAccount(e) {
     e.preventDefault(); // Prevent the default form submission behavior
 
@@ -185,12 +165,13 @@ export default function Merch() {
     const password = userPassword.current.value;
     const displayName = userName.current.value;
 
+    // Validate email
     if (!isValidEmail(email)) {
       setError("Email is invalid");
       return;
     }
 
-    setError(null);
+    setError(null); // Reset error state
 
     try {
       // Create the user with email and password
@@ -199,28 +180,27 @@ export default function Merch() {
         email,
         password
       );
-      const user = userCredential.user;
+      const user = userCredential.user; // Extract the user object
 
-      // Update user info (displayName)
-      await user.updateProfile({
+      // Update the user's profile (e.g., display name)
+      await updateProfile(user, {
         displayName: displayName,
       });
 
-      console.log("User created: ", user);
-
-      // Optionally, add user data to Firestore
+      // Add the user to the Firestore database
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         email: user.email,
-        displayName: user.displayName,
-        // Add other user data as needed
+        displayName: displayName,
       });
+
+      console.log("User created:", user);
 
       // Navigate to the merch page
       router.push("/merch");
     } catch (error) {
-      console.error("Error creating account: ", error);
-      setError(error.message);
+      console.error("Error creating account:", error);
+      setError(error.message); // Show error message to the user
     }
   }
 
@@ -229,23 +209,6 @@ export default function Merch() {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
-
-  // async function addToCart(item) {
-  //   if (subscribed === false) {
-  //     setOpenedLogin(true);
-  //     setOpenedSignup(false);
-  //   } else {
-  //     const newCart = [...cart, item];
-  //     setCart(newCart);
-  //     setItemCount(newCart.length);
-  //     console.log(newCart.length);
-  //     await addDoc(doc(db, "carts", user.uid), { newCart });
-  //     const numberOfItemsInCart = newCart.length;
-  //     await addDoc(doc(db, "numberOfItems", user.uid), { numberOfItemsInCart });
-
-  //     // const numberOfDuplicates = cart.find((cartItem) => cartItem.id === item.id)
-  //   }
-  // }
 
   async function addToCart(item) {
     if (!subscribed) {
@@ -295,23 +258,6 @@ export default function Merch() {
     getNumberOfItemsCart();
   }
 
-  // useEffect(() => {
-  //   async function getNumberOfItemsCart() {
-  //     const docRef = doc(db, "numberOfItems", userDetails.uid);
-  //     const docSnap = await getDoc(docRef);
-
-  //     if (docSnap.exists()) {
-  //       setNumberOfItemsInCart(docSnap.data());
-  //     } else {
-  //       // docSnap.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     }
-  //   }
-
-  //   console.log(numberOfItemsInCart);
-  //   return () => getNumberOfItemsCart();
-  // }, []);
-
   useEffect(() => {
     async function getNumberOfItemsCart() {
       try {
@@ -340,9 +286,12 @@ export default function Merch() {
   return (
     <div className="container">
       <div className="cartWrapper">
-        <button onClick={() => router.push("/")} className="backButton">
-          <MdArrowBack size={24} />
-        </button>
+        <div className="welcomeWrapper">
+          <button onClick={() => router.push("/")} className="backButton">
+            <MdArrowBack size={24} />
+          </button>
+          <h1 className="welcome">Welcome, <span className="blue">{user.displayName}</span></h1>
+        </div>
 
         {user ? (
           <IconButton aria-label="cart" onClick={() => router.push("/cart")}>
@@ -397,12 +346,12 @@ export default function Merch() {
               <div>
                 <h5 className="prices">
                   <span className="sale__active">${info.originalPrice}</span>
-                  <span>${info.salePrice}</span>
+                  <span className="price">${info.salePrice}</span>
                 </h5>
               </div>
             )}
             <div className="buttonWrapper">
-              <button onClick={() => addToCart(info)} className="addToCart">
+              <button onClick={() => addToCart(info)} className="buttonAdd">
                 Add to Cart
               </button>
             </div>
@@ -417,6 +366,7 @@ export default function Merch() {
                 onClick={() => setOpenedLogin(false)}
               />
               <div className="login__inputs">
+                <h1 className="login__title">Login</h1>
                 <input
                   type="email"
                   className="modal__input"
@@ -456,6 +406,7 @@ export default function Merch() {
                 onClick={() => setOpenedSignup(false)}
               />
               <div className="login__inputs">
+                <h1 className="login__title">Sign Up</h1>
                 <input
                   type="name"
                   className="modal__input"
