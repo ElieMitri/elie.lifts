@@ -433,6 +433,13 @@ body::-webkit-scrollbar-track {
   height: auto;
 }
 
+.imageLoader {
+  width: 300px;
+  height: 270px;
+  background-color: rgb(177, 177, 177);
+  margin: 0 20px;
+}
+
 .prices {
   display: flex;
   flex-direction: row;
@@ -739,4 +746,75 @@ body::-webkit-scrollbar-track {
   margin: 0;
   align-items: center;
   justify-content: center;
+}
+
+/* .cardsLoader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  align-items: center;
+  justify-content: center;
+} */
+
+.cardLoader {
+  border: 3px solid rgb(177, 177, 177);
+  border-radius: 16px;
+  width: 300px;
+  margin: 20px 50px;
+  height: 480px;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.cardNameLoader {
+  width: 200px;
+  height: 30px;
+  background-color: rgb(177, 177, 177);
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.pricesLoader {
+  width: 160px;
+  height: 30px;
+  background-color: rgb(177, 177, 177);
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.welcomeModal {
+  border-radius: 4px;
+  z-index: 1000;
+  position: fixed;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  display: none;
+  background-color: #007bff;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #fff;
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

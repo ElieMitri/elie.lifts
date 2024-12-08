@@ -29,7 +29,11 @@ import {
 import { IoExitOutline } from "react-icons/io5";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import dynamic from 'next/dynamic';
+// import * as React from 'react';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -39,6 +43,18 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     padding: "0 4px",
   },
 }));
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function Merch() {
   const router = useRouter();
@@ -58,8 +74,10 @@ export default function Merch() {
   const userEmail = useRef("");
   const userPassword = useRef("");
   const userName = useRef();
-  // const MerchPage = dynamic(() => import('../components/MerchPage'), { ssr: false });
-  
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -72,7 +90,7 @@ export default function Merch() {
     // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
-  
+
   useEffect(() => {
     async function getNumberOfItemsCart() {
       if (userDetails) {
@@ -106,7 +124,7 @@ export default function Merch() {
       });
     }
   }, []);
-  
+
   useEffect(() => {
     updateProfile(auth.currentUser, {
       displayName: userName,
@@ -282,7 +300,13 @@ export default function Merch() {
           <button onClick={() => router.push("/")} className="backButton">
             <MdArrowBack size={24} />
           </button>
-          <h1 className="welcome">Welcome, <span className="blue">{user.displayName || "Guest"}!</span></h1>
+          {user ? (
+            <h1 className="welcome">
+              Welcome, <span className="blue">{user.displayName}!</span>
+            </h1>
+          ) : (
+            <h1></h1>
+          )}
         </div>
 
         {user ? (
@@ -304,139 +328,166 @@ export default function Merch() {
           <div></div>
         )}
       </div>
-      {/* <div className="header"> */}
+
       {user ? (
         <IoExitOutline
           onClick={(auth) => signOut(auth)}
           className="exitButton"
-          />
-        ) : (
+        />
+      ) : (
         <div></div>
       )}
-      {/* </div> */}
-      <div className="cards">
-        {data.map((info) => (
-          <div className="card" key={info.id}>
-            <div className="image__wrapper">
-              <Image
-                className="image"
-                src={info.url}
-                alt={`Merchandise ${info.id}`}
-                width={300}
-                height={300}
-                priority
-                onClick={() => router.push(`/merch/${info.id}`)}
-                // onClick={() => setErrorMessage(true)}
+
+      {user ? (
+        <div className="cards">
+          {data.map((info) => (
+            <div className="card" key={info.id}>
+              <div className="image__wrapper">
+                <Image
+                  className="image"
+                  src={info.url}
+                  alt={`Merchandise ${info.id}`}
+                  width={300}
+                  height={300}
+                  priority
+                  onClick={() => router.push(`/merch/${info.id}`)}
+                  // onClick={() => setErrorMessage(true)}
                 />
-            </div>
-            <h1 className="cardName">{info.name}</h1>
-            {info.salePrice === null ? (
-              <div>
-                <h5 className="prices">${info.originalPrice}</h5>
               </div>
-            ) : (
-              <div>
-                <h5 className="prices">
-                  <span className="sale__active">${info.originalPrice}</span>
-                  <span className="price">${info.salePrice}</span>
-                </h5>
+              <h1 className="cardName">{info.name}</h1>
+              {info.salePrice === null ? (
+                <div>
+                  <h5 className="prices">${info.originalPrice}</h5>
+                </div>
+              ) : (
+                <div>
+                  <h5 className="prices">
+                    <span className="sale__active">${info.originalPrice}</span>
+                    <span className="price">${info.salePrice}</span>
+                  </h5>
+                </div>
+              )}
+              <div className="buttonWrapper">
+                <button onClick={() => addToCart(info)} className="buttonAdd">
+                  Add to Cart
+                </button>
               </div>
-            )}
-            <div className="buttonWrapper">
-              <button onClick={() => addToCart(info)} className="buttonAdd">
-                Add to Cart
-              </button>
             </div>
-          </div>
-        ))}
-        {openedLogin ? (
-          <>
-            {" "}
-            <div className="modalOpen">
-              <IoMdClose
-                className="close__modal"
-                onClick={() => setOpenedLogin(false)}
-              />
-              <div className="login__inputs">
-                <h1 className="login__title">Login</h1>
-                <input
-                  type="email"
-                  className="modal__input"
-                  placeholder="Email"
-                  ref={userEmail}
+          ))}
+          {openedLogin ? (
+            <>
+              {" "}
+              <div className="modalOpen">
+                <IoMdClose
+                  className="close__modal"
+                  onClick={() => setOpenedLogin(false)}
+                />
+                <div className="login__inputs">
+                  <h1 className="login__title">Login</h1>
+                  <input
+                    type="email"
+                    className="modal__input"
+                    placeholder="Email"
+                    ref={userEmail}
                   />
 
-                <div className="password__login">
-                  <input
-                    type="password"
-                    className="modal__input"
-                    placeholder="••••••••••••"
-                    ref={userPassword}
-                  />
+                  <div className="password__login">
+                    <input
+                      type="password"
+                      className="modal__input"
+                      placeholder="••••••••••••"
+                      ref={userPassword}
+                    />
+                  </div>
+                  <button className="login__btn cursor" onClick={login}>
+                    Log in
+                  </button>
+                  <div className="login__or">
+                    <h4 className="login__h4">OR</h4>
+                  </div>
+                  <button className="login__button" onClick={switchModals1}>
+                    Create an account
+                  </button>
                 </div>
-                <button className="login__btn cursor" onClick={login}>
-                  Log in
-                </button>
-                <div className="login__or">
-                  <h4 className="login__h4">OR</h4>
-                </div>
-                <button className="login__button" onClick={switchModals1}>
-                  Create an account
-                </button>
               </div>
-            </div>
-            <div className="backdropOpen"></div>
-          </>
-        ) : (
-          <></>
-        )}
-        {openedSignup ? (
-          <>
-            <div className="modalOpen">
-              <IoMdClose
-                className="close__modal"
-                onClick={() => setOpenedSignup(false)}
+              <div className="backdropOpen"></div>
+            </>
+          ) : (
+            <></>
+          )}
+          {openedSignup ? (
+            <>
+              <div className="modalOpen">
+                <IoMdClose
+                  className="close__modal"
+                  onClick={() => setOpenedSignup(false)}
                 />
-              <div className="login__inputs">
-                <h1 className="login__title">Sign Up</h1>
-                <input
-                  type="name"
-                  className="modal__input"
-                  placeholder="Name"
-                  ref={userName}
-                />
-                <input
-                  type="email"
-                  className="modal__input"
-                  placeholder="Email"
-                  ref={userEmail}
+                <div className="login__inputs">
+                  <h1 className="login__title">Sign Up</h1>
+                  <input
+                    type="name"
+                    className="modal__input"
+                    placeholder="Name"
+                    ref={userName}
+                  />
+                  <input
+                    type="email"
+                    className="modal__input"
+                    placeholder="Email"
+                    ref={userEmail}
                   />
 
-                <div className="password__login">
-                  <input
-                    type="password"
-                    className="modal__input"
-                    placeholder="••••••••••••"
-                    ref={userPassword}
-                  />
+                  <div className="password__login">
+                    <input
+                      type="password"
+                      className="modal__input"
+                      placeholder="••••••••••••"
+                      ref={userPassword}
+                    />
+                  </div>
+                  <button className="login__btn cursor" onClick={createAccount}>
+                    Sign Up
+                  </button>
+                  <div className="login__or">
+                    <h4 className="login__h4">OR</h4>
+                  </div>
+                  <button className="login__button" onClick={switchModals}>
+                    Login
+                  </button>
                 </div>
-                <button className="login__btn cursor" onClick={createAccount}>
-                  Sign Up
-                </button>
-                <div className="login__or">
-                  <h4 className="login__h4">OR</h4>
-                </div>
-                <button className="login__button" onClick={switchModals}>
-                  Login
-                </button>
+              </div>
+              <div className="backdropOpen"></div>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      ) : (
+        <div className="cards">
+          {data.map((info) => (
+            <div className="cardLoader" key={info.id}>
+              <div className="image__wrapper">
+                {/* <Image
+                  className="imageLoader"
+                  src={info.url}
+                  alt={`Merchandise ${info.id}`}
+                  width={300}
+                  height={300}
+                  priority
+                  // onClick={() => router.push(`/merch/${info.id}`)}
+                  // onClick={() => setErrorMessage(true)}
+                /> */}
+                <div className="imageLoader"></div>
+              </div>
+              <h1 className="cardNameLoader"></h1>
+
+              <div>
+                <h5 className="pricesLoader"></h5>
               </div>
             </div>
-            <div className="backdropOpen"></div>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

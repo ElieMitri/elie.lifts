@@ -12,9 +12,8 @@ export default function Testimonials() {
     // "1 Hour Session",
     "Customized Workout Plan ",
     "Diet Recommendations",
-    "Email Support",
+    "24/7 WhatsApp Support",
     "Progress Tracking",
-    "1 Month Follow-up",
   ];
 
   const premiumFeatures = [
@@ -23,7 +22,6 @@ export default function Testimonials() {
     "Personalized Meal Plans",
     "24/7 WhatsApp Support",
     "Advanced Progress Tracking",
-    "3 Months Follow-up",
   ];
 
   return (
