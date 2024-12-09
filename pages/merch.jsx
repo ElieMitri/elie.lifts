@@ -455,6 +455,7 @@ export default function Merch() {
                       ref={userPassword}
                     />
                   </div>
+                  
                   <button className="login__btn cursor" onClick={createAccount}>
                     Sign Up
                   </button>

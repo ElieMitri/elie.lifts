@@ -538,6 +538,7 @@ body::-webkit-scrollbar-track {
   border: 2px solid rgb(30, 42, 67);
   width: 450px;
   height: 600px;
+  margin: 0 40px;
 }
 
 /* .modal__input {
