@@ -137,7 +137,17 @@ export default function Merch() {
         // An error occurred
         // ...
       });
+
   }, []);
+
+
+  useEffect(() => {
+    if(user === null) {
+      setOpenedLogin(true);
+    }
+  }, []);
+
+
 
   async function login() {
     if (user) {
