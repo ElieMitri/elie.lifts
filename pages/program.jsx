@@ -15,7 +15,7 @@ import {
   getFirestore,
   getDocs,
 } from "firebase/firestore";
-import { db } from "@/firebase";
+import { db, auth } from "@/firebase";
 import { IoMdClose } from "react-icons/io";
 import {
   signInWithEmailAndPassword,
@@ -37,27 +37,15 @@ export default function About({ about }) {
   const [emailCheck, setEmailCheck] = useState(null);
   const [nameCheck, setNameCheck] = useState(null);
   const [isFromClients, setIsFromClients] = useState(false);
-  const [signedUp, setSignedUp] = useState(false);
   const [user, setUser] = useState(null);
+  const [theUserId, setTheUserId] = useState(null);
+  const [data, setData] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [programData, setProgramData] = useState(null);
 
   const userEmail = useRef("");
   const userPassword = useRef("");
   const userName = useRef();
-  const auth = getAuth();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        //   const uid = user.uid;
-        // ...
-      } else {
-        // User is signed out
-        // ...
-      }
-    });
-  }, []);
 
   function isValidEmail(email) {
     const re = /\S+@\S+\.\S+/;
@@ -83,39 +71,20 @@ export default function About({ about }) {
       return;
     }
 
-    // const clientNames = clients.map((client) => client.name);
-
-    // const typedName = userName.current.value;
-
-    // console.log(typedName);
-
-    // const isNamePresent = clients.some((client) => client.name === typedName);
-
-    // if (isNamePresent) {
-    //   console.log(`${typedName} is in the clients list.`);
-    // } else {
-    //   console.log(`${typedName} is not in the clients list.`);
-    //   setError(`${typedName} is not in the clients list.`);
-    //   setIsFromClients(true);
-    // }
-
-    setError(null); // Reset error state
+    setError(null);
 
     try {
-      // Create the user with email and password
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      const user = userCredential.user; // Extract the user object
+      const user = userCredential.user;
 
-      // Update the user's profile (e.g., display name)
       await updateProfile(user, {
         displayName: displayName,
       });
 
-      // Add the user to the Firestore database
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         email: user.email,
@@ -123,7 +92,7 @@ export default function About({ about }) {
       });
     } catch (error) {
       console.error("Error creating account:", error);
-      setError(error.message); // Show error message to the user
+      setError(error.message);
     }
   }
 
@@ -145,7 +114,7 @@ export default function About({ about }) {
 
   const fetchAllUsers = async () => {
     try {
-      const usersCollection = collection(db, "users"); // Replace "users" with your collection name
+      const usersCollection = collection(db, "users");
       const querySnapshot = await getDocs(usersCollection);
 
       const users = querySnapshot.docs.map((doc) => ({
@@ -180,43 +149,133 @@ export default function About({ about }) {
     }
   }
 
-  async function checkName(e) {
-    const nameValue = userName.current.value;
-    setNameCheck(nameValue);
-
-    console.log(nameValue);
-
-    try {
-      const users = await fetchAllUsers();
-      const nameExists = users.some((user) => user.displayName === nameValue);
-
-      if (nameExists) {
-        console.log("Name exists");
-      } else {
-        console.log("Nmae does not exist");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  //   useEffect(() => {
-  //     console.log(auth.currentUser);
-  //     if (user) {
-  //       signedUp(true);
-  //     } else {
-  //       signedUp(false);
-  //     }
-  //   }, []);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setSignedUp(!!currentUser); // Set signedUp based on whether user exists
     });
 
-    // Cleanup subscription on unmount
     return () => unsubscribe();
-  }, []); // Empty dependency array to run only once
+  }, []);
+
+  // function tryingg() {
+  //   console.log(user?.email);
+
+  //   const fetchAllUsers = async () => {
+  //     try {
+  //       const usersCollection = collection(db, "users");
+  //       const querySnapshot = await getDocs(usersCollection);
+
+  //       const users = querySnapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         ...doc.data(),
+  //       }));
+
+  //       const sameUser = users.find(
+  //         (u) => u.email && u.email.toLowerCase() === user.email.toLowerCase()
+  //       );
+
+  //       if (sameUser) {
+  //         console.log(sameUser.id);
+  //         setTheUserId(sameUser.id);
+  //       } else {
+  //         console.log("No user found with the email:", user.email);
+  //       }
+
+  //       return users; // Return users if needed
+  //     } catch (error) {
+  //       console.error("Error fetching users:", error);
+  //       return [];
+  //     }
+  //   };
+
+  //   fetchAllUsers(); // Ensure this function is called
+
+  //   async function showProgram() {
+  //     // Ensure the user ID is valid
+  //     if (!theUserId) {
+  //       console.error("Invalid user ID:", theUserId);
+  //       return;
+  //     }
+
+  //     try {
+  //       const docRef = doc(
+  //         db,
+  //         "programs",
+  //         theUserId,
+  //         "program",
+  //         "programDetails"
+  //       );
+  //       const docSnap = await getDoc(docRef);
+
+  //       if (docSnap.exists()) {
+  //         console.log(docSnap.data().day);
+  //         const userData = docSnap.data();
+  //         setData(userData);
+  //       } else {
+  //         console.log("No such document!");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching document:", error);
+  //     }
+  //   }
+
+  //   showProgram();
+  //   console.log(data);
+  // }
+
+  useEffect(() => {
+    if (user) {
+      console.log(user?.email);
+
+      const fetchAllUsers = async () => {
+        try {
+          const usersCollection = collection(db, "users");
+          const querySnapshot = await getDocs(usersCollection);
+
+          const users = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+          return users; // Return users if needed
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          return [];
+        }
+      };
+
+      async function showProgram() {
+        try {
+          const result = await fetchAllUsers(); // Ensure this function is called
+          console.log(user.uid);
+
+          const docRef = doc(
+            db,
+            "programs",
+            user.uid,
+            "program",
+            "programDetails"
+          );
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            console.log(userData.days);
+            setProgramData(userData.days);
+          } else {
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching document:", error);
+        }
+      }
+
+      showProgram();
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [user]);
 
   return (
     <>
@@ -225,12 +284,27 @@ export default function About({ about }) {
           <MdArrowBack size={24} />
         </button>
 
-        {signedUp ? (
+        <div className="workouts">
+          {programData?.map((info) => (
+            <div className="workout" key={info.day}>
+              <div className="day">{info.day}</div>
+              <div className="dayDetails">{info.dayDetails}</div>
+              <div className="exercises">
+                {info.exercises?.map((exercise, index) => (
+                  <div className="exerciseWrapper" key={index}>
+                    <div className="exerciseName">{exercise.exercise}:</div>
+                    <div className="setsReps">{exercise.setsReps}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {user ? (
           <div>
-            <IoExitOutline
-              onClick={signOut}
-              className="exitButton"
-            />
+            <IoExitOutline onClick={signOut} className="exitButton" />
+            {}
           </div>
         ) : switched ? (
           <>
@@ -277,7 +351,7 @@ export default function About({ about }) {
                   className="modal__input"
                   placeholder="Name"
                   ref={userName}
-                  onChange={checkName}
+                  // onChange={checkName}
                 />
                 <input
                   type="email"
