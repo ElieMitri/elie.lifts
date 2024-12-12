@@ -852,7 +852,7 @@ body::-webkit-scrollbar-track {
   justify-content: center;
 }
 
-.workouts {
+/* .workouts {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -902,4 +902,142 @@ body::-webkit-scrollbar-track {
 
 .setsReps {
 
+} */
+
+.workouts {
+  padding: 30px;
+  display: grid;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.workout {
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  padding: 25px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  width: 300px;
+}
+
+.day {
+  font-size: 18px;
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 8px;
+}
+
+.dayDetails {
+  color: #555555;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* .exerciseWrapper {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eaeaea;
+} */
+
+.exerciseWrapper {
+  display: flex;
+  padding: 10px 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+
+.exerciseName {
+  color: #007bff;
+  font-weight: 500;
+  min-width: 130px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.setsReps {
+  color: #333333;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .workouts {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .workout {
+    padding: 15px;
+  }
+
+  .day {
+    font-size: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  .exerciseWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 12px 0;
+  }
+
+  .exerciseName {
+    min-width: unset;
+    margin-bottom: 4px;
+  }
+
+  .setsReps {
+    padding-left: 8px;
+  }
+}
+
+/* Small Mobile Styles */
+@media screen and (max-width: 480px) {
+  .workouts {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .workout {
+    padding: 12px;
+  }
+
+  .day {
+    font-size: 15px;
+  }
+
+  .dayDetails {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  .exercises {
+    gap: 10px;
+  }
+
+  .exerciseName {
+    font-size: 14px;
+  }
+
+  .setsReps {
+    font-size: 13px;
+  }
 }

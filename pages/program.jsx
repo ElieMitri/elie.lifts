@@ -279,10 +279,10 @@ export default function About({ about }) {
 
   return (
     <>
-      <section className={styles.program} ref={about}>
         <button onClick={() => router.push("/")} className={styles.backButton}>
           <MdArrowBack size={24} />
         </button>
+      <section className={styles.program} ref={about}>
 
         <div className="workouts">
           {programData?.map((info) => (

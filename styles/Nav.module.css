@@ -138,6 +138,7 @@
   color: #ffffff;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin: 0 10px;
 }
 
 .instaLogo:hover,
