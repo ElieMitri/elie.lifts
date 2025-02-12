@@ -99,18 +99,18 @@ export default function Introduction({ scrollToSection, about }) {
             >
               Contact
             </button>
-            {/* <button
+            <button
               onClick={() => router.push("/program")}
               className={styles.navLink}
             >
               Program
-            </button> */}
-            {/* <button
+            </button>
+            <button
               onClick={() => router.push("/testimonials")}
               className={styles.navLink}
             >
               Testimonials
-            </button> */}
+            </button>
           </nav>
         </div>
       </div>

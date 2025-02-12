@@ -9,57 +9,34 @@ export default function Testimonials() {
   const router = useRouter();
 
   const basicFeatures = [
-    // "1 Hour Session",
-    "Standard workout plan for general goals.",
-    "Simple diet recommendations.",
+    "Fully customized workout.",
+    "Diet Recommendations.",
     "24/7 WhatsApp Support",
     "Monthly progress tracking.",
+    "Monthly 1-on-1 consultation.",
   ];
 
   const premiumFeatures = [
     // "2 Hour Initial Session",
-    "Fully customized workout and meal plans.",
-    "Bi-weekly progress reviews with analytics.",
+    "Fully customized workout.",
+    "Diet Recommendations.",
     "24/7 WhatsApp Support",
+    "Monthly progress tracking.",
     "Monthly 1-on-1 consultation.",
   ];
 
   return (
     <div className={styles.container}>
-      <button 
-        onClick={() => router.push("/")}
-        className={styles.backButton}
-      >
+      <button onClick={() => router.push("/")} className={styles.backButton}>
         <MdArrowBack size={24} />
       </button>
 
       <div className={styles.grid}>
-        {/* Basic Plan */}
-        <div className={styles.card}>
-          <div className={styles.planTitle}>Basic Plan</div>
-          <div className={styles.price}>$20</div>
-          <div className={styles.duration}>per month</div>
-          <div className={styles.featuresList}>
-            {basicFeatures.map((feature, i) => (
-              <div key={i} className={styles.feature}>
-                <MdCheck className={styles.checkIcon} />
-                {feature}
-              </div>
-            ))}
-          </div>
-          {/* <button 
-            onClick={() => router.push("https://buy.stripe.com/test_3cs5kzfr8ft49POfZ0")}
-            className={styles.button}
-          >
-            Get Started
-          </button> */}
-        </div>
-
         {/* Premium Plan */}
         <div className={`${styles.card} ${styles.premium}`}>
-          <div className={styles.popularBadge}>Most Popular</div>
+          {/* <div className={styles.popularBadge}>Most Popular</div> */}
           <div className={styles.planTitle}>Premium Plan</div>
-          <div className={styles.price}>$30</div>
+          <div className={styles.price}>$40</div>
           <div className={styles.duration}>per month</div>
           <div className={styles.featuresList}>
             {premiumFeatures.map((feature, i) => (
@@ -78,7 +55,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className={styles.bookingWrapper}>
+      {/* <div className={styles.bookingWrapper}>
         <p className={styles.bookingText}>Want further information?</p>
         <a 
           href="https://wa.me/81107752" target="_blank"
@@ -86,7 +63,7 @@ export default function Testimonials() {
         >
           Text Me
         </a>
-      </div>
+      </div> */}
     </div>
-  )
+  );
 }

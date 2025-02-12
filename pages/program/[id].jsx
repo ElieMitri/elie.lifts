@@ -4,15 +4,28 @@ import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase";
 import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+// import { doc, getDoc } from "firebase/firestore";
 import { MdOutlineShoppingCart, MdArrowBack } from "react-icons/md";
 import styles from "../../styles/Program.module.css";
+import {
+    setDoc,
+    doc,
+    collection,
+    serverTimestamp,
+    addDoc,
+    getDoc,
+    updateDoc,
+    signOut,
+    getFirestore,
+    getDocs,
+  } from "firebase/firestore";
 
 export default function Page() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [programData, setProgramData] = useState(null);
   const [workoutDetails, setWorkoutDetails] = useState(null);
+  const [textTyped, setTextTyped] = useState();
   const router = useRouter();
   const { id } = router.query;
 
@@ -53,6 +66,7 @@ export default function Page() {
   useEffect(() => {
     if (user) {
       showProgram(); // Fetch program when user is logged in
+      console.log(user);
     }
   }, [user]);
 
@@ -71,6 +85,19 @@ export default function Page() {
   if (!workoutDetails) {
     return <div>Workout not found.</div>; // If no workout was found, show an error message
   }
+
+  async function sendRemark(e) {
+    e.preventDefault(); // Prevent the default form submission behavior
+  
+    // Use a nested collection: comments/{userId}/remarks
+    await addDoc(collection(db, "comments", user.uid, "remarks"), {
+      Name: user.displayName,
+      email: user.email,
+      Comment: textTyped,
+    });
+    setTextTyped("")
+  }
+  
 
   return (
     <>
@@ -145,6 +172,17 @@ export default function Page() {
                 )}
             </div>
           ))}
+        </div>
+        <div className="textAreaIdWrapper">
+          <textarea
+            name=""
+            className="textAreaId"
+            placeholder="Any Remarks?"
+            onChange={(e) => setTextTyped(e.target.value)}
+          ></textarea>
+          <button className="submitButton" onClick={(e) => sendRemark(e)}>
+            Submit
+          </button>
         </div>
       </div>
     </>
