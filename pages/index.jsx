@@ -23,11 +23,9 @@ export default function Home() {
   return (
     <div>
       <Introduction scrollToSection={scrollToSection} about={about} />
-      <About about={about} />
       <Transformation />
+      <About about={about} />
       <Journey />
-      {/* <Rating /> */}
-      {/* <Quote />  */}
       <Footer scrollToSection={scrollToSection} about={about} />
       <a className="chatWrapper" href="https://wa.me/81107752" target="_blank">
         <FaWhatsapp className="chat" />

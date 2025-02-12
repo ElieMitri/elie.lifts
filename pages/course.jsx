@@ -28,7 +28,6 @@ import {
 import { clients } from "@/clients";
 import { MdOutlineShoppingCart, MdArrowBack } from "react-icons/md";
 import { IoExitOutline } from "react-icons/io5";
-import Link from "next/link";
 
 export default function About({ about }) {
   const router = useRouter();
@@ -43,6 +42,12 @@ export default function About({ about }) {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [programData, setProgramData] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
 
   const userEmail = useRef("");
   const userPassword = useRef("");
@@ -78,7 +83,7 @@ export default function About({ about }) {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       const user = userCredential.user;
 
@@ -90,6 +95,7 @@ export default function About({ about }) {
         uid: user.uid,
         email: user.email,
         displayName: displayName,
+        subscriptionPlan: "FREE"
       });
     } catch (error) {
       console.error("Error creating account:", error);
@@ -159,39 +165,54 @@ export default function About({ about }) {
   }, []);
 
   useEffect(() => {
-    async function showProgram() {
-      if (!user) return; // Ensure user is logged in
-
-      try {
-        // console.log("Fetching program for user:", user.uid);
-
-        const docRef = doc(
-          db,
-          "programs",
-          user.uid,
-          "program",
-          "programDetails"
-        );
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-          // console.log("User Program Data:", userData);
-          setProgramData(userData.days || []);
-        } else {
-          // console.log("No program found for this user!");
-          setProgramData([]); // Initialize as empty
-        }
-      } catch (error) {
-        // console.error("Error fetching program:", error);
-      } finally {
-        setLoading(false); // Ensure loading state updates properly
-      }
-    }
-
     if (user) {
-      setLoading(true); // Set loading before fetching
+      console.log(user?.email);
+
+      const fetchAllUsers = async () => {
+        try {
+          const usersCollection = collection(db, "users");
+          const querySnapshot = await getDocs(usersCollection);
+
+          const users = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+          return users; // Return users if needed
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          return [];
+        }
+      };
+
+      async function showProgram() {
+        try {
+          const result = await fetchAllUsers(); // Ensure this function is called
+          console.log(user.uid);
+
+          const docRef = doc(
+            db,
+            "programs",
+            user.uid,
+            "program",
+            "programDetails"
+          );
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            console.log(userData.days);
+            setProgramData(userData.days);
+          } else {
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching document:", error);
+        }
+      }
+
       showProgram();
+      setLoading(false);
     } else {
       setLoading(true);
     }
@@ -199,58 +220,24 @@ export default function About({ about }) {
 
   return (
     <>
-      <button onClick={() => router.push("/")} className={styles.backButton}>
-        <MdArrowBack size={24} />
-      </button>
+        <button onClick={() => router.push("/")} className={styles.backButton}>
+          <MdArrowBack size={24} />
+        </button>
       <section className={styles.program} ref={about}>
-        <div className="workout-cards">
-          {programData?.map((workout, index) => (
-            <div
-              key={index}
-              className="workout-card"
-              onClick={() => router.push(`/program/${workout.id}`)}
-            >
-              <div className="card-header">
-                <div className="date">{workout.dayDetails}</div>
-              </div>
 
-              <div className="day-title">{workout.day}</div>
-
-              <div className="exercises">
-                {workout.exercises?.map((exercise, idx) => (
-                  <div key={idx} className="exercise-item">
-                    <div className="exercise-items">
-                      <div className="exercise-label">
-                        {idx === 0
-                          ? "🔥"
-                          : `${String.fromCharCode(65 + idx - 1)}${
-                              idx === 1 || idx === 2 ? idx : ""
-                            }`}
-                      </div>
-                      <div className="exercise-name">{exercise.exercise}</div>
-                    </div>
-                    {/* <div className="video-container">
-                      <iframe
-                        width="460"
-                        height="315"
-                        src={exercise.videoUrl}
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                      ></iframe>
-                    </div> */}
-                    {/* <div>
-                  {exercise.warmups } 
-                  {exercise.setsReps}
-                  </div> */}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+      <button className={styles.toggleButton} onClick={toggleSidebar}>
+        {isOpen ? 'Close' : 'Open'} Sidebar
+      </button>
+      <div className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
 
         {user ? (
           <div>
@@ -302,13 +289,14 @@ export default function About({ about }) {
                   className="modal__input"
                   placeholder="Name"
                   ref={userName}
+                  // onChange={checkName}
                 />
                 <input
                   type="email"
                   className="modal__input"
                   placeholder="Email"
                   ref={userEmail}
-                  onChange={checkEmail}
+                  // onChange={checkEmail}
                 />
                 <div className="password__login">
                   <input

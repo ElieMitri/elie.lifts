@@ -541,17 +541,6 @@ body::-webkit-scrollbar-track {
   margin: 0 40px;
 }
 
-/* .modal__input {
-  padding: 20px 50px;
-  border-radius: 30px;
-  outline: none;
-  border: none;
-  border: 1px solid rgb(0, 119, 255);
-  background-color: black;
-  color: rgb(0, 119, 255);
-  transition: 300ms ease all;
-  margin: 10px 0;
-} */
 .modal__input {
   /* width: 100%; */
   padding: 1rem;
@@ -963,6 +952,707 @@ body::-webkit-scrollbar-track {
   border-bottom: 1px solid #eaeaea;
 }
 
+.exerciseName {
+  color: #007bff;
+  font-weight: 500;
+  min-width: 130px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.setsReps {
+  color: #333333;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .workouts {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .workout {
+    padding: 15px;
+  }
+
+  .day {
+    font-size: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  .exerciseWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 12px 0;
+  }
+
+  .exerciseName {
+    min-width: unset;
+    margin-bottom: 4px;
+  }
+
+  .setsReps {
+    padding-left: 8px;
+  }
+}
+
+/* Small Mobile Styles */
+@media screen and (max-width: 480px) {
+  .workouts {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .workout {
+    padding: 12px;
+  }
+
+  .day {
+    font-size: 15px;
+  }
+
+  .dayDetails {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  .exercises {
+    gap: 10px;
+  }
+
+  .exerciseName {
+    font-size: 14px;
+  }
+
+  .setsReps {
+    font-size: 13px;
+  }
+}
+
+.workouts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Individual workout card */
+.workout {
+  background-color: #1a1e23;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Day header */
+.day {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+/* Day details/description */
+.dayDetails {
+  color: #9ba1a6;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+/* Exercise list container */
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Exercise item wrapper */
+.exerciseWrapper {
+  display: flex;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid #2a2f35;
+}
+
+.exerciseWrapper:last-child {
+  border-bottom: none;
+}
+
+/* Exercise name */
+.exerciseName {
+  color: #ffffff;
+  font-weight: 500;
+  flex: 1;
+  margin-right: 16px;
+}
+
+/* Sets and reps */
+.setsReps {
+  color: #9ba1a6;
+  font-size: 14px;
+  min-width: 100px;
+  text-align: right;
+}
+
+.app-container {
+  min-height: 100vh;
+  background-color: #1a1e23;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header */
+.status-bar {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-bar-time {
+  font-size: 20px;
+}
+
+.status-bar-icons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Welcome section */
+.welcome-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #2a2f35;
+}
+
+.welcome-text {
+  font-size: 20px;
+}
+
+/* Navigation tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #2a2f35;
+}
+
+.tab {
+  flex: 1;
+  padding: 16px;
+  background: none;
+  border: none;
+  color: #9ba1a6;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tab.active {
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+/* Workout cards container */
+.workout-cards {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Individual workout card */
+.workout-card {
+  background-color: rgba(42, 47, 53, 0.5);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.date {
+  color: #9ba1a6;
+  font-size: 18px;
+  margin: 0;
+}
+
+.checkmark {
+  width: 24px;
+  height: 24px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.day-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  margin-left: 30px;
+}
+
+/* Exercise items */
+.exercises {
+  display: flex;
+  flex-direction: column;
+  /* align-items: start; */
+  /* justify-content: start;
+  text-align: left; */
+  gap: 12px;
+}
+
+.exercise-item {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 12px;
+  align-items: start;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.exercise-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  text-align: left;
+}
+
+.exercise-label {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(42, 47, 53, 0.8);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.exercise-name {
+  color: #9ba1a6;
+  font-size: 16px;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2a2f35;
+  border-top: 1px solid #3a3f45;
+  padding: 16px;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #9ba1a6;
+  text-decoration: none;
+}
+
+.nav-item.active {
+  color: white;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+.nav-text {
+  font-size: 12px;
+}
+
+/* Main container */
+.app-container {
+  min-height: 100vh;
+  background-color: #1a1e23;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 800px; /* Added max-width for consistent card sizing */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Header */
+.status-bar {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-bar-time {
+  font-size: 20px;
+}
+
+.status-bar-icons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Welcome section */
+.welcome-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #2a2f35;
+}
+
+.welcome-text {
+  font-size: 20px;
+}
+
+/* Navigation tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #2a2f35;
+}
+
+.tab {
+  flex: 1;
+  padding: 16px;
+  background: none;
+  border: none;
+  color: #9ba1a6;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tab.active {
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+/* Workout cards container */
+.workout-cards {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Individual workout card */
+.workout-card {
+  background-color: rgba(42, 47, 53, 0.5);
+  border-radius: 12px;
+  padding: 16px;
+  width: 40%;
+  /* height: 350px;      */
+  box-sizing: border-box; /* Include padding in width */
+  cursor: pointer;
+  transition: 300ms all ease;
+}
+
+.workout-card:hover {
+  background-color: rgba(85, 95, 108, 0.5);
+}
+
+.workout-card-id {
+  background-color: rgba(42, 47, 53, 0.5);
+  border-radius: 12px;
+  padding: 30px;
+  width: 50%;
+  box-sizing: border-box; /* Include padding in width */
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  margin-bottom: 8px;
+  margin-left: 30px;
+}
+
+.date {
+  color: #9ba1a6;
+  font-size: 18px;
+}
+
+.checkmark {
+  width: 24px;
+  height: 24px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.day-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Exercise items */
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%; /* Full width */
+}
+
+.exercise-item {
+  display: flex;
+  /* align-items: center; */
+  gap: 12px;
+  width: 100%; /* Full width */
+  border-bottom: 3px solid rgb(17, 24, 39);
+  border-radius: 3px;
+}
+
+.exercise-label {
+  min-width: 32px; /* Changed to min-width */
+  height: 32px;
+  background-color: rgba(42, 47, 53, 0.8);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0; /* Prevent label from shrinking */
+}
+
+.exercise-name {
+  color: #9ba1a6;
+  font-size: 16px;
+  text-align: left; /* Explicitly set left alignment */
+  flex-grow: 1; /* Allow name to take remaining space */
+  margin-left: 10px;
+}
+
+/* Bottom navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2a2f35;
+  border-top: 1px solid #3a3f45;
+  padding: 16px;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px; /* Match container max-width */
+  margin: 0 auto; /* Center the navigation */
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #9ba1a6;
+  text-decoration: none;
+}
+
+.nav-item.active {
+  color: white;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+.nav-text {
+  font-size: 12px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 800px) {
+  .app-container {
+    width: 100%;
+  }
+
+  .workout-cards {
+    padding: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .workout-card,
+  .workout-card-id {
+    width: 70%;
+  }
+
+  .workout-card {
+    margin: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .workout-card,
+  .workout-card-id {
+    width: 90%;
+  }
+}
+
+.warmup-section {
+  margin-top: 5px;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.warmup-section li {
+  list-style-type: disc;
+  margin-left: 15px;
+}
+
+/* .workouts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.workout {
+  width: 300px;
+  height: 450px;
+  border: #007bff solid 3px;
+  border-radius: 10px;
+  margin: 20px 0;
+  padding: 20px;
+}
+
+.day {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.dayDetails {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.521);
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.exercises {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.exerciseWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.exerciseName {
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
+.setsReps {
+
+} */
+
+.workouts {
+  padding: 30px;
+  display: grid;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.workout {
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  padding: 25px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  width: 300px;
+}
+
+.day {
+  font-size: 18px;
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 8px;
+}
+
+.dayDetails {
+  color: #555555;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* .exerciseWrapper {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eaeaea;
+} */
+
+.exerciseWrapper {
+  display: flex;
+  padding: 10px 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eaeaea;
+}
 
 .exerciseName {
   color: #007bff;
@@ -1041,3 +1731,79 @@ body::-webkit-scrollbar-track {
     font-size: 13px;
   }
 }
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 250px; /* Adjust the max-width as needed */
+  aspect-ratio: 16 / 9; /* Keeps the video at a 16:9 aspect ratio */
+  margin: auto;
+  margin-left: 0;
+  margin-bottom: 20px;
+}
+
+.video-container iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 10px; /* Optional: Adds rounded corners */
+}
+
+.workout-card-id {
+}
+
+/* Warmups Section */
+.warmups {
+  margin-top: 20px;
+  padding: 10px;
+  /* background-color: #f4f4f4; */
+  border-radius: 8px;
+  /* border: 1px solid #ddd; */
+  margin-left: 0;
+}
+
+/* Warmups Heading */
+.warmups h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #9ba1a6;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* Warmups List */
+.warmups ul {
+  list-style-type: none; /* Remove default list styling */
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Warmups List Items */
+.warmups li {
+  font-size: 1rem;
+  color: #9ba1a6;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  /* padding-left: 20px; */
+  position: relative;
+}
+
+/* Add an icon to the warmup list items */
+.warmups li:before {
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+  padding-right: 10px;
+}
+
+/* Style for list items when hovered */
+.warmups li:hover {
+  background-color: #e0f7fa;
+  cursor: pointer;
+  border-radius: 4px;
+  padding-left: 15px; /* Adds a little padding when hovered */
+}
+

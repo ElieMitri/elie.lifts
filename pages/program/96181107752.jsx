@@ -33,7 +33,6 @@ import { clients } from "@/clients";
 import { MdOutlineShoppingCart, MdArrowBack } from "react-icons/md";
 import { IoExitOutline } from "react-icons/io5";
 
-import { KZfhMalW7QqCYNPi9Wiw } from "../../programs/Hanna";
 import { w4Q0O40LP1Y96sA5mhgL } from "../../programs/Dany";
 
 export default function Testimonials() {
@@ -44,62 +43,9 @@ export default function Testimonials() {
   const [userId, setUserId] = useState("");
   const [result, setResult] = useState(null);
 
-  const fetchAllUsers = async () => {
-    try {
-      const usersCollection = collection(db, "users");
-      const querySnapshot = await getDocs(usersCollection);
-
-      const users = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      console.log("Fetched Users:", users);
-      return users;
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
-
-  async function checkForName() {
-    const nameValue = userName.current.value;
-    console.log(nameValue);
-    try {
-      const users = await fetchAllUsers();
-      const nameExists = users.some((user) => user.email === nameValue);
-      const sameUser = users.find((user) => user.email === nameValue);
-
-      if (nameExists) {
-        console.log("Name exists");
-        console.log(sameUser.id);
-        setUsernameId(sameUser.id);
-      } else {
-        // console.log("Name does not exist");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  // async function addProgramDany() {
-  //   try {
-  //     for (let i = 0; i < w4Q0O40LP1Y96sA5mhgL.length; i++) {
-  //       const day = w4Q0O40LP1Y96sA5mhgL[i];
-
-  //       await setDoc(
-  //         doc(db, "programs", "w4Q0O40LP1Y96sA5mhgL", "program", day.day),
-  //         day
-  //       );
-  //       console.log(`Added ${day.day}`);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding program:", error);
-  //   }
-  // }
-
   async function addProgramDany() {
     try {
-      const userId = "3CHyJ4ikQzdRBug1JeCg2p6IHbM2"; // Use the dynamic user ID as needed
+      const userId = "utIPeANESCR6dIcpLoLeua2Inla2"; // Use the dynamic user ID as needed
       const programRef = doc(
         db,
         "programs",
@@ -143,17 +89,6 @@ export default function Testimonials() {
 
   return (
     <div className="checkingWrapper">
-      <input
-        type="text"
-        placeholder="name"
-        ref={userName}
-        className="checkingInput"
-      />
-      <button onClick={checkForName} className="checkingButton">
-        Enter
-      </button>
-      <button onClick={fetchAllUsers}>Get</button>
-      <h1 className="idNumber">{usernameId}</h1>
       <button onClick={addProgramDany} className="checkingButton">
         Dany
       </button>

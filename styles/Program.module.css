@@ -14,7 +14,7 @@
   transition: all 0.3s ease;
   cursor: pointer;
   margin: 0;
-  position: fixed;
+  /* position: fixed; */
   margin-top: 15px;
   margin-left: 15px;
 }
@@ -22,4 +22,55 @@
 .backButton:hover {
   color: rgb(147, 197, 253);
   background-color: rgba(96, 165, 250, 0.1);
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+}
+
+.toggleButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hidden by default */
+  width: 250px;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  transition: left 0.3s ease;
+}
+
+.sidebar.open {
+  left: 0; /* Show the sidebar when open */
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar nav ul li {
+  margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.sidebar nav ul li a:hover {
+  text-decoration: underline;
 }

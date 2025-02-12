@@ -10,18 +10,18 @@ export default function Testimonials() {
 
   const basicFeatures = [
     // "1 Hour Session",
-    "Customized Workout Plan ",
-    "Diet Recommendations",
+    "Standard workout plan for general goals.",
+    "Simple diet recommendations.",
     "24/7 WhatsApp Support",
-    "Progress Tracking",
+    "Monthly progress tracking.",
   ];
 
   const premiumFeatures = [
     // "2 Hour Initial Session",
-    "Customized Workout Plan",
-    "Personalized Meal Plans",
+    "Fully customized workout and meal plans.",
+    "Bi-weekly progress reviews with analytics.",
     "24/7 WhatsApp Support",
-    "Advanced Progress Tracking",
+    "Monthly 1-on-1 consultation.",
   ];
 
   return (

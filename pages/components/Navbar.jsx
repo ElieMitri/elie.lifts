@@ -49,22 +49,22 @@ export default function Navbar({ scrollToSection, about }) {
           >
             Contact
           </li>
-          <li
+          {/* <li
             onClick={() => {
               router.push("/program");
             }}
             className={styles.navLink}
           >
             Program
-          </li>
-          <li
+          </li> */}
+          {/* <li
             onClick={() => {
               router.push("/testimonials");
             }}
             className={styles.navLink}
           >
             Testimonials
-          </li>
+          </li> */}
           <a
             className={styles.instaLogo}
             onClick={() => {
@@ -114,22 +114,22 @@ export default function Navbar({ scrollToSection, about }) {
                 >
                   Contact
                 </li>
-                <li
+                {/* <li
                   onClick={() => {
                     router.push("/program");
                   }}
                   className={styles.navLink}
                 >
                   Program
-                </li>
-                <li
+                </li> */}
+                {/* <li
                   onClick={() => {
                     router.push("/testimonials");
                   }}
                   className={styles.navLinkModal}
                 >
                   Testimonials
-                </li>
+                </li> */}
                 <div className={styles.socialMedia}>
                   <a
                     className={styles.instaLogo}
