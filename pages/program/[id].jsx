@@ -123,16 +123,26 @@ export default function Page() {
                   </ul>
                 </div>
               )}
+
               {exercise.workingSets && exercise.workingSets.length > 0 && (
                 <div className="warmups">
                   <h4>Working Sets:</h4>
                   <ul>
-                    {exercise.workingSets.map((workingSets, warmupIdx) => (
-                      <li key={warmupIdx}>{workingSets}</li>
+                    {exercise.workingSets.map((workingSet, workingSetIdx) => (
+                      <li key={workingSetIdx}>{workingSet}</li>
                     ))}
                   </ul>
                 </div>
               )}
+
+              {/* Fallback to showing sets and reps if neither warmups nor working sets exist */}
+              {(!exercise.warmups || exercise.warmups.length === 0) &&
+                (!exercise.workingSets ||
+                  exercise.workingSets.length === 0) && (
+                  <div className="sets-reps">
+                    <p>{exercise.setsReps}</p>
+                  </div>
+                )}
             </div>
           ))}
         </div>

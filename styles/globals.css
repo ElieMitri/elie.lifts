@@ -1208,7 +1208,7 @@ body::-webkit-scrollbar-track {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 16px;
-  margin-left: 30px;
+  margin-left: 0px;
 }
 
 /* Exercise items */
@@ -1228,7 +1228,7 @@ body::-webkit-scrollbar-track {
   gap: 12px;
   align-items: start;
   text-align: left;
-  padding-left: 30px;
+  /* padding-left: 30px; */
 }
 
 .exercise-items {
@@ -1374,7 +1374,7 @@ body::-webkit-scrollbar-track {
 .workout-card {
   background-color: rgba(42, 47, 53, 0.5);
   border-radius: 12px;
-  padding: 16px;
+  padding: 30px;
   width: 40%;
   /* height: 350px;      */
   box-sizing: border-box; /* Include padding in width */
@@ -1401,7 +1401,7 @@ body::-webkit-scrollbar-track {
   justify-content: space-between;
   /* align-items: center; */
   margin-bottom: 8px;
-  margin-left: 30px;
+  margin-left: 0px;
 }
 
 .date {
@@ -1441,6 +1441,8 @@ body::-webkit-scrollbar-track {
   width: 100%; /* Full width */
   border-bottom: 3px solid rgb(17, 24, 39);
   border-radius: 3px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 .exercise-label {
@@ -1766,7 +1768,7 @@ body::-webkit-scrollbar-track {
 
 /* Warmups Heading */
 .warmups h4 {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: bold;
   color: #9ba1a6;
   margin-bottom: 10px;
@@ -1789,6 +1791,17 @@ body::-webkit-scrollbar-track {
   align-items: center;
   /* padding-left: 20px; */
   position: relative;
+}
+
+.sets-reps {
+  font-size: 1rem;
+  color: #9ba1a6;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  /* padding-left: 20px; */
+  position: relative;
+  margin-left: 30px;
 }
 
 /* Add an icon to the warmup list items */
