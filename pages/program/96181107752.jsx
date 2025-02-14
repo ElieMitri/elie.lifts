@@ -45,7 +45,7 @@ export default function Testimonials() {
 
   async function addProgramDany() {
     try {
-      const userId = "utIPeANESCR6dIcpLoLeua2Inla2"; // Use the dynamic user ID as needed
+      const userId = "pHufCKTRxdX5mUosQgAVWuUUMP02"; // Use the dynamic user ID as needed
       const programRef = doc(
         db,
         "programs",

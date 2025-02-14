@@ -59,43 +59,45 @@ export default function About({ about }) {
     });
   }
 
-  async function createAccount(e) {
-    e.preventDefault(); // Prevent the default form submission behavior
+  // async function createAccount(e) {
+  //   e.preventDefault(); // Prevent the default form submission behavior
 
-    const email = userEmail.current.value;
-    const password = userPassword.current.value;
-    const displayName = userName.current.value;
+  //   const email = userEmail.current.value;
+  //   const password = userPassword.current.value;
+  //   const displayName = userName.current.value;
 
-    // Validate email
-    if (!isValidEmail(email)) {
-      setError("Email is invalid");
-      return;
-    }
+  //   // Validate email
+  //   if (!isValidEmail(email)) {
+  //     setError("Email is invalid");
+  //     return;
+  //   }
 
-    setError(null);
+  //   setError(null);
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
+  //   try {
+  //     const userCredential = await createUserWithEmailAndPassword(
+  //       auth,
+  //       email,
+  //       password
+  //     );
+  //     const user = userCredential.user;
 
-      await updateProfile(user, {
-        displayName: displayName,
-      });
+  //     await updateProfile(user, {
+  //       displayName: displayName,
+  //     });
 
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        email: user.email,
-        displayName: displayName,
-      });
-    } catch (error) {
-      console.error("Error creating account:", error);
-      setError(error.message);
-    }
-  }
+  //     await addDoc(collection(db, "users"), {
+  //       uid: user.uid,
+  //       email: user.email,
+  //       displayName: displayName,
+  //       date: serverTimestamp(),
+  //       activeProgram: "false",
+  //     });
+  //   } catch (error) {
+  //     console.error("Error creating account:", error);
+  //     setError(error.message);
+  //   }
+  // }
 
   async function login() {
     const email = userEmail.current.value;
@@ -257,9 +259,15 @@ export default function About({ about }) {
             <IoExitOutline onClick={signOut} className="exitButton" />
             {}
           </div>
-        ) : switched ? (
+        ) : (
           <>
             <div className="modalOpen">
+              <button
+                onClick={() => router.push("/")}
+                className={styles.backButton}
+              >
+                <MdArrowBack size={24} />
+              </button>
               <div className="login__inputs">
                 <h1 className="login__title">Login</h1>
                 <input
@@ -268,67 +276,16 @@ export default function About({ about }) {
                   placeholder="Email"
                   ref={userEmail}
                 />
-                <div className="password__login">
-                  <input
-                    type="password"
-                    className="modal__input"
-                    placeholder="••••••••••••"
-                    ref={userPassword}
-                  />
-                </div>
+                {/* <div className="password__login"> */}
+                <input
+                  type="password"
+                  className="modal__input"
+                  placeholder="••••••••••••"
+                  ref={userPassword}
+                />
+                {/* </div> */}
                 <button className="login__btn cursor" onClick={login}>
                   Log in
-                </button>
-                <div className="login__or">
-                  <h4 className="login__h4">OR</h4>
-                </div>
-                <button
-                  className="login__button"
-                  onClick={() => setSwitched(false)}
-                >
-                  Create an account
-                </button>
-              </div>
-            </div>
-            <div className="backdropOpen"></div>
-          </>
-        ) : (
-          <>
-            <div className="modalOpen">
-              <div className="login__inputs">
-                <h1 className="login__title">Sign Up</h1>
-                <input
-                  type="name"
-                  className="modal__input"
-                  placeholder="Name"
-                  ref={userName}
-                />
-                <input
-                  type="email"
-                  className="modal__input"
-                  placeholder="Email"
-                  ref={userEmail}
-                  onChange={checkEmail}
-                />
-                <div className="password__login">
-                  <input
-                    type="password"
-                    className="modal__input"
-                    placeholder="••••••••••••"
-                    ref={userPassword}
-                  />
-                </div>
-                <button className="login__btn cursor" onClick={createAccount}>
-                  Sign Up
-                </button>
-                <div className="login__or">
-                  <h4 className="login__h4">OR</h4>
-                </div>
-                <button
-                  className="login__button"
-                  onClick={() => setSwitched(true)}
-                >
-                  Login
                 </button>
               </div>
             </div>

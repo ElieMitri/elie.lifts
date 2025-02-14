@@ -40,7 +40,7 @@ export default function Introduction({ scrollToSection, about }) {
               <button
                 className={styles.socialButton}
                 onClick={() =>
-                  router.push("https://www.tiktok.com/@elie.liftss")
+                  router.push("https://www.tiktok.com/@elielifts2/")
                 }
                 aria-label="TikTok"
               >

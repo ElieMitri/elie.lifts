@@ -49,6 +49,13 @@
   color: #ffffff;
 }
 
+.aboutPic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
 .aboutPicWrapper {
   flex: 1;
   position: relative;
@@ -64,12 +71,6 @@
   transform: translateY(-5px);
 }
 
-.aboutPic {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
 
 .aboutPicWrapper:hover .aboutPic {
   transform: scale(1.05);
@@ -118,6 +119,7 @@
 @media (max-width: 968px) {
   .about {
     /* padding: 4rem 1rem; */
+    min-height: 1350px;
   }
 
   .aboutTitle {
@@ -130,10 +132,9 @@
   }
 
   .aboutPicWrapper {
-    width: 100%;
+    width: 50%;
     height: 300px;
   }
-
   .aboutPara {
     font-size: 1.125rem;
     text-align: center;
@@ -151,12 +152,18 @@
   }
 
   .aboutPicWrapper {
+    width: 80%;
     height: 250px;
   }
 
   .modalAbout {
     width: 95%;
     padding: 1.5rem;
+  }
+
+  .aboutPara {
+    font-size: 1rem;
+    text-align: center;
   }
 
   .knowMoreButton {

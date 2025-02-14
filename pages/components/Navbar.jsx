@@ -77,7 +77,7 @@ export default function Navbar({ scrollToSection, about }) {
             className={styles.tiktokLogo}
             onClick={() => {
               router.push(
-                "https://www.tiktok.com/@elie.liftss?_t=8iaZqE9oaZt&_r=1"
+                "https://www.tiktok.com/@elielifts2"
               );
             }}
           >
@@ -143,7 +143,7 @@ export default function Navbar({ scrollToSection, about }) {
                     className={styles.tiktokLogo}
                     onClick={() => {
                       router.push(
-                        "https://www.tiktok.com/@elie.liftss?_t=8iaZqE9oaZt&_r=1"
+                        "https://www.tiktok.com/@elielifts2"
                       );
                     }}
                   >

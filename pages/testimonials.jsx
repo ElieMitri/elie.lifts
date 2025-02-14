@@ -55,15 +55,15 @@ export default function Testimonials() {
         </div>
       </div>
 
-      {/* <div className={styles.bookingWrapper}>
-        <p className={styles.bookingText}>Want further information?</p>
+      <div className={styles.bookingWrapper}>
+        {/* <p className={styles.bookingText}>Want further information?</p> */}
         <a 
           href="https://wa.me/81107752" target="_blank"
           className={styles.bookingButton}
         >
-          Text Me
+          Want further information?
         </a>
-      </div> */}
+      </div>
     </div>
   );
 }

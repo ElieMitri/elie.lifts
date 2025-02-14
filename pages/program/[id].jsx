@@ -8,17 +8,17 @@ import { onAuthStateChanged } from "firebase/auth";
 import { MdOutlineShoppingCart, MdArrowBack } from "react-icons/md";
 import styles from "../../styles/Program.module.css";
 import {
-    setDoc,
-    doc,
-    collection,
-    serverTimestamp,
-    addDoc,
-    getDoc,
-    updateDoc,
-    signOut,
-    getFirestore,
-    getDocs,
-  } from "firebase/firestore";
+  setDoc,
+  doc,
+  collection,
+  serverTimestamp,
+  addDoc,
+  getDoc,
+  updateDoc,
+  signOut,
+  getFirestore,
+  getDocs,
+} from "firebase/firestore";
 
 export default function Page() {
   const [user, setUser] = useState(null);
@@ -88,16 +88,16 @@ export default function Page() {
 
   async function sendRemark(e) {
     e.preventDefault(); // Prevent the default form submission behavior
-  
+
     // Use a nested collection: comments/{userId}/remarks
     await addDoc(collection(db, "comments", user.uid, "remarks"), {
       Name: user.displayName,
       email: user.email,
       Comment: textTyped,
+      Time: serverTimestamp(),
     });
-    setTextTyped("")
+    setTextTyped("");
   }
-  
 
   return (
     <>

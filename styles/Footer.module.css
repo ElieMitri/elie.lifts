@@ -93,7 +93,7 @@
  */
 
  .footer {
-  background-color: rgb(17, 24, 39);
+  background-color: rgba(55, 65, 81, 0.5);
   position: relative;
   overflow: hidden;
 }
@@ -313,7 +313,7 @@
 .footerBottom {
   border-top: 1px solid rgba(96, 165, 250, 0.1);
   padding: 1.5rem 2rem;
-  background-color: rgba(17, 24, 39, 0.8);
+  background-color: rgba(43, 51, 63, 0.5);
 }
 
 .footerCopy {

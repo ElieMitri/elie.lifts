@@ -5,8 +5,16 @@
   top: 0;
 }
 
+.image2 {
+left: 33.333%;
+}
+
+.image3 {
+  right: 0;
+}
+
 .intro {
-  height: 89.5vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   position: relative;
@@ -41,7 +49,6 @@
 .introImage {
   width: 100%;
   border-radius: 12px;
-  width: 100%;
 }
 
 .introGetStartedButton {
