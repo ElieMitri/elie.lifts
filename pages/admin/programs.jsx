@@ -274,7 +274,7 @@ export default function Programs() {
   const [code, setCode] = useState();
   
       useEffect(() => {
-        if (code === "190908") {
+        if (code === "1508") {
           setAdminLogged(true);
         }
       }, [code]); // This will only run when `code` changes
