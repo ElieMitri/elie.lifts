@@ -196,7 +196,7 @@ function Page() {
     const email = userEmail.current.value
     const password = userPassword.current.value
 
-    if(email === "mitri@admin.com" && password === "la55c0de") {
+    if(email === "admin@mitri" && password === "la55c0de") {
       setAdminLogged(true)
     } else (
       setAdminLogged(false)
