@@ -14,6 +14,8 @@ import {
   signOut,
   getFirestore,
   getDocs,
+  query,
+  where,
 } from "firebase/firestore";
 import { db, auth } from "@/firebase";
 import { IoMdClose } from "react-icons/io";
@@ -163,39 +165,38 @@ export default function About({ about }) {
   useEffect(() => {
     async function showProgram() {
       if (!user) return; // Ensure user is logged in
-
+  
       try {
         // console.log("Fetching program for user:", user.uid);
-
-        const docRef = doc(
-          db,
-          "programs",
-          user.uid,
-          "program",
-          "programDetails"
-        );
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const userData = docSnap.data();
-          // console.log("User Program Data:", userData);
-          setProgramData(userData.days || []);
-        } else {
-          // console.log("No program found for this user!");
+  
+        // Reference to the 'programs' subcollection under the user document
+        const collectionRef = collection(db, "programs", user.uid, "programs");
+        console.log(collectionRef);
+  
+        // Fetch all documents in the 'programs' subcollection
+        const querySnapshot = await getDocs(collectionRef);
+  
+        if (querySnapshot.empty) {
+          console.log("No programs found for this user!");
           setProgramData([]); // Initialize as empty
+        } else {
+          // Iterate over documents and get the data for each program
+          const programs = querySnapshot.docs.map(doc => doc.data());
+          console.log("User Program Data:", programs);
+          setProgramData(programs); // Set programs data to state
         }
       } catch (error) {
-        // console.error("Error fetching program:", error);
+        console.error("Error fetching program:", error);
       } finally {
         setLoading(false); // Ensure loading state updates properly
       }
     }
-
+  
     if (user) {
       setLoading(true); // Set loading before fetching
       showProgram();
     } else {
-      setLoading(true);
+      setLoading(false); // If no user, stop loading
     }
   }, [user]);
 
@@ -216,7 +217,7 @@ export default function About({ about }) {
                 <div className="date">{workout.dayDetails}</div>
               </div>
 
-              <div className="day-title">{workout.day}</div>
+              <div className="day-title">Day {workout.day}</div>
 
               <div className="exercises">
                 {workout.exercises?.map((exercise, idx) => (
@@ -231,22 +232,6 @@ export default function About({ about }) {
                       </div>
                       <div className="exercise-name">{exercise.exercise}</div>
                     </div>
-                    {/* <div className="video-container">
-                      <iframe
-                        width="460"
-                        height="315"
-                        src={exercise.videoUrl}
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen
-                      ></iframe>
-                    </div> */}
-                    {/* <div>
-                  {exercise.warmups } 
-                  {exercise.setsReps}
-                  </div> */}
                   </div>
                 ))}
               </div>

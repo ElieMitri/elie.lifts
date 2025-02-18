@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { db, auth } from "../../firebase";
 import { useRouter } from "next/router";
 import { onAuthStateChanged } from "firebase/auth";
-// import { doc, getDoc } from "firebase/firestore";
 import { MdOutlineShoppingCart, MdArrowBack } from "react-icons/md";
 import styles from "../../styles/Program.module.css";
 import {
@@ -36,14 +35,16 @@ export default function Page() {
     try {
       setLoading(true); // Start loading state
 
-      const docRef = doc(db, "programs", user.uid, "program", "programDetails");
-      const docSnap = await getDoc(docRef);
+      // Fetch the collection of programs for the user
+      const collectionRef = collection(db, "programs", user.uid, "programs");
+      const querySnapshot = await getDocs(collectionRef);
 
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
-        setProgramData(userData.days || []); // Set program data if exists
+      if (!querySnapshot.empty) {
+        // Retrieve all programs for the user
+        const programs = querySnapshot.docs.map((doc) => doc.data());
+        setProgramData(programs); // Set program data if exists
       } else {
-        setProgramData([]); // No program found, set empty data
+        setProgramData([]); // No programs found, set empty data
       }
     } catch (error) {
       console.error("Error fetching program:", error);
@@ -73,7 +74,8 @@ export default function Page() {
   // Only try to find workout after programData is available and id exists
   useEffect(() => {
     if (programData?.length > 0 && id) {
-      const workout = programData.find((item) => +item.id === +id);
+      // Searching program by id
+      const workout = programData.find((item) => item.id === id);
       setWorkoutDetails(workout); // Set the workout details if found
     }
   }, [programData, id]);
@@ -112,7 +114,7 @@ export default function Page() {
           <div className="date">{workoutDetails.dayDetails}</div>
         </div>
 
-        <div className="day-title">{workoutDetails.day}</div>
+        <div className="day-title">Day {workoutDetails.day}</div>
 
         <div className="exercises">
           {workoutDetails.exercises?.map((exercise, idx) => (

@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 import {
   setDoc,
   doc,
@@ -112,7 +114,11 @@ function Page() {
   const [numberOfClients, setNumberOfClients] = useState();
   const [activeProgram, setActiveProgram] = useState();
   const [inactiveProgram, setInactiveProgram] = useState();
+  const [adminLogged, setAdminLogged] = useState(false);
   const [users, setUsers] = useState([]);
+
+  const userEmail = useRef()
+  const userPassword = useRef()
 
   const stats = [
     {
@@ -175,110 +181,170 @@ function Page() {
     fetchAllUsers();
   }, []);
 
+  function loginAdmin() {
+    // signInWithEmailAndPassword(auth, "mitri@admin.com", "la55c0de")
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     const user = userCredential.user;
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //   });
+
+    const email = userEmail.current.value
+    const password = userPassword.current.value
+
+    if(email === "mitri@admin.com" && password === "la55c0de") {
+      setAdminLogged(true)
+    } else (
+      setAdminLogged(false)
+    )
+  }
+
   return (
-    <div className="dashboard-container">
-      <div className="dashboard-layout">
-        {/* Sidebar */}
-        <aside className="sidebar">
-          <div className="sidebar-header">
-            <h1 className="dashboard-title">Dashboard</h1>
-          </div>
-          <nav className="sidebar-nav">
-            <Link href="/admin">
-              <button className="sidebar-button">
-                <Activity className="sidebar-icon" />
-                Overview
-              </button>
-            </Link>
-            <Link href="/admin/clients">
-              <button className="sidebar-button">
-                <Users className="sidebar-icon" />
-                Clients
-              </button>
-            </Link>
-            <Link href="/admin/programs">
-              <button className="sidebar-button">
-                <BookOpen className="sidebar-icon" />
-                Programs
-              </button>
-            </Link>
-            <Link href="/admin/remarks">
-              <button className="sidebar-button">
-                <Shield className="sidebar-icon" />
-                Remarks
-              </button>
-            </Link>
-          </nav>
-        </aside>
+    <>
+      {adminLogged ? (
+        <div className="dashboard-container">
+          <div className="dashboard-layout">
+            {/* Sidebar */}
+            <aside className="sidebar">
+              <div className="sidebar-header">
+                <h1 className="dashboard-title">Dashboard</h1>
+              </div>
+              <nav className="sidebar-nav">
+                <Link href="/admin">
+                  <button className="sidebar-button">
+                    <Activity className="sidebar-icon" />
+                    Overview
+                  </button>
+                </Link>
+                <Link href="/admin/clients">
+                  <button className="sidebar-button">
+                    <Users className="sidebar-icon" />
+                    Clients
+                  </button>
+                </Link>
+                <Link href="/admin/programs">
+                  <button className="sidebar-button">
+                    <BookOpen className="sidebar-icon" />
+                    Programs
+                  </button>
+                </Link>
+                <Link href="/admin/remarks">
+                  <button className="sidebar-button">
+                    <Shield className="sidebar-icon" />
+                    Remarks
+                  </button>
+                </Link>
+              </nav>
+            </aside>
 
-        <main className="main-content">
-          <header className="header"></header>
+            <main className="main-content">
+              <header className="header"></header>
 
-          <div className="stats-grid">
-            {stats.map((stat) => (
-              <StatCard key={stat.title} {...stat} />
-            ))}
-          </div>
+              <div className="stats-grid">
+                {stats.map((stat) => (
+                  <StatCard key={stat.title} {...stat} />
+                ))}
+              </div>
 
-          {/* Quick Actions */}
-          {/* <div className="quick-actions">
+              {/* Quick Actions */}
+              {/* <div className="quick-actions">
           <h2 className="section-title">Quick Actions</h2>
           <QuickActions />
         </div> */}
 
-          <div className="recent-activity">
-            <h2 className="recent-title">Recent Activity</h2>
-            <div className="activity-list">
-              {users.length === 0 ? (
-                <p>No users found</p>
-              ) : (
-                users.map((user) => {
-                  // Convert Firestore timestamp to a Date object
-                  const timestamp = user.date;
-                  const date = timestamp
-                    ? new Date(timestamp.seconds * 1000)
-                    : null;
+              <div className="recent-activity">
+                <h2 className="recent-title">Recent Activity</h2>
+                <div className="activity-list">
+                  {users.length === 0 ? (
+                    <p>No users found</p>
+                  ) : (
+                    users.map((user) => {
+                      // Convert Firestore timestamp to a Date object
+                      const timestamp = user.date;
+                      const date = timestamp
+                        ? new Date(timestamp.seconds * 1000)
+                        : null;
 
-                  // Calculate time difference in minutes
-                  let timeString = "Just now";
-                  if (date) {
-                    const minutesDifference = Math.floor(
-                      (new Date() - date) / (1000 * 60)
-                    );
-                    const hours = Math.floor(minutesDifference / 60);
-                    const minutes = minutesDifference % 60;
+                      // Calculate time difference in minutes
+                      let timeString = "Just now";
+                      if (date) {
+                        const minutesDifference = Math.floor(
+                          (new Date() - date) / (1000 * 60)
+                        );
+                        const hours = Math.floor(minutesDifference / 60);
+                        const minutes = minutesDifference % 60;
 
-                    if (hours > 0) {
-                      timeString = `${hours} hour${hours > 1 ? "s" : ""}${
-                        minutes > 0
-                          ? ` and ${minutes} minute${minutes > 1 ? "s" : ""}`
-                          : ""
-                      } ago`;
-                    } else if (minutes > 0) {
-                      timeString = `${minutes} minute${
-                        minutes > 1 ? "s" : ""
-                      } ago`;
-                    }
-                  }
+                        if (hours > 0) {
+                          timeString = `${hours} hour${hours > 1 ? "s" : ""}${
+                            minutes > 0
+                              ? ` and ${minutes} minute${
+                                  minutes > 1 ? "s" : ""
+                                }`
+                              : ""
+                          } ago`;
+                        } else if (minutes > 0) {
+                          timeString = `${minutes} minute${
+                            minutes > 1 ? "s" : ""
+                          } ago`;
+                        }
+                      }
 
-                  return (
-                    <div key={user.id} className="activity-item">
-                      <div>
-                        <p className="activity-type">New Client</p>
-                        <p className="activity-name">{user.displayName}</p>
-                      </div>
-                      {date && (
-                        <span className="activity-time">{timeString}</span>
-                      )}
-                    </div>
-                  );
-                })
-              )}
+                      return (
+                        <div key={user.id} className="activity-item">
+                          <div>
+                            <p className="activity-type">New Client</p>
+                            <p className="activity-name">{user.displayName}</p>
+                          </div>
+                          {date && (
+                            <span className="activity-time">{timeString}</span>
+                          )}
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="modalOpen">
+            {/* <button
+              onClick={() => router.push("/")}
+              className={styles.backButton}
+            >
+              <MdArrowBack size={24} />
+            </button> */}
+            <div className="login__inputs">
+              <h1 className="login__title">Admin</h1>
+              <input
+                type="email"
+                className="modal__input"
+                placeholder="Email"
+                ref={userEmail}
+              />
+              {/* <div className="password__login"> */}
+              <input
+                type="password"
+                className="modal__input"
+                placeholder="••••••••••••"
+                ref={userPassword}
+              />
+              {/* </div> */}
+              <button className="login__btn cursor" onClick={loginAdmin}>
+                Log in
+              </button>
             </div>
           </div>
-        </main>
-      </div>
-    </div>
+          <div className="backdropOpen"></div>
+        </>
+      )}
+    </>
   );
 }
 

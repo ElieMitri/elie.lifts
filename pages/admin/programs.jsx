@@ -16,6 +16,8 @@ import {
   BookOpenCheck,
   Filter,
   MoreVertical,
+  X as CloseIcon,
+  Minus,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -29,6 +31,8 @@ import {
   signOut,
   getFirestore,
   getDocs,
+  query,
+  where,
 } from "firebase/firestore";
 import { db, auth } from "@/firebase";
 import {
@@ -66,6 +70,136 @@ export default function Programs() {
   const userBlock = useRef("");
   const userDay = useRef("");
   const userDayDetails = useRef("");
+
+  const userId = useRef("");
+
+  const [exercises, setExercises] = useState([
+    {
+      exercise: "",
+      setsReps: "",
+      warmups: [""],
+      workingSets: [""],
+      videoUrl: "",
+    },
+  ]);
+
+  const userProgramId2 = useRef(null);
+  const userBlock2 = useRef(null);
+  const userDay2 = useRef(null);
+  const userDayDetails2 = useRef(null);
+
+  const createProgram = async (e) => {
+    e.preventDefault();
+  
+    // Function to generate unique ID for each program
+    const generateCustomId = (numberLength, letterLength) => {
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+      const randomNumber = Math.floor(
+        Math.random() * Math.pow(10, numberLength)
+      ); // Random number with specified length
+  
+      let randomId = randomNumber.toString().padStart(numberLength, "0"); // Ensure the number is padded to the specified length
+  
+      for (let i = 0; i < letterLength; i++) {
+        const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+        randomId += randomLetter; // Append the letter to the ID
+      }
+  
+      return randomId;
+    };
+  
+    const userId = "SUffkgweuPgGMLOjtTsWYxejyM02"; // Replace with dynamic user ID
+    
+    try {
+      const program = {
+        id: generateCustomId(3, 5), // Unique program ID
+        block: userBlock2.current?.value || "",
+        day: userDay2.current?.value || "",
+        dayDetails: userDayDetails2.current?.value || "",
+        exercises: exercises.map((exercise) => ({
+          ...exercise,
+          warmups: exercise.warmups?.filter((w) => w !== ""),
+          workingSets: exercise.workingSets?.filter((w) => w !== ""),
+        })),
+        createdAt: serverTimestamp(),
+      };
+  
+      // Add the document to the 'programs' subcollection for the specific user
+      const docRef = await setDoc(
+        doc(db, "programs", userId, "programs", program.id), // Save under specific user and program ID
+        program
+      );
+      console.log("Program saved with ID: ", docRef.id);
+  
+      // Clear the form
+      setExercises([
+        {
+          exercise: "",
+          setsReps: "",
+          warmups: [""],
+          workingSets: [""],
+          videoUrl: "",
+        },
+      ]);
+  
+      // Close the modal
+      setOpenedProgramModal(false);
+    } catch (error) {
+      console.error("Error saving program:", error);
+      // Here you could add error handling UI feedback
+    }
+  };
+  
+
+  const addExercise = () => {
+    setExercises([
+      ...exercises,
+      {
+        exercise: "",
+        setsReps: "",
+        warmups: [""],
+        workingSets: [""],
+        videoUrl: "",
+      },
+    ]);
+  };
+
+  const removeExercise = (index) => {
+    setExercises(exercises.filter((_, i) => i !== index));
+  };
+
+  const updateExercise = (index, field, value) => {
+    const updatedExercises = [...exercises];
+    updatedExercises[index] = { ...updatedExercises[index], [field]: value };
+    setExercises(updatedExercises);
+  };
+
+  const addSet = (exerciseIndex, type) => {
+    const updatedExercises = [...exercises];
+    updatedExercises[exerciseIndex][type] = [
+      ...(updatedExercises[exerciseIndex][type] || []),
+      "",
+    ];
+    setExercises(updatedExercises);
+  };
+
+  const updateSet = (exerciseIndex, setIndex, type, value) => {
+    const updatedExercises = [...exercises];
+    if (updatedExercises[exerciseIndex][type]) {
+      updatedExercises[exerciseIndex][type][setIndex] = value;
+      setExercises(updatedExercises);
+    }
+  };
+
+  const removeSet = (exerciseIndex, setIndex, type) => {
+    const updatedExercises = [...exercises];
+    if (updatedExercises[exerciseIndex][type]) {
+      updatedExercises[exerciseIndex][type] = updatedExercises[exerciseIndex][
+        type
+      ].filter((_, i) => i !== setIndex);
+      setExercises(updatedExercises);
+    }
+  };
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -288,106 +422,223 @@ export default function Programs() {
         ) : (
           <></>
         )}
-        {openedProgramModal ? (
-          <div>
-            <div
-              className="modal-overlay"
-              onClick={() => setOpenedProgramModal(false)}
-            >
-              <div
-                className="modal-content"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="modal-header">
-                  {/* <h2>{title}</h2> */}
+        {openedProgramModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h2>Add Program Details</h2>
+                <button
+                  onClick={() => setOpenedProgramModal(false)}
+                  className="close-button"
+                >
+                  <CloseIcon size={24} />
+                </button>
+              </div>
+
+              <form onSubmit={createProgram} className="program-form">
+                <div className="form-grid">
+                  <input
+                    type="text"
+                    ref={userId}
+                    required
+                    placeholder="uid"
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    ref={userBlock2}
+                    required
+                    placeholder="Block"
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    ref={userDay2}
+                    required
+                    placeholder="Day"
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    ref={userDayDetails2}
+                    required
+                    placeholder="Day Details"
+                    className="form-input"
+                  />
+                </div>
+
+                <div className="exercises-container">
+                  {exercises.map((exercise, exerciseIndex) => (
+                    <div key={exerciseIndex} className="exercise-card">
+                      <div className="exercise-header">
+                        <h3 className="exercise-exNumb">
+                          Exercise {exerciseIndex + 1}
+                        </h3>
+                        {exercises.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeExercise(exerciseIndex)}
+                            className="remove-button"
+                          >
+                            <Minus size={20} />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="exercise-grid">
+                        <input
+                          type="text"
+                          value={exercise.exercise}
+                          onChange={(e) =>
+                            updateExercise(
+                              exerciseIndex,
+                              "exercise",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Exercise Name"
+                          className="form-input"
+                        />
+                        <input
+                          type="text"
+                          value={exercise.setsReps}
+                          onChange={(e) =>
+                            updateExercise(
+                              exerciseIndex,
+                              "setsReps",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Sets & Reps"
+                          className="form-input"
+                        />
+                        <input
+                          type="text"
+                          value={exercise.videoUrl}
+                          onChange={(e) =>
+                            updateExercise(
+                              exerciseIndex,
+                              "videoUrl",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Video URL"
+                          className="form-input video-input"
+                        />
+                      </div>
+
+                      {/* Warmup Sets */}
+                      <div className="sets-section">
+                        <div className="sets-header">
+                          <h4 className="exercise-exNumb">Warmup Sets</h4>
+                          <button
+                            type="button"
+                            onClick={() => addSet(exerciseIndex, "warmups")}
+                            className="add-button"
+                          >
+                            <Plus size={20} />
+                          </button>
+                        </div>
+                        {exercise.warmups?.map((warmup, warmupIndex) => (
+                          <div key={warmupIndex} className="set-input-group">
+                            <input
+                              type="text"
+                              value={warmup}
+                              onChange={(e) =>
+                                updateSet(
+                                  exerciseIndex,
+                                  warmupIndex,
+                                  "warmups",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="e.g., 60kg x 5"
+                              className="form-input"
+                            />
+                            <button
+                              type="button"
+                              onClick={() =>
+                                removeSet(exerciseIndex, warmupIndex, "warmups")
+                              }
+                              className="remove-button"
+                            >
+                              <Minus size={20} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Working Sets */}
+                      <div className="sets-section">
+                        <div className="sets-header">
+                          <h4 className="exercise-exNumb">Working Sets</h4>
+                          <button
+                            type="button"
+                            onClick={() => addSet(exerciseIndex, "workingSets")}
+                            className="add-button"
+                          >
+                            <Plus size={20} />
+                          </button>
+                        </div>
+                        {exercise.workingSets?.map(
+                          (workingSet, workingSetIndex) => (
+                            <div
+                              key={workingSetIndex}
+                              className="set-input-group"
+                            >
+                              <input
+                                type="text"
+                                value={workingSet}
+                                onChange={(e) =>
+                                  updateSet(
+                                    exerciseIndex,
+                                    workingSetIndex,
+                                    "workingSets",
+                                    e.target.value
+                                  )
+                                }
+                                placeholder="e.g., 100kg x 3"
+                                className="form-input"
+                              />
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  removeSet(
+                                    exerciseIndex,
+                                    workingSetIndex,
+                                    "workingSets"
+                                  )
+                                }
+                                className="remove-button"
+                              >
+                                <Minus size={20} />
+                              </button>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
                   <button
-                    className="modal-close"
-                    onClick={() => setOpenedProgramModal(false)}
+                    type="button"
+                    onClick={addExercise}
+                    className="add-exercise-button"
                   >
-                    ×
+                    <Plus size={20} className="plusBtnn" />
+                    Add Exercise
                   </button>
                 </div>
-                <div className="modal-body">
-                  <form
-                    onSubmit={(e) => createProgramDetails(e)}
-                    className="form"
-                  >
-                    <div className="form-group">
-                      {/* <label htmlFor="name">Person Name</label> */}
-                      <input
-                        type="text"
-                        id="name"
-                        ref={userProgramId}
-                        required
-                        placeholder="id"
-                      />
-                    </div>
-                    <div className="form-group">
-                      {/* <label htmlFor="description">Description</label> */}
-                      <input
-                        type="text"
-                        id="description"
-                        ref={userBlock}
-                        required
-                        placeholder="Block"
-                      />
-                    </div>
-                    <div className="form-group">
-                      {/* <label htmlFor="duration">Block Duration</label> */}
-                      <input
-                        type="text"
-                        id="duration"
-                        ref={userDay}
-                        placeholder="Day"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      {/* <label htmlFor="duration">Days</label> */}
-                      <input
-                        type="text"
-                        id="duration"
-                        ref={userDayDetails}
-                        placeholder="Day Details"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      {/* <label htmlFor="duration">Case</label> */}
-                      <input
-                        type="text"
-                        id="duration"
-                        ref={userCase}
-                        placeholder="Case"
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      {/* <label htmlFor="duration">Status</label> */}
-                      <input
-                        type="text"
-                        id="duration"
-                        ref={userStatus}
-                        placeholder="Status"
-                        required
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="submit-button"
-                      onClick={(e) => createProgramDetails(e)}
-                    >
-                      Add Program
-                    </button>
-                  </form>
+
+                <div className="form-footer">
+                  <button type="submit" className="submit-button">
+                    Save Program
+                  </button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
-        ) : (
-          <></>
         )}
-
         <div className="programs-card">
           <div className="programs-search-filter">
             <div className="search-box">
@@ -432,8 +683,8 @@ export default function Programs() {
                   <tr key={program.id}>
                     <td>{program.displayName}</td>
                     <td>{program.description}</td>
-                    <td>{program.duration}</td>
-                    <td>{program.days}</td>
+                    <td>{program.duration} Weeks</td>
+                    <td>{program.days} Days</td>
                     <td>{program.personCase}</td>
                     <td>
                       <span
