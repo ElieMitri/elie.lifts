@@ -188,7 +188,7 @@ const [code, setCode] = useState();
       if (code === "190908") {
         setAdminLogged(true);
       }
-    }, [code]); // This will only run when `code` changes
+    }, [code]); 
   
     // Handle the code input
     const handleCodeChange = (e) => {
