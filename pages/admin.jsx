@@ -190,7 +190,6 @@ const [code, setCode] = useState();
       }
     }, [code]); 
   
-    // Handle the code input
     const handleCodeChange = (e) => {
       setCode(e.target.value);
     };
