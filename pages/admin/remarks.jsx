@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import { Search, Filter, MoreVertical, Plus } from 'lucide-react';
 import {
   Users,
@@ -71,6 +71,9 @@ export default function Remarks() {
   const [users, setUsers] = useState([]);
   const [remarksData, setRemarksData] = useState([]);
 
+
+
+
   const filteredPrograms = mockPrograms.filter((program) => {
     const matchesSearch =
       program.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -138,56 +141,78 @@ export default function Remarks() {
     }
   }
 
+  const [adminLogged, setAdminLogged] = useState(false);
+  const userCode = useRef();
+
+  // function loginAdmin() {
+    // const email = userCode.current.value;
+
+    const [code, setCode] = useState();
+
+    useEffect(() => {
+      if (code === "190908") {
+        setAdminLogged(true);
+      }
+    }, [code]); // This will only run when `code` changes
+  
+    // Handle the code input
+    const handleCodeChange = (e) => {
+      setCode(e.target.value);
+    };
+  // }
+
   return (
     <>
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h1 className="dashboard-title">Dashboard</h1>
-        </div>
-        <nav className="sidebar-nav">
-          <Link href="/admin">
-            <button className="sidebar-button">
-              <Activity className="sidebar-icon" />
-              Overview
-            </button>
-          </Link>
-          <Link href="/admin/clients">
-            <button className="sidebar-button">
-              <Users className="sidebar-icon" />
-              Clients
-            </button>
-          </Link>
-          <Link href="/admin/programs">
-            <button className="sidebar-button">
-              <BookOpen className="sidebar-icon" />
-              Programs
-            </button>
-          </Link>
-          <Link href="/admin/remarks">
-            <button className="sidebar-button">
-              <Shield className="sidebar-icon" />
-              Remarks
-            </button>
-          </Link>
-        </nav>
-      </aside>
-      <div className="programs-container">
-        <div className="programs-header">
-          <h1 className="programs-title">Remarks</h1>
-          {/* <button className="programs-add-btn">
+      {adminLogged ? (
+        <>
+          <aside className="sidebar">
+            <div className="sidebar-header">
+              <h1 className="dashboard-title">Dashboard</h1>
+            </div>
+            <nav className="sidebar-nav">
+              <Link href="/admin">
+                <button className="sidebar-button">
+                  <Activity className="sidebar-icon" />
+                  Overview
+                </button>
+              </Link>
+              <Link href="/admin/clients">
+                <button className="sidebar-button">
+                  <Users className="sidebar-icon" />
+                  Clients
+                </button>
+              </Link>
+              <Link href="/admin/programs">
+                <button className="sidebar-button">
+                  <BookOpen className="sidebar-icon" />
+                  Programs
+                </button>
+              </Link>
+              <Link href="/admin/remarks">
+                <button className="sidebar-button">
+                  <Shield className="sidebar-icon" />
+                  Remarks
+                </button>
+              </Link>
+            </nav>
+          </aside>
+          <div className="programs-container">
+            <div className="programs-header">
+              <h1 className="programs-title">Remarks</h1>
+              {/* <button className="programs-add-btn">
             <Plus className="icon" /> Create Program
           </button> */}
-        </div>
-        <div className="remarks">
-          {remarksData.map((user, index) => (
-            <div key={index}>
-              {user.remarks.length > 0 ? (
-                <ul>
-                  {user.remarks.map((remark, rIndex) => (
-                    <li key={rIndex}>
-                      <div className="remark-content">
-                        <div className="remark-header">
-                          {/* <div className="remark-name">
+            </div>
+            <div className="remarks">
+              {remarksData.map((user, index) => (
+                <div key={index}>
+                  {user.remarks.length > 0 ? (
+                    <ul>
+                      {user.remarks.map((remark, rIndex) => (
+                        <li key={rIndex}>
+                          <div className="remark-content">
+                            <div className="remark-header">
+                              {/* <div className="remark-name">
                             {remark.date?.seconds
                               ? new Date(
                                   remark.date.seconds * 1000
@@ -195,33 +220,54 @@ export default function Remarks() {
                               : "Invalid Date"}
                           </div> */}
 
-                          <div className="remark-name">
-                            {remark.Name ? tryParseJSON(remark.Name) : ""}
+                              <div className="remark-name">
+                                {remark.Name ? tryParseJSON(remark.Name) : ""}
+                              </div>
+                              <div className="remark-email">
+                                {remark.email ? tryParseJSON(remark.email) : ""}
+                              </div>
+                            </div>
+                            <div className="remark-comment">
+                              <h1 className="remark-comment-title"> Remark:</h1>
+                              {remark.Comment
+                                ? tryParseJSON(remark.Comment)
+                                : remark.text || ""}
+                            </div>
                           </div>
-                          <div className="remark-email">
-                            {remark.email ? tryParseJSON(remark.email) : ""}
-                          </div>
-                        </div>
-                        <div className="remark-comment">
-                          <h1 className="remark-comment-title"> Remark:</h1>
-                          {remark.Comment
-                            ? tryParseJSON(remark.Comment)
-                            : remark.text || ""}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                // <div className="no-remarks">
-                //   <p>No remarks available</p>
-                // </div>
-                <></>
-              )}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    // <div className="no-remarks">
+                    //   <p>No remarks available</p>
+                    // </div>
+                    <></>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="modalOpen">
+            <div className="login__inputs">
+              <h1 className="login__title">Admin</h1>
+              <input
+                type="text"
+                className="modal__input"
+                placeholder="Code"
+                ref={userCode}
+                onChange={handleCodeChange}
+              />
+              {/* <button className="login__btn cursor" onChange={(e) => setCode(e.target.value)}>
+                Enter
+              </button> */}
+            </div>
+          </div>
+          <div className="backdropOpen"></div>
+        </>
+      )}
     </>
   );
 }

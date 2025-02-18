@@ -114,11 +114,9 @@ function Page() {
   const [numberOfClients, setNumberOfClients] = useState();
   const [activeProgram, setActiveProgram] = useState();
   const [inactiveProgram, setInactiveProgram] = useState();
-  const [adminLogged, setAdminLogged] = useState(false);
   const [users, setUsers] = useState([]);
 
-  const userEmail = useRef()
-  const userPassword = useRef()
+  const userPassword = useRef();
 
   const stats = [
     {
@@ -181,27 +179,21 @@ function Page() {
     fetchAllUsers();
   }, []);
 
-  function loginAdmin() {
-    // signInWithEmailAndPassword(auth, "mitri@admin.com", "la55c0de")
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //   });
+  const [adminLogged, setAdminLogged] = useState(false);
+  const userEmail = useRef();
 
-    const email = userEmail.current.value
-    const password = userPassword.current.value
+const [code, setCode] = useState();
 
-    if(email === "admin@mitri" && password === "la55c0de") {
-      setAdminLogged(true)
-    } else (
-      setAdminLogged(false)
-    )
-  }
+    useEffect(() => {
+      if (code === "190908") {
+        setAdminLogged(true);
+      }
+    }, [code]); // This will only run when `code` changes
+  
+    // Handle the code input
+    const handleCodeChange = (e) => {
+      setCode(e.target.value);
+    };
 
   return (
     <>
@@ -314,31 +306,18 @@ function Page() {
       ) : (
         <>
           <div className="modalOpen">
-            {/* <button
-              onClick={() => router.push("/")}
-              className={styles.backButton}
-            >
-              <MdArrowBack size={24} />
-            </button> */}
             <div className="login__inputs">
               <h1 className="login__title">Admin</h1>
               <input
-                type="email"
+                type="text"
                 className="modal__input"
-                placeholder="Email"
+                placeholder="Code"
                 ref={userEmail}
+                onChange={handleCodeChange}
               />
-              {/* <div className="password__login"> */}
-              <input
-                type="password"
-                className="modal__input"
-                placeholder="••••••••••••"
-                ref={userPassword}
-              />
-              {/* </div> */}
-              <button className="login__btn cursor" onClick={loginAdmin}>
-                Log in
-              </button>
+              {/* <button className="login__btn cursor" onClick={loginAdmin}>
+                Enter
+              </button> */}
             </div>
           </div>
           <div className="backdropOpen"></div>
