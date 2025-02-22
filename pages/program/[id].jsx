@@ -130,18 +130,22 @@ export default function Page() {
                 <div className="exercise-name">{exercise.exercise}</div>
               </div>
 
-              <div className="video-container">
-                <iframe
-                  width="460"
-                  height="315"
-                  src={exercise.videoUrl}
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                ></iframe>
-              </div>
+              {exercise.videoUrl ? (
+                <div className="video-container">
+                  <iframe
+                    width="460"
+                    height="315"
+                    src={exercise.videoUrl}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : (
+                <></>
+              )}
               {exercise.warmups && exercise.warmups.length > 0 && (
                 <div className="warmups">
                   <h4>Warmups:</h4>

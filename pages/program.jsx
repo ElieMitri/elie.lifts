@@ -44,17 +44,13 @@ export default function About({ about }) {
   const [theUserId, setTheUserId] = useState(null);
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
   const [programData, setProgramData] = useState(null);
   // const [loading, setLoading] = useState(null);
 
   const userEmail = useRef("");
   const userPassword = useRef("");
   const userName = useRef();
-
-  function isValidEmail(email) {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  }
 
   function signOut() {
     firebaseSignOut(auth).then(() => {
@@ -63,19 +59,30 @@ export default function About({ about }) {
   }
 
   async function login() {
-    const email = userEmail.current.value;
-    const password = userPassword.current.value;
+    const email = userEmail.current?.value;
+    const password = userPassword.current?.value;
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
+    }
+
+    setLoadingButton(true); // Start loading
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("User signed in:", user);
+    } catch (error) {
+      console.error("Login error:", error.message);
+      alert(error.message); // Show error message to user
+    } finally {
+      setLoadingButton(false); // Stop loading
+    }
   }
 
   // const fetchAllUsers = async () => {
@@ -106,7 +113,6 @@ export default function About({ about }) {
   useEffect(() => {
     async function showProgram() {
       setLoading(true); // Start loading
-
       try {
         // Log the Firestore path being used
         const collectionRef = collection(db, "programs", user.uid, "programs");
@@ -120,8 +126,30 @@ export default function About({ about }) {
         } else {
           // Map through documents and extract data
           const programs = querySnapshot.docs.map((doc) => doc.data());
+
           console.log("Fetched Programs:", programs);
-          setProgramData(programs); // Store program data in state
+
+          // Get the current date
+          const currentDate = new Date();
+
+          // Filter out programs older than 7 days
+          const filteredPrograms = programs.filter((program) => {
+            const createdAtDate = program.createdAt?.seconds
+              ? new Date(program.createdAt.seconds * 1000) // Convert Firestore timestamp to JS date
+              : new Date(0); // Default to epoch if createdAt is missing
+
+            // Check if the program is within the last 7 days
+            return currentDate - createdAtDate <= 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+          });
+
+          // Sort remaining programs by 'createdAt' field (ascending order - oldest first)
+          const sortedPrograms = filteredPrograms.sort((a, b) => {
+            const dateA = a.createdAt?.seconds || 0;
+            const dateB = b.createdAt?.seconds || 0;
+            return dateA - dateB; // Ascending order (oldest to latest)
+          });
+
+          setProgramData(sortedPrograms); // Store program data in state
         }
       } catch (error) {
         console.error("Error fetching programs:", error); // Log any error
@@ -142,7 +170,9 @@ export default function About({ about }) {
       </button>
 
       {loading ? (
-        <>loading</>
+        <div className="loaderWrapper">
+          <div class="loader"></div>
+        </div>
       ) : (
         <section className={styles.program} ref={about}>
           <div className="workout-cards">
@@ -208,9 +238,15 @@ export default function About({ about }) {
                     ref={userPassword}
                   />
                   {/* </div> */}
-                  <button className="login__btn cursor" onClick={login}>
-                    Log in
-                  </button>
+                  {loadingButton ? (
+                    <div className="login__btnloader">
+                      <button className="loaderLogin"></button>
+                    </div>
+                  ) : (
+                    <button className="login__btn cursor" onClick={login}>
+                      Log in
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="backdropOpen"></div>

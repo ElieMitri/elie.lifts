@@ -618,7 +618,7 @@ body::-webkit-scrollbar-track {
 .login__btn,
 .login__button,
 .checkingButton {
-  /* margin: 2rem auto; */
+  margin: 2rem auto;
   /* display: block; */
   padding: 0.8rem 2.5rem;
   font-size: 0.9rem;
@@ -3207,4 +3207,256 @@ body::-webkit-scrollbar-track {
 
 .plusBtnn {
   margin-left: 0;
+}
+
+/* Container */
+.slider-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Title */
+.slider-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.highlight {
+  color: #007bff; /* Primary color */
+}
+
+/* Wrapper */
+.slider-wrapper {
+  position: relative;
+  width: 80%;
+}
+
+/* Image Container */
+.slider-image-container {
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 50%;
+}
+
+.slider-image {
+  width: 100%;
+  height: 400px;
+  /* object-fit: cover; */
+}
+
+/* Caption */
+.slider-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: 16px;
+}
+
+.caption-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.caption-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Buttons */
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.slider-button:hover {
+  background: white;
+}
+
+.slider-button-left {
+  left: 16px;
+}
+
+.slider-button-right {
+  right: 16px;
+}
+
+.slider-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Dots */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  gap: 8px;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  border: none;
+  margin: 0;
+}
+
+.active-dot {
+  background: #007bff; /* Primary color */
+}
+
+/* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid rgb(96, 165, 250);
+  animation: l20-1 0.8s infinite linear alternate, l20-2 1.6s infinite linear;
+}
+@keyframes l20-1 {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+  }
+  12.5% {
+    clip-path: polygon(
+      50% 50%,
+      0 0,
+      50% 0%,
+      100% 0%,
+      100% 0%,
+      100% 0%,
+      100% 0%
+    );
+  }
+  25% {
+    clip-path: polygon(
+      50% 50%,
+      0 0,
+      50% 0%,
+      100% 0%,
+      100% 100%,
+      100% 100%,
+      100% 100%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      50% 50%,
+      0 0,
+      50% 0%,
+      100% 0%,
+      100% 100%,
+      50% 100%,
+      0% 100%
+    );
+  }
+  62.5% {
+    clip-path: polygon(
+      50% 50%,
+      100% 0,
+      100% 0%,
+      100% 0%,
+      100% 100%,
+      50% 100%,
+      0% 100%
+    );
+  }
+  75% {
+    clip-path: polygon(
+      50% 50%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      50% 100%,
+      0% 100%
+    );
+  }
+  100% {
+    clip-path: polygon(
+      50% 50%,
+      50% 100%,
+      50% 100%,
+      50% 100%,
+      50% 100%,
+      50% 100%,
+      0% 100%
+    );
+  }
+}
+@keyframes l20-2 {
+  0% {
+    transform: scaleY(1) rotate(0deg);
+  }
+  49.99% {
+    transform: scaleY(1) rotate(135deg);
+  }
+  50% {
+    transform: scaleY(-1) rotate(0deg);
+  }
+  100% {
+    transform: scaleY(-1) rotate(-135deg);
+  }
+}
+.loaderWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__btnloader {
+   margin: 2rem auto;
+  /* display: block; */
+  padding: 0.8rem 2.5rem;
+  width: 120px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.loaderLogin {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  /* background: black; */
+  outline: none;
+  border: none;
+  animation: l5 1s infinite linear alternate;
+}
+
+@keyframes l5 {
+  0%  { box-shadow: 20px 0 rgb(17, 24, 39), -20px 0 rgba(0, 0, 0, 0.2); background: black; }
+  33% { box-shadow: 20px 0 rgb(17, 24, 39), -20px 0 rgba(0, 0, 0, 0.2); background: rgba(0, 0, 0, 0.2); }
+  66% { box-shadow: 20px 0 rgba(0, 0, 0, 0.2), -20px 0 rgb(17, 24, 39); background: rgba(0, 0, 0, 0.2); }
+  100%{ box-shadow: 20px 0 rgba(0, 0, 0, 0.2), -20px 0 rgb(17, 24, 39); background: rgb(17, 24, 39); }
 }

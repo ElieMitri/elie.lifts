@@ -1,65 +1,71 @@
 import * as React from "react";
-import { useState } from "react";
-import styles from "../../styles/Transformation.module.css";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import image from "../../src/assets/IMG_0766.jpeg";
 import image2 from "../../src/assets/IMG_1091.jpeg";
 import image3 from "../../src/assets/IMG_3509.jpeg";
 import image4 from "../../src/assets/IMG_8409.jpeg";
-import { useRouter } from "next/router";
-import { HiMiniArrowLongRight, HiMiniArrowLongDown } from "react-icons/hi2";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Transformation() {
-  const router = useRouter();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slidesDany = [
+    { month: 1, title: "Starting Point" },
+    { month: 4, title: "Early Progress" },
+    // { month: 8, title: "Major Changes" },
+    // { month: 12, title: "Current" },
+  ];
+
+  const imagesDany = [image2, image4];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slidesDany.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slidesDany.length);
+  };
+
+  // Auto-slide every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <>
-      <section className={styles.transformationWrapper}>
-        <h1 className={styles.transformationTitle}>
-          My <span className={styles.importantWords}>Transformation</span>
-        </h1>
-        <div className={styles.aboutTextsWrapper}>
-          <div className={styles.aboutTextWrapper1}>
-            <div className={styles.aboutTextWrapper}>
-              <div className={styles.aboutPicWrapper}>
-                <Image src={image} className={styles.aboutPic}></Image>
-              </div>
-              <p className={styles.aboutPara}></p>
-            </div>
-            <div className={styles.arrowWrapper}>
-              <h1 className={styles.year}>1 year later</h1>
-              <HiMiniArrowLongRight className={styles.arrow} />
-              <HiMiniArrowLongDown className={styles.arrow2} />
-            </div>
-            <div className={styles.aboutTextWrapper}>
-              <div className={styles.aboutPicWrapper}>
-                <Image src={image3} className={styles.aboutPic}></Image>
-              </div>
-              <p className={styles.aboutPara}></p>
-            </div>
-          </div>
-          <div className={styles.line}></div>
-          <div className={styles.aboutTextWrapper2}>
-            <div className={styles.aboutTextWrapper}>
-              <div className={styles.aboutPicWrapper}>
-                <Image src={image2} className={styles.aboutPic}></Image>
-              </div>
-              <p className={styles.aboutPara}></p>
-            </div>
-            <div className={styles.arrowWrapper}>
-              <h1 className={styles.year}>1 year later</h1>
-              <HiMiniArrowLongRight className={styles.arrow} />
-              <HiMiniArrowLongDown className={styles.arrow2} />
-            </div>
-            <div className={styles.aboutTextWrapper}>
-              <div className={styles.aboutPicWrapper}>
-                <Image src={image4} className={styles.aboutPic}></Image>
-              </div>
-              <p className={styles.aboutPara}></p>
-            </div>
+    <div className="slider-container">
+      <h2 className="slider-title">
+        My <span className="highlight">Clients</span>
+      </h2>
+
+      <div className="slider-wrapper">
+        <div className="slider-image-container">
+          <Image
+            src={imagesDany[currentSlide]}
+            alt={slidesDany[currentSlide].title}
+            className="slider-image"
+            // layout="responsive"
+            // width={800}
+            // height={400}
+          />
+          <div className="slider-caption">
+            <h3 className="caption-title">{slidesDany[currentSlide].title}</h3>
+            <p className="caption-text">Month {slidesDany[currentSlide].month}</p>
           </div>
         </div>
-      </section>
-    </>
+
+        {/* Dots for navigation */}
+        <div className="slider-dots">
+          {slidesDany.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`slider-dot ${currentSlide === index ? "active-dot" : ""}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }

@@ -87,18 +87,18 @@ export default function Introduction({ scrollToSection, about }) {
             >
               About Me
             </button>
-            <button
+            {/* <button
               onClick={() => router.push("/calorie-calculator")}
               className={styles.navLink}
             >
               Calorie Calculator
-            </button>
-            <button
+            </button> */}
+            {/* <button
               onClick={() => router.push("/contact")}
               className={styles.navLink}
             >
               Contact
-            </button>
+            </button> */}
             <button
               onClick={() => router.push("/program")}
               className={styles.navLink}

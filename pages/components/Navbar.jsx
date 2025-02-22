@@ -33,7 +33,7 @@ export default function Navbar({ scrollToSection, about }) {
           <li className={styles.navLink} onClick={() => scrollToSection(about)}>
             About
           </li>
-          <li
+          {/* <li
             onClick={() => {
               router.push("/calorie-calculator");
             }}
@@ -48,7 +48,7 @@ export default function Navbar({ scrollToSection, about }) {
             className={styles.navLink}
           >
             Contact
-          </li>
+          </li> */}
           <li
             onClick={() => {
               router.push("/program");
@@ -98,7 +98,7 @@ export default function Navbar({ scrollToSection, about }) {
                 <li className={styles.navLinkModal} onClick={toAbout}>
                   About
                 </li>
-                <li
+                {/* <li
                   onClick={() => {
                     router.push("/calorie-calculator");
                   }}
@@ -113,7 +113,7 @@ export default function Navbar({ scrollToSection, about }) {
                   className={styles.navLinkModal}
                 >
                   Contact
-                </li>
+                </li> */}
                 <li
                   onClick={() => {
                     router.push("/program");
