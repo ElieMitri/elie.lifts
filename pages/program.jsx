@@ -43,7 +43,7 @@ export default function About({ about }) {
   const [user, setUser] = useState(null);
   const [theUserId, setTheUserId] = useState(null);
   const [data, setData] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [programData, setProgramData] = useState(null);
   // const [loading, setLoading] = useState(null);
 
