@@ -3460,3 +3460,31 @@ body::-webkit-scrollbar-track {
   66% { box-shadow: 20px 0 rgba(0, 0, 0, 0.2), -20px 0 rgb(17, 24, 39); background: rgba(0, 0, 0, 0.2); }
   100%{ box-shadow: 20px 0 rgba(0, 0, 0, 0.2), -20px 0 rgb(17, 24, 39); background: rgb(17, 24, 39); }
 }
+
+@media (max-width: 678px) {
+  .slider-image-container {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 70%;
+  }
+}
+@media (max-width: 540px) {
+  .slider-image-container {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 85%;
+  }
+}
+@media (max-width: 450px) {
+  .slider-image-container {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 100%;
+  }
+}
