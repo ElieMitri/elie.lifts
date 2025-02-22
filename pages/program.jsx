@@ -45,6 +45,7 @@ export default function About({ about }) {
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [programData, setProgramData] = useState(null);
+  // const [loading, setLoading] = useState(null);
 
   const userEmail = useRef("");
   const userPassword = useRef("");
@@ -60,46 +61,6 @@ export default function About({ about }) {
       //   router.push("/");
     });
   }
-
-  // async function createAccount(e) {
-  //   e.preventDefault(); // Prevent the default form submission behavior
-
-  //   const email = userEmail.current.value;
-  //   const password = userPassword.current.value;
-  //   const displayName = userName.current.value;
-
-  //   // Validate email
-  //   if (!isValidEmail(email)) {
-  //     setError("Email is invalid");
-  //     return;
-  //   }
-
-  //   setError(null);
-
-  //   try {
-  //     const userCredential = await createUserWithEmailAndPassword(
-  //       auth,
-  //       email,
-  //       password
-  //     );
-  //     const user = userCredential.user;
-
-  //     await updateProfile(user, {
-  //       displayName: displayName,
-  //     });
-
-  //     await addDoc(collection(db, "users"), {
-  //       uid: user.uid,
-  //       email: user.email,
-  //       displayName: displayName,
-  //       date: serverTimestamp(),
-  //       activeProgram: "false",
-  //     });
-  //   } catch (error) {
-  //     console.error("Error creating account:", error);
-  //     setError(error.message);
-  //   }
-  // }
 
   async function login() {
     const email = userEmail.current.value;
@@ -117,42 +78,22 @@ export default function About({ about }) {
       });
   }
 
-  const fetchAllUsers = async () => {
-    try {
-      const usersCollection = collection(db, "users");
-      const querySnapshot = await getDocs(usersCollection);
+  // const fetchAllUsers = async () => {
+  //   try {
+  //     const usersCollection = collection(db, "users");
+  //     const querySnapshot = await getDocs(usersCollection);
 
-      const users = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+  //     const users = querySnapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
 
-      console.log("Fetched Users:", users);
-      return users;
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
-
-  async function checkEmail(e) {
-    const emailValue = userEmail.current.value;
-    setEmailCheck(emailValue);
-
-    console.log("Entered Email:", emailValue);
-
-    try {
-      const users = await fetchAllUsers();
-      const emailExists = users.some((user) => user.email === emailValue);
-
-      if (emailExists) {
-        console.log("Email exists");
-      } else {
-        console.log("Email does not exist");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //     console.log("Fetched Users:", users);
+  //     return users;
+  //   } catch (error) {
+  //     console.error("Error fetching users:", error);
+  //   }
+  // };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -164,39 +105,33 @@ export default function About({ about }) {
 
   useEffect(() => {
     async function showProgram() {
-      if (!user) return; // Ensure user is logged in
-  
+      setLoading(true); // Start loading
+
       try {
-        // console.log("Fetching program for user:", user.uid);
-  
-        // Reference to the 'programs' subcollection under the user document
+        // Log the Firestore path being used
         const collectionRef = collection(db, "programs", user.uid, "programs");
-        console.log(collectionRef);
-  
-        // Fetch all documents in the 'programs' subcollection
+
+        // Get all documents in the user's 'programs' subcollection
         const querySnapshot = await getDocs(collectionRef);
-  
+
         if (querySnapshot.empty) {
-          console.log("No programs found for this user!");
-          setProgramData([]); // Initialize as empty
+          console.log("No programs found for this user.");
+          setProgramData([]); // No data found, set as empty
         } else {
-          // Iterate over documents and get the data for each program
-          const programs = querySnapshot.docs.map(doc => doc.data());
-          console.log("User Program Data:", programs);
-          setProgramData(programs); // Set programs data to state
+          // Map through documents and extract data
+          const programs = querySnapshot.docs.map((doc) => doc.data());
+          console.log("Fetched Programs:", programs);
+          setProgramData(programs); // Store program data in state
         }
       } catch (error) {
-        console.error("Error fetching program:", error);
+        console.error("Error fetching programs:", error); // Log any error
       } finally {
-        setLoading(false); // Ensure loading state updates properly
+        setLoading(false); // Stop loading when done
       }
     }
-  
+
     if (user) {
-      setLoading(true); // Set loading before fetching
-      showProgram();
-    } else {
-      setLoading(false); // If no user, stop loading
+      showProgram(); // Fetch data only if the user is logged in
     }
   }, [user]);
 
@@ -205,79 +140,84 @@ export default function About({ about }) {
       <button onClick={() => router.push("/")} className={styles.backButton}>
         <MdArrowBack size={24} />
       </button>
-      <section className={styles.program} ref={about}>
-        <div className="workout-cards">
-          {programData?.map((workout, index) => (
-            <div
-              key={index}
-              className="workout-card"
-              onClick={() => router.push(`/program/${workout.id}`)}
-            >
-              <div className="card-header">
-                <div className="date">{workout.dayDetails}</div>
-              </div>
 
-              <div className="day-title">Day {workout.day}</div>
-
-              <div className="exercises">
-                {workout.exercises?.map((exercise, idx) => (
-                  <div key={idx} className="exercise-item">
-                    <div className="exercise-items">
-                      <div className="exercise-label">
-                        {idx === 0
-                          ? "🔥"
-                          : `${String.fromCharCode(65 + idx - 1)}${
-                              idx === 1 || idx === 2 ? idx : ""
-                            }`}
-                      </div>
-                      <div className="exercise-name">{exercise.exercise}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {user ? (
-          <div>
-            <IoExitOutline onClick={signOut} className="exitButton" />
-            {}
-          </div>
-        ) : (
-          <>
-            <div className="modalOpen">
-              <button
-                onClick={() => router.push("/")}
-                className={styles.backButton}
+      {loading ? (
+        <>loading</>
+      ) : (
+        <section className={styles.program} ref={about}>
+          <div className="workout-cards">
+            {programData?.map((workout, index) => (
+              <div
+                key={index}
+                className="workout-card"
+                onClick={() => router.push(`/program/${workout.id}`)}
               >
-                <MdArrowBack size={24} />
-              </button>
-              <div className="login__inputs">
-                <h1 className="login__title">Login</h1>
-                <input
-                  type="email"
-                  className="modal__input"
-                  placeholder="Email"
-                  ref={userEmail}
-                />
-                {/* <div className="password__login"> */}
-                <input
-                  type="password"
-                  className="modal__input"
-                  placeholder="••••••••••••"
-                  ref={userPassword}
-                />
-                {/* </div> */}
-                <button className="login__btn cursor" onClick={login}>
-                  Log in
-                </button>
+                <div className="card-header">
+                  <div className="date">{workout.dayDetails}</div>
+                </div>
+
+                <div className="day-title">Day {workout.day}</div>
+
+                <div className="exercises">
+                  {workout.exercises?.map((exercise, idx) => (
+                    <div key={idx} className="exercise-item">
+                      <div className="exercise-items">
+                        <div className="exercise-label">
+                          {idx === 0
+                            ? "🔥"
+                            : `${String.fromCharCode(65 + idx - 1)}${
+                                idx === 1 || idx === 2 ? idx : ""
+                              }`}
+                        </div>
+                        <div className="exercise-name">{exercise.exercise}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
+            ))}
+          </div>
+
+          {user ? (
+            <div>
+              <IoExitOutline onClick={signOut} className="exitButton" />
+              {}
             </div>
-            <div className="backdropOpen"></div>
-          </>
-        )}
-      </section>
+          ) : (
+            <>
+              <div className="modalOpen">
+                <button
+                  onClick={() => router.push("/")}
+                  className={styles.backButton}
+                >
+                  <MdArrowBack size={24} />
+                </button>
+                <div className="login__inputs">
+                  <h1 className="login__title">Login</h1>
+                  <input
+                    type="email"
+                    className="modal__input"
+                    placeholder="Email"
+                    ref={userEmail}
+                  />
+                  {/* <div className="password__login"> */}
+                  <input
+                    type="password"
+                    className="modal__input"
+                    placeholder="••••••••••••"
+                    ref={userPassword}
+                  />
+                  {/* </div> */}
+                  <button className="login__btn cursor" onClick={login}>
+                    Log in
+                  </button>
+                </div>
+              </div>
+              <div className="backdropOpen"></div>
+            </>
+          )}
+        </section>
+      )}
     </>
   );
 }

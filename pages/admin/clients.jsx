@@ -146,7 +146,7 @@ const [code, setCode] = useState();
     };
   return (
     <>
-      {adminLogged ? (
+      {/* {adminLogged ? ( */}
         <div className="clients-container">
           {openedClientModal ? (
             <div
@@ -321,26 +321,23 @@ const [code, setCode] = useState();
             </div>
           </div>
         </div>
-      ) : (
-        <>
-          <div className="modalOpen">
-            <div className="login__inputs">
-              <h1 className="login__title">Admin</h1>
-              <input
-                type="text"
-                className="modal__input"
-                placeholder="Code"
-                ref={userCode}
-                onChange={handleCodeChange}
-              />
-              {/* <button className="login__btn cursor" onClick={loginAdmin}>
-                Enter
-              </button> */}
-            </div>
-          </div>
-          <div className="backdropOpen"></div>
-        </>
-      )}
+      {/* // ) : (
+      //   <>
+      //     <div className="modalOpen">
+      //       <div className="login__inputs">
+      //         <h1 className="login__title">Admin</h1>
+      //         <input
+      //           type="text"
+      //           className="modal__input"
+      //           placeholder="Code"
+      //           ref={userCode}
+      //           onChange={handleCodeChange}
+      //         />
+      //       </div>
+      //     </div>
+      //     <div className="backdropOpen"></div>
+      //   </>
+      // )} */}
     </>
   );
 }
