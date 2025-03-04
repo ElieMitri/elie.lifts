@@ -73,7 +73,7 @@ export default function Navbar({ scrollToSection, about }) {
           >
             <IoLogoInstagram />
           </a>
-          <a
+          {/* <a
             className={styles.tiktokLogo}
             onClick={() => {
               router.push(
@@ -82,7 +82,7 @@ export default function Navbar({ scrollToSection, about }) {
             }}
           >
             <FaTiktok />
-          </a>
+          </a> */}
         </ul>
       </nav>
       <div>
@@ -90,10 +90,7 @@ export default function Navbar({ scrollToSection, about }) {
           <>
             {" "}
             <div className="modalOpen">
-              <IoMdClose
-                className="close__modal"
-                onClick={() => setClicked(false)}
-              />
+             
               <ul className={styles.navLinksModal}>
                 <li className={styles.navLinkModal} onClick={toAbout}>
                   About
@@ -139,7 +136,7 @@ export default function Navbar({ scrollToSection, about }) {
                   >
                     <IoLogoInstagram />
                   </a>
-                  <a
+                  {/* <a
                     className={styles.tiktokLogo}
                     onClick={() => {
                       router.push(
@@ -148,11 +145,14 @@ export default function Navbar({ scrollToSection, about }) {
                     }}
                   >
                     <FaTiktok />
-                  </a>
+                  </a> */}
                 </div>
               </ul>
             </div>
-            <div className="backdropOpen"></div>
+            <div className="backdropOpen"> <IoMdClose
+                className="close__modal"
+                onClick={() => setClicked(false)}
+              /></div>
           </>
         ) : (
           <></>

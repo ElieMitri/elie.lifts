@@ -1,6 +1,6 @@
 import styles from "../../styles/Intro.module.css";
 import Image from "next/image";
-import image from "../../src/assets/mock photo.jpg";
+import image from "../../src/assets/mock photo small.jpg";
 import { useRouter } from "next/router";
 import Logo from "../../src/assets/elie.lifts.png";
 import { IoLogoInstagram } from "react-icons/io";

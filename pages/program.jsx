@@ -215,13 +215,8 @@ export default function About({ about }) {
             </div>
           ) : (
             <>
+
               <div className="modalOpen">
-                <button
-                  onClick={() => router.push("/")}
-                  className={styles.backButton}
-                >
-                  <MdArrowBack size={24} />
-                </button>
                 <div className="login__inputs">
                   <h1 className="login__title">Login</h1>
                   <input
@@ -249,7 +244,12 @@ export default function About({ about }) {
                   )}
                 </div>
               </div>
-              <div className="backdropOpen"></div>
+              <div className="backdropOpen"><button
+                  onClick={() => router.push("/")}
+                  className={styles.backButton}
+                >
+                  <MdArrowBack size={24} />
+                </button></div>
             </>
           )}
         </section>

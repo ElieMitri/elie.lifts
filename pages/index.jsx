@@ -8,6 +8,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Transformation from "./components/Transformation";
 import Journey from "./components/Journey";
+import CTA from "./components/bookCall";
 
 export default function Home() {
   const about = useRef(null);
@@ -23,9 +24,10 @@ export default function Home() {
   return (
     <div>
       <Introduction scrollToSection={scrollToSection} about={about} />
-      <Transformation />
       <About about={about} />
       <Journey />
+      <Transformation />
+      <CTA />
       <Footer scrollToSection={scrollToSection} about={about} />
       <a className="chatWrapper" href="https://wa.me/81107752" target="_blank">
         <FaWhatsapp className="chat" />

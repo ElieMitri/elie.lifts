@@ -182,17 +182,17 @@ function Page() {
   const [adminLogged, setAdminLogged] = useState(false);
   const userEmail = useRef();
 
-const [code, setCode] = useState();
+  const [code, setCode] = useState();
 
-    useEffect(() => {
-      if (code === "1508") {
-        setAdminLogged(true);
-      }
-    }, [code]); 
-  
-    const handleCodeChange = (e) => {
-      setCode(e.target.value);
-    };
+  useEffect(() => {
+    if (code === "1508") {
+      setAdminLogged(true);
+    }
+  }, [code]);
+
+  const handleCodeChange = (e) => {
+    setCode(e.target.value);
+  };
 
   return (
     <>
@@ -256,33 +256,32 @@ const [code, setCode] = useState();
                     users.map((user) => {
                       // Convert Firestore timestamp to a Date object
                       const timestamp = user.date;
-                      const date = timestamp
-                        ? new Date(timestamp.seconds * 1000)
-                        : null;
-
+                      const date = timestamp ? new Date(timestamp.seconds * 1000) : null;
+                
                       // Calculate time difference in minutes
                       let timeString = "Just now";
                       if (date) {
-                        const minutesDifference = Math.floor(
-                          (new Date() - date) / (1000 * 60)
-                        );
+                        const minutesDifference = Math.floor((new Date() - date) / (1000 * 60));
                         const hours = Math.floor(minutesDifference / 60);
                         const minutes = minutesDifference % 60;
-
-                        if (hours > 0) {
-                          timeString = `${hours} hour${hours > 1 ? "s" : ""}${
-                            minutes > 0
-                              ? ` and ${minutes} minute${
-                                  minutes > 1 ? "s" : ""
-                                }`
+                        const days = Math.floor(hours / 24);
+                        const remainingHours = hours % 24;
+                
+                        if (days > 0) {
+                          timeString = `${days} day${days > 1 ? "s" : ""}${
+                            remainingHours > 0
+                              ? ` and ${remainingHours} hour${remainingHours > 1 ? "s" : ""}`
                               : ""
                           } ago`;
-                        } else if (minutes > 0) {
-                          timeString = `${minutes} minute${
-                            minutes > 1 ? "s" : ""
+                        } else if (hours > 0) {
+                          timeString = `${hours} hour${hours > 1 ? "s" : ""}${
+                            minutes > 0 ? ` and ${minutes} minute${minutes > 1 ? "s" : ""}` : ""
                           } ago`;
+                        } else if (minutes > 0) {
+                          timeString = `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
                         }
                       }
+                
 
                       return (
                         <div key={user.id} className="activity-item">

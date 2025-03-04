@@ -37,7 +37,7 @@ export default function Introduction({ scrollToSection, about }) {
               >
                 <IoLogoInstagram />
               </button>
-              <button
+              {/* <button
                 className={styles.socialButton}
                 onClick={() =>
                   router.push("https://www.tiktok.com/@elielifts2/")
@@ -45,7 +45,7 @@ export default function Introduction({ scrollToSection, about }) {
                 aria-label="TikTok"
               >
                 <FaTiktok />
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
