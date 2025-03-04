@@ -20,7 +20,7 @@ const CTA = () => {
         <div style={styles.iconContainer}>
           <span style={styles.icon}>🚀</span>
           <span style={styles.icon}>💡</span>
-          <span style={styles.icon}>�Star</span>
+          <span style={styles.icon}>⭐</span>
         </div>
 
         <h2 style={styles.heading}>Unlock Your Extraordinary Potential!</h2>
