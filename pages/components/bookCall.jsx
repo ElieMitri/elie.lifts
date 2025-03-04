@@ -78,7 +78,7 @@ const CTA = () => {
               onClick={() => {
                 const phoneNumber = "96181107752";
                 const message = encodeURIComponent(
-                  "Hello! I'm interested in booking a breakthrough session."
+                  "Hello! 👋 I’m interested in scheduling a breakthrough session. 🚀 Please let me know the next steps.🙏"
                 );
                 const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
                 window.open(whatsappURL, "_blank");
@@ -103,7 +103,7 @@ const styles = {
     borderRadius: "15px",
     boxShadow: "0 10px 25px rgba(0, 123, 255, 0.15)",
     maxWidth: "600px",
-    margin: "50px auto",
+    margin: "50px 30px",
     fontFamily: "'Montserrat', sans-serif",
     position: "relative",
     overflow: "hidden",
@@ -225,7 +225,7 @@ const styles = {
     marginBottom: "20px",
   },
   whatsappButton: {
-    backgroundColor: "#25D366",
+    background: "linear-gradient(45deg, #007bff, #6f42c1)",
     color: "white",
     padding: "12px 20px",
     fontSize: "16px",
@@ -235,7 +235,9 @@ const styles = {
     border: "none",
   },
   closeButton: {
-    backgroundColor: "#e63946",
+    backgroundColor: "transparent",
+    border: "1px solid blue",
+    marginLeft: "10px",
     color: "white",
     padding: "10px 15px",
     fontSize: "14px",
